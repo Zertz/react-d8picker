@@ -377,7 +377,7 @@ export default class DatePicker extends React.Component {
     this.setSelected(date, event, false, monthSelectedIn);
     if (this.props.showTimeSelect) {
       this.setPreSelection(date);
-    } else if (!this.props.inline) {
+    } else if (!this.props.inline && !this.props.selectsRange) {
       this.setOpen(false);
     }
   };
@@ -427,6 +427,7 @@ export default class DatePicker extends React.Component {
             onChange([changedDate, null], event);
           } else {
             onChange([startDate, changedDate], event);
+            this.setOpen(false);
           }
         }
         if (isRangeFilled) {

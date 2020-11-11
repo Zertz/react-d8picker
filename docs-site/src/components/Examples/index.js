@@ -46,6 +46,7 @@ import RenderCustomHeader from "../../examples/renderCustomHeader";
 import RenderCustomDay from "../../examples/renderCustomDay";
 import StrictParsing from "../../examples/strictParsing";
 import SelectsRange from "../../examples/selectsRange";
+import SelectsRangeMultiMonth from "../../examples/selectsRangeMultiMonth";
 
 import "./style.scss";
 import "react-datepicker/dist/react-datepicker.css";
@@ -100,6 +101,10 @@ export default class exampleComponents extends React.Component {
     {
       title: "Date range for one datepicker",
       component: SelectsRange,
+    },
+    {
+      title: "Date range for one datepicker with multiple months",
+      component: SelectsRangeMultiMonth,
     },
     {
       title: "Disable datepicker",
