@@ -496,7 +496,7 @@ describe("DatePicker", () => {
       );
 
       data.copyM = utils.subDays(data.copyM, 1);
-      expect(data.callback.calledOnce).to.be.true;
+      expect(data.callback.calledTwice).to.be.true;
       var result = data.callback.args[0][0];
       expect(utils.formatDate(result, data.testFormat)).to.equal(
         utils.formatDate(data.copyM, data.testFormat)
@@ -731,25 +731,6 @@ describe("DatePicker", () => {
       utils.formatDate(datePicker.state("preSelection"), "yyyy-MM-dd")
     ).to.equal(utils.formatDate(future, "yyyy-MM-dd"));
   });
-  it("should not set open state when focusing on the date input and the preventOpenOnFocus prop is set", () => {
-    const datePicker = TestUtils.renderIntoDocument(
-      <DatePicker preventOpenOnFocus />
-    );
-    const dateInput = datePicker.input;
-    TestUtils.Simulate.focus(ReactDOM.findDOMNode(dateInput));
-    expect(datePicker.state.open).to.be.false;
-  });
-  it("should not set open state onInputKeyDown when preventOpenOnFocus prop is set", () => {
-    const datePicker = TestUtils.renderIntoDocument(
-      <DatePicker preventOpenOnFocus />
-    );
-    const dateInput = datePicker.input;
-    TestUtils.Simulate.keyDown(
-      ReactDOM.findDOMNode(dateInput),
-      getKey("ArrowLeft")
-    );
-    expect(datePicker.state.open).to.be.false;
-  });
   it("should clear the input when clear() member function is called", () => {
     const datePicker = TestUtils.renderIntoDocument(
       <DatePicker selected={utils.newDate("2015-12-15")} />
@@ -769,6 +750,9 @@ describe("DatePicker", () => {
   });
   it("should fire onInputClick when input is clicked", () => {
     const onInputClickSpy = sinon.spy();
+    mount(<DatePicker onInputClick={onInputClickSpy} />)
+      .find("input")
+      .simulate("click");
     assert(onInputClickSpy.callCount, 1);
   });
 

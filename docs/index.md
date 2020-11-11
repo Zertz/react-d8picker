@@ -64,7 +64,6 @@
 | `popperModifiers`            | `object`                       |                           |             |
 | `popperPlacement`            | `enumpopperPlacementPositions` |                           |             |
 | `popperProps`                | `object`                       |                           |             |
-| `preventOpenOnFocus`         | `bool`                         | `false`                   |             |
 | `previousMonthButtonLabel`   | `union(string\|node)`          | `"Previous Month"`        |             |
 | `readOnly`                   | `bool`                         | `false`                   |             |
 | `renderCustomHeader`         | `func`                         |                           |             |

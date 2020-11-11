@@ -560,7 +560,7 @@ describe("Day", () => {
       sandbox.restore();
     });
 
-    it("should apply focus to the preselected day", (done) => {
+    it("should apply focus to the preselected day", () => {
       const day = newDate();
       const dayInstance = mount(
         <Day day={day} preSelection={day} />
@@ -570,11 +570,12 @@ describe("Day", () => {
       dayInstance.componentDidMount();
       defer(() => {
         expect(dayInstance.dayEl.current.focus.calledOnce).to.equal(true);
+        // eslint-disable-next-line no-undef
         done();
       });
     });
 
-    it("should not apply focus to the preselected day if inline", (done) => {
+    it("should not apply focus to the preselected day if inline", () => {
       const day = newDate();
       const dayInstance = mount(
         <Day day={day} preSelection={day} inline />
@@ -584,6 +585,7 @@ describe("Day", () => {
       dayInstance.componentDidMount();
       defer(() => {
         expect(dayInstance.dayEl.current.focus.calledOnce).to.equal(false);
+        // eslint-disable-next-line no-undef
         done();
       });
     });
