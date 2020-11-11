@@ -77,7 +77,6 @@ export default class DatePicker extends React.Component {
       onInputError() {},
       monthsShown: 1,
       readOnly: false,
-      withPortal: false,
       showTimeSelect: false,
       showPreviousMonths: false,
       showFullMonthYearPicker: false,
@@ -138,7 +137,6 @@ export default class DatePicker extends React.Component {
     onSelect: PropTypes.func,
     onWeekSelect: PropTypes.func,
     onClickOutside: PropTypes.func,
-    onChangeRaw: PropTypes.func,
     onFocus: PropTypes.func,
     onInputClick: PropTypes.func,
     onKeyDown: PropTypes.func,
@@ -172,8 +170,6 @@ export default class DatePicker extends React.Component {
     formatWeekDay: PropTypes.func,
     value: PropTypes.string,
     weekLabel: PropTypes.string,
-    withPortal: PropTypes.bool,
-    portalId: PropTypes.string,
     showFullMonthYearPicker: PropTypes.bool,
     showTimeSelect: PropTypes.bool,
     showTimeSelectOnly: PropTypes.bool,
@@ -338,7 +334,7 @@ export default class DatePicker extends React.Component {
   };
 
   handleBlur = (event) => {
-    if (!this.state.open || this.props.withPortal) {
+    if (!this.state.open) {
       this.props.onBlur(event);
     }
 
@@ -350,22 +346,10 @@ export default class DatePicker extends React.Component {
       this.setOpen(false);
     }
     this.props.onClickOutside(event);
-    if (this.props.withPortal) {
-      event.preventDefault();
-    }
   };
 
   handleChange = (...allArgs) => {
     let event = allArgs[0];
-    if (this.props.onChangeRaw) {
-      this.props.onChangeRaw.apply(this, allArgs);
-      if (
-        typeof event.isDefaultPrevented !== "function" ||
-        event.isDefaultPrevented()
-      ) {
-        return;
-      }
-    }
     this.setState({
       inputValue: event.target.value,
       lastPreSelectChange: PRESELECT_CHANGE_VIA_INPUT,
@@ -391,9 +375,6 @@ export default class DatePicker extends React.Component {
       );
       return this.preventFocusTimeout;
     });
-    if (this.props.onChangeRaw) {
-      this.props.onChangeRaw(event);
-    }
     this.setSelected(date, event, false, monthSelectedIn);
     if (this.props.showTimeSelect) {
       this.setPreSelection(date);
@@ -704,7 +685,6 @@ export default class DatePicker extends React.Component {
         peekNextMonth={this.props.peekNextMonth}
         showPreviousMonths={this.props.showPreviousMonths}
         showWeekNumbers={this.props.showWeekNumbers}
-        withPortal={this.props.withPortal}
         todayButton={this.props.todayButton}
         weekLabel={this.props.weekLabel}
         outsideClickIgnoreClass={outsideClickIgnoreClass}
@@ -783,23 +763,8 @@ export default class DatePicker extends React.Component {
   render() {
     const calendar = this.renderCalendar();
 
-    if (this.props.inline && !this.props.withPortal) {
+    if (this.props.inline) {
       return calendar;
-    }
-
-    if (this.props.withPortal) {
-      return (
-        <div>
-          {!this.props.inline ? (
-            <div className="react-datepicker__input-container">
-              {this.renderDateInput()}
-            </div>
-          ) : null}
-          {this.state.open || this.props.inline ? (
-            <div className="react-datepicker__portal">{calendar}</div>
-          ) : null}
-        </div>
-      );
     }
 
     return (
@@ -807,7 +772,6 @@ export default class DatePicker extends React.Component {
         className={this.props.popperClassName}
         wrapperClassName={this.props.wrapperClassName}
         hidePopper={!this.isCalendarOpen()}
-        portalId={this.props.portalId}
         popperModifiers={this.props.popperModifiers}
         targetComponent={
           <div className="react-datepicker__input-container">

@@ -34,8 +34,6 @@ import Disabled from "../../examples/disabled";
 import ReadOnly from "../../examples/readOnly";
 import OnBlurCallbacks from "../../examples/onBlurCallbacks";
 import ConfigurePopper from "../../examples/configurePopper";
-import Portal from "../../examples/portal";
-import PortalById from "../../examples/portalById";
 import TabIndex from "../../examples/tabIndex";
 import Inline from "../../examples/inline";
 import OpenToDate from "../../examples/openToDate";
@@ -44,7 +42,6 @@ import MultiMonth from "../../examples/multiMonth";
 import MultiMonthPrevious from "../../examples/multiMonthPrevious";
 import MultiMonthInline from "../../examples/multiMonthInline";
 import Children from "../../examples/children";
-import RawChange from "../../examples/rawChange";
 import RenderCustomHeader from "../../examples/renderCustomHeader";
 import RenderCustomDay from "../../examples/renderCustomDay";
 import StrictParsing from "../../examples/strictParsing";
@@ -129,10 +126,6 @@ export default class exampleComponents extends React.Component {
       component: FilterTimes,
     },
     {
-      title: "Get raw input value on change",
-      component: RawChange,
-    },
-    {
       title: "Highlight dates",
       component: HighlightDates,
     },
@@ -154,10 +147,6 @@ export default class exampleComponents extends React.Component {
     },
     {
       title: "Inline version",
-      component: Inline,
-    },
-    {
-      title: "Inline portal version",
       component: Inline,
     },
     {
@@ -199,16 +188,6 @@ export default class exampleComponents extends React.Component {
     {
       title: "Placeholder text",
       component: PlaceholderText,
-    },
-    {
-      title: "Portal version",
-      component: Portal,
-    },
-    {
-      title: "Portal by id",
-      description:
-        "If the provided portalId cannot be found in the dom, one will be created by default with that id.",
-      component: PortalById,
     },
     {
       title: "Read only datepicker",

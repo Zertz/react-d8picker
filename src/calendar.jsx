@@ -104,7 +104,6 @@ export default class Calendar extends React.Component {
     todayButton: PropTypes.string,
     useWeekdaysShort: PropTypes.bool,
     formatWeekDay: PropTypes.func,
-    withPortal: PropTypes.bool,
     weekLabel: PropTypes.string,
     previousMonthButtonLabel: PropTypes.oneOfType([
       PropTypes.string,
@@ -626,7 +625,6 @@ export default class Calendar extends React.Component {
           filterTime={this.props.filterTime}
           timeCaption={this.props.timeCaption}
           todayButton={this.props.todayButton}
-          withPortal={this.props.withPortal}
           monthRef={this.state.monthContainer}
           injectTimes={this.props.injectTimes}
           locale={this.props.locale}

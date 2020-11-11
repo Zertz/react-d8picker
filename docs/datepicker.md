@@ -39,7 +39,6 @@ General datepicker component.
 | `name`                | `string`                       |                 |             |
 | `onBlur`              | `func`                         | `function() {}` |             |
 | `onChange` (required) | `func`                         | `function() {}` |             |
-| `onChangeRaw`         | `func`                         |                 |             |
 | `onClickOutside`      | `func`                         | `function() {}` |             |
 | `onFocus`             | `func`                         | `function() {}` |             |
 | `onKeyDown`           | `func`                         | `function() {}` |             |
@@ -71,5 +70,4 @@ General datepicker component.
 | `utcOffset`           | `union(number\|string)`        |                 |             |
 | `value`               | `string`                       |                 |             |
 | `weekLabel`           | `string`                       |                 |             |
-| `withPortal`          | `bool`                         | `false`         |             |
 | `wrapperClassName`    | `string`                       |                 |             |
