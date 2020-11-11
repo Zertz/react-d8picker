@@ -42,18 +42,6 @@ describe("TimePicker", () => {
     expect(getInputString()).to.equal("February 28, 2018 4:43 PM");
   });
 
-  it("should not close datepicker after time clicked when shouldCloseOnSelect is false", () => {
-    var datePicker = TestUtils.renderIntoDocument(
-      <DatePicker shouldCloseOnSelect={false} showTimeSelect />
-    );
-    var dateInput = datePicker.input;
-    TestUtils.Simulate.focus(ReactDOM.findDOMNode(dateInput));
-    const time = TestUtils.findRenderedComponentWithType(datePicker, Time);
-    const lis = TestUtils.scryRenderedDOMComponentsWithTag(time, "li");
-    TestUtils.Simulate.click(lis[0]);
-    expect(datePicker.state.open).to.be.true;
-  });
-
   it("should show different colors for times", () => {
     const handleTimeColors = (time, currH, currM) => {
       if (!Number.isInteger(currH) || !Number.isInteger(currM)) {
@@ -90,7 +78,7 @@ describe("TimePicker", () => {
   it("should handle 40 min time intervals", () => {
     renderDatePicker("February 28, 2018 9:00 AM", {
       timeIntervals: 40,
-      showTimeSelect: true
+      showTimeSelect: true,
     });
     expect(getInputString()).to.equal("February 28, 2018 9:00 AM");
 
@@ -103,7 +91,7 @@ describe("TimePicker", () => {
   it("should handle 53 min time intervals", () => {
     renderDatePicker("February 28, 2018 9:00 AM", {
       timeIntervals: 53,
-      showTimeSelect: true
+      showTimeSelect: true,
     });
     expect(getInputString()).to.equal("February 28, 2018 9:00 AM");
 
@@ -116,7 +104,7 @@ describe("TimePicker", () => {
   it("should handle 90 min time intervals", () => {
     renderDatePicker("July 13, 2020 2:59 PM", {
       timeIntervals: 90,
-      showTimeSelect: true
+      showTimeSelect: true,
     });
     expect(getInputString()).to.equal("July 13, 2020 2:59 PM");
 
@@ -128,10 +116,7 @@ describe("TimePicker", () => {
 
   it("should not contain the time only classname in header by default", () => {
     const timePicker = TestUtils.renderIntoDocument(
-      <DatePicker
-        open
-        showTimeSelect
-      />
+      <DatePicker open showTimeSelect />
     );
     const header = TestUtils.scryRenderedDOMComponentsWithClass(
       timePicker,
@@ -142,11 +127,7 @@ describe("TimePicker", () => {
 
   it("should contain the time only classname in header if enabled", () => {
     const timePicker = TestUtils.renderIntoDocument(
-      <DatePicker
-        open
-        showTimeSelect
-        showTimeSelectOnly
-      />
+      <DatePicker open showTimeSelect showTimeSelectOnly />
     );
     const header = TestUtils.scryRenderedDOMComponentsWithClass(
       timePicker,

@@ -86,7 +86,6 @@ describe("Week", () => {
       <Week
         day={weekStart}
         showWeekNumber
-        shouldCloseOnSelect
         onWeekSelect={() => {}}
         setOpen={setOpenSpy}
       />
@@ -95,25 +94,6 @@ describe("Week", () => {
     const weekNumberElement = week.find(WeekNumber);
     weekNumberElement.simulate("click");
     sinon.assert.calledOnce(setOpenSpy);
-  });
-
-  it("should call the provided onWeekSelect function and not call the setopen function when 'shouldCloseOnSelect' is false", () => {
-    const weekStart = utils.newDate("2015-12-20");
-    const setOpenSpy = sinon.spy();
-
-    const week = shallow(
-      <Week
-        day={weekStart}
-        showWeekNumber
-        shouldCloseOnSelect={false}
-        onWeekSelect={() => {}}
-        setOpen={setOpenSpy}
-      />
-    );
-
-    const weekNumberElement = week.find(WeekNumber);
-    weekNumberElement.simulate("click");
-    sinon.assert.notCalled(setOpenSpy);
   });
 
   it("should call the provided onWeekSelect function and pass the week number", () => {
@@ -126,12 +106,7 @@ describe("Week", () => {
     const weekStart = utils.newDate("2015-12-20");
     const realWeekNumber = utils.getWeek(weekStart);
     const week = shallow(
-      <Week
-        day={weekStart}
-        showWeekNumber
-        shouldCloseOnSelect={false}
-        onWeekSelect={onWeekClick}
-      />
+      <Week day={weekStart} showWeekNumber onWeekSelect={onWeekClick} />
     );
     const weekNumberElement = week.find(WeekNumber);
     weekNumberElement.simulate("click");

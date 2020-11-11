@@ -27,7 +27,8 @@
     border-left: 0;
   }
 
-  .react-datepicker__time, .react-datepicker__time-box {
+  .react-datepicker__time,
+  .react-datepicker__time-box {
     border-bottom-left-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
   }
@@ -105,16 +106,6 @@
   &:not(&--has-time-select) {
     border-top-right-radius: $datepicker__border-radius;
   }
-}
-
-.react-datepicker__year-dropdown-container--select,
-.react-datepicker__month-dropdown-container--select,
-.react-datepicker__month-year-dropdown-container--select,
-.react-datepicker__year-dropdown-container--scroll,
-.react-datepicker__month-dropdown-container--scroll,
-.react-datepicker__month-year-dropdown-container--scroll {
-  display: inline-block;
-  margin: 0 2px;
 }
 
 .react-datepicker__current-month,
@@ -511,29 +502,6 @@
     top: 8px;
     position: relative;
     border-width: $datepicker__navigation-size;
-  }
-}
-
-.react-datepicker__year-dropdown,
-.react-datepicker__month-dropdown,
-.react-datepicker__month-year-dropdown {
-  background-color: $datepicker__background-color;
-  position: absolute;
-  width: 50%;
-  left: 25%;
-  top: 30px;
-  z-index: 1;
-  text-align: center;
-  border-radius: $datepicker__border-radius;
-  border: 1px solid $datepicker__border-color;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &--scrollable {
-    height: 150px;
-    overflow-y: scroll;
   }
 }
 
