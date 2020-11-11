@@ -3,7 +3,6 @@ import Week from "../src/week";
 import WeekNumber from "../src/week_number";
 import Day from "../src/day";
 import { shallow } from "enzyme";
-import sinon from "sinon";
 import * as utils from "../src/date_utils";
 
 describe("Week", () => {
