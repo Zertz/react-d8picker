@@ -65,7 +65,6 @@ export default class DatePicker extends React.Component {
       dateFormatCalendar: "LLLL yyyy",
       onChange() {},
       disabled: false,
-      disabledKeyboardNavigation: false,
       onFocus() {},
       onBlur() {},
       onKeyDown() {},
@@ -116,7 +115,6 @@ export default class DatePicker extends React.Component {
     monthClassName: PropTypes.func,
     timeClassName: PropTypes.func,
     disabled: PropTypes.bool,
-    disabledKeyboardNavigation: PropTypes.bool,
     endDate: PropTypes.instanceOf(Date),
     excludeDates: PropTypes.array,
     filterDate: PropTypes.func,
@@ -587,7 +585,7 @@ export default class DatePicker extends React.Component {
       if (!this.inputOk()) {
         this.props.onInputError({ code: 1, msg: INPUT_ERR_1 });
       }
-    } else if (!this.props.disabledKeyboardNavigation) {
+    } else {
       let newSelection;
       switch (eventKey) {
         case "ArrowLeft":
@@ -731,7 +729,6 @@ export default class DatePicker extends React.Component {
         className={this.props.calendarClassName}
         previousMonthButtonLabel={this.props.previousMonthButtonLabel}
         nextMonthButtonLabel={this.props.nextMonthButtonLabel}
-        disabledKeyboardNavigation={this.props.disabledKeyboardNavigation}
         renderCustomHeader={this.props.renderCustomHeader}
         popperProps={this.props.popperProps}
         renderDayContents={this.props.renderDayContents}

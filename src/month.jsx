@@ -9,7 +9,6 @@ export default class Month extends React.Component {
     ariaLabelPrefix: PropTypes.string,
     chooseDayAriaLabelPrefix: PropTypes.string,
     disabledDayAriaLabelPrefix: PropTypes.string,
-    disabledKeyboardNavigation: PropTypes.bool,
     day: PropTypes.instanceOf(Date).isRequired,
     dayClassName: PropTypes.func,
     monthClassName: PropTypes.func,
@@ -39,7 +38,6 @@ export default class Month extends React.Component {
     selectsRange: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     startDate: PropTypes.instanceOf(Date),
-    setOpen: PropTypes.func,
     renderDayContents: PropTypes.func,
     showFullMonthYearPicker: PropTypes.bool,
     handleOnKeyDown: PropTypes.func,
@@ -158,8 +156,6 @@ export default class Month extends React.Component {
           startDate={this.props.startDate}
           endDate={this.props.endDate}
           dayClassName={this.props.dayClassName}
-          setOpen={this.props.setOpen}
-          disabledKeyboardNavigation={this.props.disabledKeyboardNavigation}
           renderDayContents={this.props.renderDayContents}
           handleOnKeyDown={this.props.handleOnKeyDown}
           isInputFocused={this.props.isInputFocused}
@@ -176,8 +172,7 @@ export default class Month extends React.Component {
 
       // If one of these conditions is true, we will either break on this week
       // or break on the next week
-      const isNonFixedAndOutOfMonth =
-        !this.isWeekInMonth(currentWeekStart);
+      const isNonFixedAndOutOfMonth = !this.isWeekInMonth(currentWeekStart);
 
       if (isNonFixedAndOutOfMonth) {
         if (this.props.peekNextMonth) {
@@ -207,25 +202,23 @@ export default class Month extends React.Component {
 
   onMonthKeyDown = (event, month) => {
     const eventKey = event.key;
-    if (!this.props.disabledKeyboardNavigation) {
-      switch (eventKey) {
-        case "Enter":
-          this.onMonthClick(event, month);
-          this.props.setPreSelection(this.props.selected);
-          break;
-        case "ArrowRight":
-          this.handleMonthNavigation(
-            month === 11 ? 0 : month + 1,
-            utils.addMonths(this.props.preSelection, 1)
-          );
-          break;
-        case "ArrowLeft":
-          this.handleMonthNavigation(
-            month === 0 ? 11 : month - 1,
-            utils.subMonths(this.props.preSelection, 1)
-          );
-          break;
-      }
+    switch (eventKey) {
+      case "Enter":
+        this.onMonthClick(event, month);
+        this.props.setPreSelection(this.props.selected);
+        break;
+      case "ArrowRight":
+        this.handleMonthNavigation(
+          month === 11 ? 0 : month + 1,
+          utils.addMonths(this.props.preSelection, 1)
+        );
+        break;
+      case "ArrowLeft":
+        this.handleMonthNavigation(
+          month === 0 ? 11 : month - 1,
+          utils.subMonths(this.props.preSelection, 1)
+        );
+        break;
     }
   };
 
@@ -272,10 +265,7 @@ export default class Month extends React.Component {
 
   getTabIndex = (m) => {
     const preSelectedMonth = utils.getMonth(this.props.preSelection);
-    const tabIndex =
-      !this.props.disabledKeyboardNavigation && m === preSelectedMonth
-        ? "0"
-        : "-1";
+    const tabIndex = m === preSelectedMonth ? "0" : "-1";
 
     return tabIndex;
   };

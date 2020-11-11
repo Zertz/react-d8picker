@@ -17,7 +17,6 @@
 | `dayClassName`               | `func`                         |                    |             |
 | `disabled`                   | `bool`                         | `false`            |             |
 | `disabledDayAriaLabelPrefix` | `string`                       |                    |             |
-| `disabledKeyboardNavigation` | `bool`                         | `false`            |             |
 | `enableTabLoop`              | `bool`                         | `true`             |             |
 | `endDate`                    | `instanceOfDate`               |                    |             |
 | `excludeDates`               | `array`                        |                    |             |

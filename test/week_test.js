@@ -56,46 +56,6 @@ describe("Week", () => {
     assert(utils.isSameDay(day.prop("day"), dayClicked));
   });
 
-  it("should call the provided onWeekSelect function and pass the first day of the week", () => {
-    let firstDayReceived = null;
-
-    function onWeekClick(newFirstWeekDay) {
-      firstDayReceived = newFirstWeekDay;
-    }
-
-    const weekStart = utils.newDate("2015-12-20");
-    const setOpenSpy = sinon.spy();
-    const week = shallow(
-      <Week
-        day={weekStart}
-        showWeekNumber
-        onWeekSelect={onWeekClick}
-        setOpen={setOpenSpy}
-      />
-    );
-    const weekNumberElement = week.find(WeekNumber);
-    weekNumberElement.simulate("click");
-    expect(utils.isEqual(firstDayReceived, weekStart)).to.be.true;
-  });
-
-  it("should call the provided onWeekSelect function and call the setopen function", () => {
-    const weekStart = utils.newDate("2015-12-20");
-    const setOpenSpy = sinon.spy();
-
-    const week = shallow(
-      <Week
-        day={weekStart}
-        showWeekNumber
-        onWeekSelect={() => {}}
-        setOpen={setOpenSpy}
-      />
-    );
-
-    const weekNumberElement = week.find(WeekNumber);
-    weekNumberElement.simulate("click");
-    sinon.assert.calledOnce(setOpenSpy);
-  });
-
   it("should call the provided onWeekSelect function and pass the week number", () => {
     let weekNumberReceived = null;
 

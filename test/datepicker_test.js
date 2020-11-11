@@ -637,67 +637,6 @@ describe("DatePicker", () => {
     );
   });
 
-  function getOnInputKeyDownDisabledKeyboardNavigationStuff() {
-    var m = utils.newDate();
-    var copyM = utils.newDate(m);
-    var testFormat = "yyyy-MM-dd";
-    var callback = sandbox.spy();
-    var datePicker = TestUtils.renderIntoDocument(
-      <DatePicker selected={m} onChange={callback} disabledKeyboardNavigation />
-    );
-    var dateInput = datePicker.input;
-    var nodeInput = ReactDOM.findDOMNode(dateInput);
-    TestUtils.Simulate.focus(nodeInput);
-    return {
-      m,
-      copyM,
-      testFormat,
-      callback,
-      datePicker,
-      dateInput,
-      nodeInput,
-    };
-  }
-  it("should not handle onInputKeyDown ArrowLeft", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowLeft"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown ArrowRight", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowRight"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown ArrowUp", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowUp"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown ArrowDown", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowDown"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown PageUp", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("PageUp"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown PageDown", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("PageDown"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown Home", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("Home"));
-    expect(data.callback.called).to.be.false;
-  });
-  it("should not handle onInputKeyDown End", () => {
-    var data = getOnInputKeyDownDisabledKeyboardNavigationStuff();
-    TestUtils.Simulate.keyDown(data.nodeInput, getKey("End"));
-    expect(data.callback.called).to.be.false;
-  });
   it("should correctly clear date with empty input string", () => {
     var cleared = false;
     function handleChange(d) {

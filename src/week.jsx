@@ -7,7 +7,6 @@ import * as utils from "./date_utils";
 export default class Week extends React.Component {
   static propTypes = {
     ariaLabelPrefix: PropTypes.string,
-    disabledKeyboardNavigation: PropTypes.bool,
     day: PropTypes.instanceOf(Date).isRequired,
     dayClassName: PropTypes.func,
     disabledDayAriaLabelPrefix: PropTypes.string,
@@ -35,7 +34,6 @@ export default class Week extends React.Component {
     selectsRange: PropTypes.bool,
     showWeekNumber: PropTypes.bool,
     startDate: PropTypes.instanceOf(Date),
-    setOpen: PropTypes.func,
     renderDayContents: PropTypes.func,
     handleOnKeyDown: PropTypes.func,
     isInputFocused: PropTypes.bool,
@@ -63,7 +61,6 @@ export default class Week extends React.Component {
     if (typeof this.props.onWeekSelect === "function") {
       this.props.onWeekSelect(day, weekNumber, event);
     }
-    this.props.setOpen(false);
   };
 
   formatWeekNumber = (date) => {
@@ -116,7 +113,6 @@ export default class Week extends React.Component {
             endDate={this.props.endDate}
             dayClassName={this.props.dayClassName}
             renderDayContents={this.props.renderDayContents}
-            disabledKeyboardNavigation={this.props.disabledKeyboardNavigation}
             handleOnKeyDown={this.props.handleOnKeyDown}
             isInputFocused={this.props.isInputFocused}
             containerRef={this.props.containerRef}

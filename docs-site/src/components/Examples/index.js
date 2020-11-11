@@ -31,7 +31,6 @@ import HighlightDatesRanges from "../../examples/highlightDatesRanges";
 import IncludeDates from "../../examples/includeDates";
 import FilterDates from "../../examples/filterDates";
 import Disabled from "../../examples/disabled";
-import DisabledKeyboardNavigation from "../../examples/disabledKeyboardNavigation";
 import ReadOnly from "../../examples/readOnly";
 import OnBlurCallbacks from "../../examples/onBlurCallbacks";
 import ConfigurePopper from "../../examples/configurePopper";
@@ -108,10 +107,6 @@ export default class exampleComponents extends React.Component {
     {
       title: "Disable datepicker",
       component: Disabled,
-    },
-    {
-      title: "Disable keyboard navigation",
-      component: DisabledKeyboardNavigation,
     },
     {
       title: "Display Week Numbers",

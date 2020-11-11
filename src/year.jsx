@@ -7,7 +7,6 @@ import classnames from "classnames";
 export default class Year extends React.Component {
   static propTypes = {
     date: PropTypes.string,
-    disabledKeyboardNavigation: PropTypes.bool,
     onDayClick: PropTypes.func,
     preSelection: PropTypes.instanceOf(Date),
     selected: PropTypes.object,
@@ -31,7 +30,6 @@ export default class Year extends React.Component {
   isKeyboardSelected = (y) => {
     const date = utils.getStartOfYear(utils.setYear(this.props.date, y));
     return (
-      !this.props.disabledKeyboardNavigation &&
       !this.props.inline &&
       !utils.isSameDay(date, utils.getStartOfYear(this.props.selected)) &&
       utils.isSameDay(date, utils.getStartOfYear(this.props.preSelection))

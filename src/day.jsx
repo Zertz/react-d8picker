@@ -21,7 +21,6 @@ export default class Day extends React.Component {
   static propTypes = {
     ariaLabelPrefixWhenEnabled: PropTypes.string,
     ariaLabelPrefixWhenDisabled: PropTypes.string,
-    disabledKeyboardNavigation: PropTypes.bool,
     day: PropTypes.instanceOf(Date).isRequired,
     dayClassName: PropTypes.func,
     endDate: PropTypes.instanceOf(Date),
@@ -80,7 +79,6 @@ export default class Day extends React.Component {
   isSameDay = (other) => isSameDay(this.props.day, other);
 
   isKeyboardSelected = () =>
-    !this.props.disabledKeyboardNavigation &&
     !this.isSameDay(this.props.selected) &&
     this.isSameDay(this.props.preSelection);
 

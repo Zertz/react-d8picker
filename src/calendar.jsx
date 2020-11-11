@@ -3,6 +3,7 @@ import Time from "./time";
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import CalendarContainer from "./calendar_container";
 import {
   newDate,
   setMonth,
@@ -55,7 +56,6 @@ export default class Calendar extends React.Component {
     disabledDayAriaLabelPrefix: PropTypes.string,
     monthClassName: PropTypes.func,
     timeClassName: PropTypes.func,
-    disabledKeyboardNavigation: PropTypes.bool,
     endDate: PropTypes.instanceOf(Date),
     excludeDates: PropTypes.array,
     filterDate: PropTypes.func,
@@ -106,7 +106,6 @@ export default class Calendar extends React.Component {
     formatWeekDay: PropTypes.func,
     withPortal: PropTypes.bool,
     weekLabel: PropTypes.string,
-    setOpen: PropTypes.func,
     previousMonthButtonLabel: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.node,
@@ -588,9 +587,7 @@ export default class Calendar extends React.Component {
             startDate={this.props.startDate}
             endDate={this.props.endDate}
             peekNextMonth={this.props.peekNextMonth}
-            setOpen={this.props.setOpen}
             renderDayContents={this.props.renderDayContents}
-            disabledKeyboardNavigation={this.props.disabledKeyboardNavigation}
             showFullMonthYearPicker={this.props.showFullMonthYearPicker}
             isInputFocused={this.props.isInputFocused}
             containerRef={this.containerRef}
@@ -640,7 +637,7 @@ export default class Calendar extends React.Component {
   };
 
   render() {
-    const Container = this.props.container;
+    const Container = CalendarContainer;
     return (
       <div ref={this.containerRef}>
         <Container
