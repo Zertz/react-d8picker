@@ -497,10 +497,7 @@ export default class DatePicker extends React.Component {
     this.props.onKeyDown(event);
     const eventKey = event.key;
 
-    if (
-      !this.state.open &&
-      !this.props.inline
-    ) {
+    if (!this.state.open && !this.props.inline) {
       if (
         eventKey === "ArrowDown" ||
         eventKey === "ArrowUp" ||
@@ -739,8 +736,8 @@ export default class DatePicker extends React.Component {
         : safeDateFormat(this.props.selected, this.props);
 
     return React.cloneElement(customInput, {
-      [customInputRef]: input => {	
-        this.input = input;	
+      [customInputRef]: (input) => {
+        this.input = input;
       },
       value: inputValue,
       onBlur: this.handleBlur,
