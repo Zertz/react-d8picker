@@ -36,6 +36,8 @@ import {
 } from "./date_utils";
 import onClickOutside from "react-onclickoutside";
 
+export { default as CalendarContainer } from "./calendar_container";
+
 export { registerLocale, setDefaultLocale, getDefaultLocale };
 
 const outsideClickIgnoreClass = "react-datepicker-ignore-onclickoutside";
@@ -234,8 +236,7 @@ export default class DatePicker extends React.Component {
     this.clearPreventFocusTimeout();
   }
 
-  getPreSelection = () =>
-    this.props.openToDate ? this.props.openToDate : newDate();
+  getPreSelection = () => this.props.openToDate || newDate();
 
   calcInitialState = () => {
     const defaultPreSelection = this.getPreSelection();
@@ -602,6 +603,7 @@ export default class DatePicker extends React.Component {
       }
       event.preventDefault();
       this.setState({ lastPreSelectChange: PRESELECT_CHANGE_VIA_NAVIGATE });
+      this.setSelected(newSelection);
       this.setPreSelection(newSelection);
     }
   };
@@ -731,6 +733,7 @@ export default class DatePicker extends React.Component {
     });
 
     const customInput = <input type="text" />;
+    const customInputRef = "ref";
     const inputValue =
       typeof this.props.value === "string"
         ? this.props.value
@@ -739,6 +742,9 @@ export default class DatePicker extends React.Component {
         : safeDateFormat(this.props.selected, this.props);
 
     return React.cloneElement(customInput, {
+      [customInputRef]: input => {	
+        this.input = input;	
+      },
       value: inputValue,
       onBlur: this.handleBlur,
       onChange: this.handleChange,

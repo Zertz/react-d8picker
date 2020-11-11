@@ -228,6 +228,9 @@ export default class Calendar extends React.Component {
     if (this.props.onYearChange) {
       this.props.onYearChange(date);
     }
+    if (this.props.onSelect) {	
+      this.props.onSelect(date);	
+    }
 
     this.props.setPreSelection && this.props.setPreSelection(date);
   };
@@ -235,6 +238,9 @@ export default class Calendar extends React.Component {
   handleMonthChange = (date) => {
     if (this.props.onMonthChange) {
       this.props.onMonthChange(date);
+    }
+    if (this.props.onSelect) {	
+      this.props.onSelect(date);	
     }
 
     this.props.setPreSelection && this.props.setPreSelection(date);
