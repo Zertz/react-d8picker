@@ -13,7 +13,6 @@ import {
   getStartOfWeek,
   getStartOfToday,
   addDays,
-  formatDate,
   setYear,
   getYear,
   isBefore,

@@ -32,7 +32,6 @@ import MultiMonthPrevious from "../../examples/multiMonthPrevious";
 import Children from "../../examples/children";
 import RenderCustomHeader from "../../examples/renderCustomHeader";
 import RenderCustomDay from "../../examples/renderCustomDay";
-import StrictParsing from "../../examples/strictParsing";
 import SelectsRange from "../../examples/selectsRange";
 import SelectsRangeMultiMonth from "../../examples/selectsRangeMultiMonth";
 
@@ -157,10 +156,6 @@ export default class exampleComponents extends React.Component {
     {
       title: "Specific Time Range",
       component: ExcludeTimePeriod,
-    },
-    {
-      title: "Strict parsing",
-      component: StrictParsing,
     },
     {
       title: "TabIndex",

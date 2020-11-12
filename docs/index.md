@@ -69,7 +69,6 @@
 | `showWeekNumbers`            | `bool`                         |                           |             |
 | `startDate`                  | `instanceOfDate`               |                           |             |
 | `startOpen`                  | `bool`                         |                           |             |
-| `strictParsing`              | `bool`                         | `false`                   |             |
 | `tabIndex`                   | `number`                       |                           |             |
 | `timeCaption`                | `string`                       | `"Time"`                  |             |
 | `timeFormat`                 | `string`                       |                           |             |

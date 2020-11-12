@@ -80,7 +80,6 @@ export default class DatePicker extends React.Component {
       showTimeSelect: false,
       showPreviousMonths: false,
       showFullMonthYearPicker: false,
-      strictParsing: false,
       timeIntervals: 30,
       timeCaption: "Time",
       enableTabLoop: true,
@@ -145,7 +144,6 @@ export default class DatePicker extends React.Component {
     selectsRange: PropTypes.bool,
     showPreviousMonths: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
-    strictParsing: PropTypes.bool,
     startDate: PropTypes.instanceOf(Date),
     startOpen: PropTypes.bool,
     tabIndex: PropTypes.number,
@@ -332,8 +330,7 @@ export default class DatePicker extends React.Component {
     const date = parseDate(
       event.target.value,
       this.props.dateFormat,
-      this.props.locale,
-      this.props.strictParsing
+      this.props.locale
     );
     if (date || !event.target.value) {
       this.setSelected(date, event, true);

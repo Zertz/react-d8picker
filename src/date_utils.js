@@ -48,13 +48,8 @@ import isWithinInterval from "date-fns/isWithinInterval";
 import toDate from "date-fns/toDate";
 import parse from "date-fns/parse";
 import parseISO from "date-fns/parseISO";
-import longFormatters from "date-fns/esm/_lib/format/longFormatters";
 
 export const DEFAULT_YEAR_ITEM_NUMBER = 12;
-
-// This RegExp catches symbols escaped by quotes, and also
-// sequences of symbols P, p, and the combinations like `PPPPPPPppppp`
-var longFormattingTokensRegExp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;
 
 // ** Date Constructors **
 
@@ -67,19 +62,16 @@ export function newDate(value) {
   return isValid(d) ? d : null;
 }
 
-export function parseDate(value, dateFormat, locale, strictParsing) {
+export function parseDate(value, dateFormat, locale) {
   let parsedDate = null;
   let localeObject = getLocaleObject(locale) || getDefaultLocale();
-  let strictParsingValueMatch = true;
   if (Array.isArray(dateFormat)) {
     dateFormat.forEach((df) => {
       let tryParseDate = parse(value, df, new Date(), { locale: localeObject });
-      if (strictParsing) {
-        strictParsingValueMatch =
-          isValid(tryParseDate) &&
-          value === format(tryParseDate, df, { awareOfUnicodeTokens: true });
-      }
-      if (isValid(tryParseDate) && strictParsingValueMatch) {
+      if (
+        isValid(tryParseDate) &&
+        value === format(tryParseDate, df, { awareOfUnicodeTokens: true })
+      ) {
         parsedDate = tryParseDate;
       }
     });
@@ -88,35 +80,10 @@ export function parseDate(value, dateFormat, locale, strictParsing) {
 
   parsedDate = parse(value, dateFormat, new Date(), { locale: localeObject });
 
-  if (strictParsing) {
-    strictParsingValueMatch =
-      isValid(parsedDate) &&
-      value === format(parsedDate, dateFormat, { awareOfUnicodeTokens: true });
-  } else if (!isValid(parsedDate)) {
-    dateFormat = dateFormat
-      .match(longFormattingTokensRegExp)
-      .map(function (substring) {
-        var firstCharacter = substring[0];
-        if (firstCharacter === "p" || firstCharacter === "P") {
-          var longFormatter = longFormatters[firstCharacter];
-          return localeObject
-            ? longFormatter(substring, localeObject.formatLong)
-            : firstCharacter;
-        }
-        return substring;
-      })
-      .join("");
-
-    if (value.length > 0) {
-      parsedDate = parse(value, dateFormat.slice(0, value.length), new Date());
-    }
-
-    if (!isValid(parsedDate)) {
-      parsedDate = new Date(value);
-    }
-  }
-
-  return isValid(parsedDate) && strictParsingValueMatch ? parsedDate : null;
+  return isValid(parsedDate) &&
+    value === format(parsedDate, dateFormat, { awareOfUnicodeTokens: true })
+    ? parsedDate
+    : null;
 }
 
 // ** Date "Reflection" **
