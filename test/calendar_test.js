@@ -221,20 +221,6 @@ describe("Calendar", function () {
       expect(renderCustomHeader.calledWithMatch(match)).to.be.true;
     });
 
-    it("should render only custom header", function () {
-      const calendar = getCalendar({ renderCustomHeader });
-
-      const nextMontButton = calendar.find(
-        ".react-datepicker__navigation--next"
-      );
-      const prevMontButton = calendar.find(
-        ".react-datepicker__navigation--previous"
-      );
-
-      expect(nextMontButton).to.have.length(0);
-      expect(prevMontButton).to.have.length(0);
-    });
-
     it("should render custom header with selects and buttons", function () {
       const calendar = getCalendar({
         renderCustomHeader,
@@ -469,84 +455,8 @@ describe("Calendar", function () {
     expect(daysNamesMin.at(6).text()).to.equal("Sa");
   });
 
-  it("should set the date to the selected day of the previous month when previous button clicked", () => {
-    let date;
-    const expectedDate = "28.06.2017";
-    const datePicker = TestUtils.renderIntoDocument(
-      <DatePicker
-        selected={utils.newDate("2017-07-28")}
-        onChange={(d) => {
-          date = d;
-        }}
-      />
-    );
-    TestUtils.Simulate.focus(ReactDOM.findDOMNode(datePicker.input));
-    const calendar = TestUtils.scryRenderedComponentsWithType(
-      datePicker.calendar,
-      Calendar
-    )[0];
-    const previousButton = TestUtils.findRenderedDOMComponentWithClass(
-      calendar,
-      "react-datepicker__navigation--previous"
-    );
-    TestUtils.Simulate.click(previousButton);
-    expect(utils.formatDate(date, "dd.MM.yyyy")).to.equal(expectedDate);
-  });
-
-  it("should set the date to the selected day of the next when next button clicked", () => {
-    let date;
-    const expectedDate = "28.08.2017";
-    const datePicker = TestUtils.renderIntoDocument(
-      <DatePicker
-        selected={utils.newDate("2017-07-28")}
-        onChange={(d) => {
-          date = d;
-        }}
-      />
-    );
-    TestUtils.Simulate.focus(ReactDOM.findDOMNode(datePicker.input));
-    const calendar = TestUtils.scryRenderedComponentsWithType(
-      datePicker.calendar,
-      Calendar
-    )[0];
-    const nextButton = TestUtils.findRenderedDOMComponentWithClass(
-      calendar,
-      "react-datepicker__navigation--next"
-    );
-    TestUtils.Simulate.click(nextButton);
-    expect(utils.formatDate(date, "dd.MM.yyyy")).to.equal(expectedDate);
-  });
-
-  it("should set the date to the last possible day of the previous month when previous button clicked", () => {
-    let date;
-    const expectedDate = "30.11.2017";
-    const datePicker = TestUtils.renderIntoDocument(
-      <DatePicker
-        selected={utils.newDate("2017-12-31")}
-        onChange={(d) => {
-          date = d;
-        }}
-      />
-    );
-    TestUtils.Simulate.focus(ReactDOM.findDOMNode(datePicker.input));
-    const calendar = TestUtils.scryRenderedComponentsWithType(
-      datePicker.calendar,
-      Calendar
-    )[0];
-    const previousButton = TestUtils.findRenderedDOMComponentWithClass(
-      calendar,
-      "react-datepicker__navigation--previous"
-    );
-    TestUtils.Simulate.click(previousButton);
-    expect(utils.formatDate(date, "dd.MM.yyyy")).to.equal(expectedDate);
-  });
-
   describe("localization", function () {
     function testLocale(calendar, selected, locale) {
-      const calendarText = calendar.find(".react-datepicker__current-month");
-      expect(calendarText.text()).to.equal(
-        utils.formatDate(selected, dateFormat, locale)
-      );
       const firstDateOfWeek = utils.getStartOfWeek(selected, locale);
       const firstWeekDayMin = utils.getWeekdayMinInLocale(
         firstDateOfWeek,
@@ -634,79 +544,6 @@ describe("Calendar", function () {
 
       assert.isNotNull(ref);
       assert.equal(ref, instance.containerRef.current);
-    });
-  });
-
-  it("should have a next-button with the provided aria-label for month", () => {
-    const ariaLabel = "A label in my native language for next month";
-    const shallowCalendar = mount(
-      <Calendar
-        nextMonthAriaLabel={ariaLabel}
-        dateFormat={DATE_FORMAT}
-        onSelect={() => {}}
-        onClickOutside={() => {}}
-      />
-    );
-    expect(
-      shallowCalendar.html().indexOf(`aria-label="${ariaLabel}"`)
-    ).not.equal(-1);
-  });
-
-  it("should have a previous-button with the provided aria-label for month", () => {
-    const ariaLabel = "A label in my native language for previous month";
-    const shallowCalendar = mount(
-      <Calendar
-        previousMonthAriaLabel={ariaLabel}
-        dateFormat={DATE_FORMAT}
-        onSelect={() => {}}
-        onClickOutside={() => {}}
-      />
-    );
-    expect(
-      shallowCalendar.html().indexOf(`aria-label="${ariaLabel}"`)
-    ).not.equal(-1);
-  });
-
-  describe("changing the month also changes the preselection to preserve keyboard navigation abilities", () => {
-    it("updates the preselection when you choose Next Month", () => {
-      let selected = new Date();
-      selected.setDate(1);
-      const currentMonth = selected.getMonth();
-
-      const datePicker = TestUtils.renderIntoDocument(
-        <DatePicker selected={selected} />
-      );
-      const dateInput = datePicker.input;
-      TestUtils.Simulate.focus(ReactDOM.findDOMNode(dateInput));
-      TestUtils.Simulate.click(
-        TestUtils.findRenderedDOMComponentWithClass(
-          datePicker,
-          "react-datepicker__navigation--next"
-        )
-      );
-      expect(datePicker.state.preSelection.getMonth()).to.equal(
-        currentMonth === 11 ? 0 : currentMonth + 1
-      );
-    });
-    it("updates the preselection when you choose Previous Month", () => {
-      let selected = new Date();
-      selected.setDate(1);
-      const currentMonth = selected.getMonth();
-
-      const datePicker = TestUtils.renderIntoDocument(
-        <DatePicker selected={selected} />
-      );
-      const dateInput = datePicker.input;
-      TestUtils.Simulate.focus(ReactDOM.findDOMNode(dateInput));
-      TestUtils.Simulate.click(
-        TestUtils.findRenderedDOMComponentWithClass(
-          datePicker,
-          "react-datepicker__navigation--previous"
-        )
-      );
-      expect(datePicker.state.preSelection.getMonth()).to.equal(
-        currentMonth === 0 ? 11 : currentMonth - 1
-      );
     });
   });
 

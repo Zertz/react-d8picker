@@ -34,7 +34,6 @@
 | `minTime`                    | `instanceOfDate`               |                           |             |
 | `monthsShown`                | `number`                       | `1`                       |             |
 | `name`                       | `string`                       |                           |             |
-| `nextMonthButtonLabel`       | `union(string\|node)`          | `"Next Month"`            |             |
 | `onBlur`                     | `func`                         | `() {}`                   |             |
 | `onChange`                   | `func`                         | `() {}`                   |             |
 | `onClickOutside`             | `func`                         | `() {}`                   |             |
@@ -57,7 +56,6 @@
 | `popperModifiers`            | `object`                       |                           |             |
 | `popperPlacement`            | `enumpopperPlacementPositions` |                           |             |
 | `popperProps`                | `object`                       |                           |             |
-| `previousMonthButtonLabel`   | `union(string\|node)`          | `"Previous Month"`        |             |
 | `readOnly`                   | `bool`                         | `false`                   |             |
 | `renderCustomHeader`         | `func`                         |                           |             |
 | `renderDayContents`          | `func`                         | `(date) { return date; }` |             |

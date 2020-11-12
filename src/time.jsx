@@ -75,8 +75,7 @@ export default class Time extends React.Component {
     if (
       ((this.props.minTime || this.props.maxTime) &&
         isTimeInDisabledRange(time, this.props)) ||
-      (this.props.filterTime &&
-        isTimeDisabled(time, this.props))
+      (this.props.filterTime && isTimeDisabled(time, this.props))
     ) {
       return;
     }
@@ -84,9 +83,7 @@ export default class Time extends React.Component {
   };
 
   liClasses = (time, currH, currM) => {
-    let classes = [
-      "react-datepicker__time-list-item",
-    ];
+    let classes = ["react-datepicker__time-list-item"];
 
     if (
       this.props.selected &&
@@ -98,8 +95,7 @@ export default class Time extends React.Component {
     if (
       ((this.props.minTime || this.props.maxTime) &&
         isTimeInDisabledRange(time, this.props)) ||
-      (this.props.filterTime &&
-        isTimeDisabled(time, this.props))
+      (this.props.filterTime && isTimeDisabled(time, this.props))
     ) {
       classes.push("react-datepicker__time-list-item--disabled");
     }

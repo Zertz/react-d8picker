@@ -7,8 +7,6 @@ import addDays from "date-fns/addDays";
 import addWeeks from "date-fns/addWeeks";
 import addMonths from "date-fns/addMonths";
 import addYears from "date-fns/addYears";
-import subMinutes from "date-fns/subMinutes";
-import subHours from "date-fns/subHours";
 import subDays from "date-fns/subDays";
 import subWeeks from "date-fns/subWeeks";
 import subMonths from "date-fns/subMonths";
@@ -22,7 +20,6 @@ import dfgetWeek from "date-fns/getWeek";
 import getMonth from "date-fns/getMonth";
 import getQuarter from "date-fns/getQuarter";
 import getYear from "date-fns/getYear";
-import getTime from "date-fns/getTime";
 import setSeconds from "date-fns/setSeconds";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
@@ -187,7 +184,6 @@ export {
   getYear,
   getDay,
   getDate,
-  getTime,
 };
 
 export function getWeek(date, locale) {
@@ -248,15 +244,7 @@ export { addMinutes, addDays, addWeeks, addMonths, addYears };
 
 // *** Subtraction ***
 
-export {
-  addHours,
-  subMinutes,
-  subHours,
-  subDays,
-  subWeeks,
-  subMonths,
-  subYears,
-};
+export { addHours, subDays, subWeeks, subMonths, subYears };
 
 // ** Date Comparison **
 

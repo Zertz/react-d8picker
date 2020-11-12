@@ -78,9 +78,7 @@ export default class PopperComponent extends React.Component {
       popper = React.createElement(this.props.popperContainer, {}, popper);
     }
 
-    const wrapperClasses = classnames(
-      "react-datepicker-wrapper",
-    );
+    const wrapperClasses = classnames("react-datepicker-wrapper");
 
     return (
       <Manager className="react-datepicker-manager">

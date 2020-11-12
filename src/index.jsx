@@ -84,8 +84,6 @@ export default class DatePicker extends React.Component {
       strictParsing: false,
       timeIntervals: 30,
       timeCaption: "Time",
-      previousMonthButtonLabel: "Previous Month",
-      nextMonthButtonLabel: "Next Month",
       enableTabLoop: true,
 
       renderDayContents(date) {
@@ -171,14 +169,6 @@ export default class DatePicker extends React.Component {
     maxTime: PropTypes.instanceOf(Date),
     filterTime: PropTypes.func,
     clearButtonTitle: PropTypes.string,
-    previousMonthButtonLabel: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-    ]),
-    nextMonthButtonLabel: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-    ]),
     renderCustomHeader: PropTypes.func,
     renderDayContents: PropTypes.func,
     focusSelectedMonth: PropTypes.bool,
@@ -685,8 +675,6 @@ export default class DatePicker extends React.Component {
         maxTime={this.props.maxTime}
         filterTime={this.props.filterTime}
         timeCaption={this.props.timeCaption}
-        previousMonthButtonLabel={this.props.previousMonthButtonLabel}
-        nextMonthButtonLabel={this.props.nextMonthButtonLabel}
         renderCustomHeader={this.props.renderCustomHeader}
         popperProps={this.props.popperProps}
         renderDayContents={this.props.renderDayContents}
