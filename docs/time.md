@@ -2,10 +2,8 @@
 
 | name                 | type                   | default value | description |
 | -------------------- | ---------------------- | ------------- | ----------- |
-| `excludeTimes`       | `array`                |               |             |
 | `filterTime`         | `func`                 |               |             |
 | `format`             | `string`               |               |             |
-| `includeTimes`       | `array`                |               |             |
 | `injectTimes`        | `array`                |               |             |
 | `intervals`          | `number`               | `30`          |             |
 | `locale`             | `union(string\|shape)` |               |             |
@@ -18,5 +16,4 @@
 | `selected`           | `instanceOfDate`       |               |             |
 | `showTimeSelectOnly` | `bool`                 |               |             |
 | `timeCaption`        | `string`               | `"Time"`      |             |
-| `timeClassName`      | `func`                 |               |             |
 | `todayButton`        | `node`                 | `null`        |             |

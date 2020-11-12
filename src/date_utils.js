@@ -29,8 +29,6 @@ import setHours from "date-fns/setHours";
 import setMonth from "date-fns/setMonth";
 import setQuarter from "date-fns/setQuarter";
 import setYear from "date-fns/setYear";
-import min from "date-fns/min";
-import max from "date-fns/max";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 import differenceInCalendarMonths from "date-fns/differenceInCalendarMonths";
 import differenceInCalendarYears from "date-fns/differenceInCalendarYears";
@@ -383,39 +381,21 @@ export function getQuarterShortInLocale(quarter, locale) {
 
 // ** Utils for some components **
 
-export function isDayDisabled(
-  day,
-  { minDate, maxDate, excludeDates, includeDates, filterDate } = {}
-) {
+export function isDayDisabled(day, { minDate, maxDate, filterDate } = {}) {
   return (
     isOutOfBounds(day, { minDate, maxDate }) ||
-    (excludeDates &&
-      excludeDates.some((excludeDate) => isSameDay(day, excludeDate))) ||
-    (includeDates &&
-      !includeDates.some((includeDate) => isSameDay(day, includeDate))) ||
     (filterDate && !filterDate(newDate(day))) ||
     false
   );
 }
 
-export function isDayExcluded(day, { excludeDates } = {}) {
-  return (
-    (excludeDates &&
-      excludeDates.some((excludeDate) => isSameDay(day, excludeDate))) ||
-    false
-  );
+export function isDayExcluded() {
+  return false;
 }
 
-export function isMonthDisabled(
-  month,
-  { minDate, maxDate, excludeDates, includeDates, filterDate } = {}
-) {
+export function isMonthDisabled(month, { minDate, maxDate, filterDate } = {}) {
   return (
     isOutOfBounds(month, { minDate, maxDate }) ||
-    (excludeDates &&
-      excludeDates.some((excludeDate) => isSameMonth(month, excludeDate))) ||
-    (includeDates &&
-      !includeDates.some((includeDate) => isSameMonth(month, includeDate))) ||
     (filterDate && !filterDate(newDate(month))) ||
     false
   );
@@ -440,18 +420,10 @@ export function isMonthinRange(startDate, endDate, m, day) {
 
 export function isQuarterDisabled(
   quarter,
-  { minDate, maxDate, excludeDates, includeDates, filterDate } = {}
+  { minDate, maxDate, filterDate } = {}
 ) {
   return (
     isOutOfBounds(quarter, { minDate, maxDate }) ||
-    (excludeDates &&
-      excludeDates.some((excludeDate) =>
-        isSameQuarter(quarter, excludeDate)
-      )) ||
-    (includeDates &&
-      !includeDates.some((includeDate) =>
-        isSameQuarter(quarter, includeDate)
-      )) ||
     (filterDate && !filterDate(newDate(quarter))) ||
     false
   );
@@ -494,16 +466,8 @@ export function isTimeInList(time, times) {
   );
 }
 
-export function isTimeDisabled(
-  time,
-  { excludeTimes, includeTimes, filterTime } = {}
-) {
-  return (
-    (excludeTimes && isTimeInList(time, excludeTimes)) ||
-    (includeTimes && !isTimeInList(time, includeTimes)) ||
-    (filterTime && !filterTime(time)) ||
-    false
-  );
+export function isTimeDisabled(time, { filterTime } = {}) {
+  return (filterTime && !filterTime(time)) || false;
 }
 
 export function isTimeInDisabledRange(time, { minTime, maxTime }) {
@@ -530,41 +494,24 @@ export function isTimeInDisabledRange(time, { minTime, maxTime }) {
   return valid;
 }
 
-export function monthDisabledBefore(day, { minDate, includeDates } = {}) {
+export function monthDisabledBefore(day, { minDate } = {}) {
   const previousMonth = subMonths(day, 1);
   return (
-    (minDate && differenceInCalendarMonths(minDate, previousMonth) > 0) ||
-    (includeDates &&
-      includeDates.every(
-        (includeDate) =>
-          differenceInCalendarMonths(includeDate, previousMonth) > 0
-      )) ||
-    false
+    (minDate && differenceInCalendarMonths(minDate, previousMonth) > 0) || false
   );
 }
 
-export function monthDisabledAfter(day, { maxDate, includeDates } = {}) {
+export function monthDisabledAfter(day, { maxDate } = {}) {
   const nextMonth = addMonths(day, 1);
   return (
-    (maxDate && differenceInCalendarMonths(nextMonth, maxDate) > 0) ||
-    (includeDates &&
-      includeDates.every(
-        (includeDate) => differenceInCalendarMonths(nextMonth, includeDate) > 0
-      )) ||
-    false
+    (maxDate && differenceInCalendarMonths(nextMonth, maxDate) > 0) || false
   );
 }
 
-export function yearDisabledBefore(day, { minDate, includeDates } = {}) {
+export function yearDisabledBefore(day, { minDate } = {}) {
   const previousYear = subYears(day, 1);
   return (
-    (minDate && differenceInCalendarYears(minDate, previousYear) > 0) ||
-    (includeDates &&
-      includeDates.every(
-        (includeDate) =>
-          differenceInCalendarYears(includeDate, previousYear) > 0
-      )) ||
-    false
+    (minDate && differenceInCalendarYears(minDate, previousYear) > 0) || false
   );
 }
 
@@ -578,16 +525,9 @@ export function yearsDisabledBefore(
   return (minDateYear && minDateYear > endPeriod) || false;
 }
 
-export function yearDisabledAfter(day, { maxDate, includeDates } = {}) {
+export function yearDisabledAfter(day, { maxDate } = {}) {
   const nextYear = addYears(day, 1);
-  return (
-    (maxDate && differenceInCalendarYears(nextYear, maxDate) > 0) ||
-    (includeDates &&
-      includeDates.every(
-        (includeDate) => differenceInCalendarYears(nextYear, includeDate) > 0
-      )) ||
-    false
-  );
+  return (maxDate && differenceInCalendarYears(nextYear, maxDate) > 0) || false;
 }
 
 export function yearsDisabledAfter(
@@ -600,30 +540,12 @@ export function yearsDisabledAfter(
   return (maxDateYear && maxDateYear < startPeriod) || false;
 }
 
-export function getEffectiveMinDate({ minDate, includeDates }) {
-  if (includeDates && minDate) {
-    let minDates = includeDates.filter(
-      (includeDate) => differenceInCalendarDays(includeDate, minDate) >= 0
-    );
-    return min(minDates);
-  } else if (includeDates) {
-    return min(includeDates);
-  } else {
-    return minDate;
-  }
+export function getEffectiveMinDate({ minDate }) {
+  return minDate;
 }
 
-export function getEffectiveMaxDate({ maxDate, includeDates }) {
-  if (includeDates && maxDate) {
-    let maxDates = includeDates.filter(
-      (includeDate) => differenceInCalendarDays(includeDate, maxDate) <= 0
-    );
-    return max(maxDates);
-  } else if (includeDates) {
-    return max(includeDates);
-  } else {
-    return maxDate;
-  }
+export function getEffectiveMaxDate({ maxDate }) {
+  return maxDate;
 }
 
 export function getHightLightDaysMap(

@@ -42,39 +42,6 @@ describe("TimePicker", () => {
     expect(getInputString()).to.equal("February 28, 2018 4:43 PM");
   });
 
-  it("should show different colors for times", () => {
-    const handleTimeColors = (time, currH, currM) => {
-      if (!Number.isInteger(currH) || !Number.isInteger(currM)) {
-        return "wrong";
-      }
-      return time.getHours() < 12 ? "red" : "green";
-    };
-    const timePicker = TestUtils.renderIntoDocument(
-      <DatePicker
-        showTimeSelect
-        showTimeSelectOnly
-        timeClassName={handleTimeColors}
-        onChange={() => console.log("changed")}
-        open
-        focus
-      />
-    );
-    let redItems = TestUtils.scryRenderedDOMComponentsWithClass(
-      timePicker,
-      "react-datepicker__time-list-item red"
-    );
-    let greenItems = TestUtils.scryRenderedDOMComponentsWithClass(
-      timePicker,
-      "react-datepicker__time-list-item green"
-    );
-    assert.isTrue(
-      redItems !== undefined &&
-        redItems.length === 24 &&
-        greenItems !== undefined &&
-        greenItems.length === 24
-    );
-  });
-
   it("should handle 40 min time intervals", () => {
     renderDatePicker("February 28, 2018 9:00 AM", {
       timeIntervals: 40,

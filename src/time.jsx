@@ -34,16 +34,13 @@ export default class Time extends React.Component {
 
   static propTypes = {
     format: PropTypes.string,
-    includeTimes: PropTypes.array,
     intervals: PropTypes.number,
     selected: PropTypes.instanceOf(Date),
     openToDate: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
-    timeClassName: PropTypes.func,
     todayButton: PropTypes.node,
     minTime: PropTypes.instanceOf(Date),
     maxTime: PropTypes.instanceOf(Date),
-    excludeTimes: PropTypes.array,
     filterTime: PropTypes.func,
     monthRef: PropTypes.object,
     timeCaption: PropTypes.string,
@@ -78,9 +75,7 @@ export default class Time extends React.Component {
     if (
       ((this.props.minTime || this.props.maxTime) &&
         isTimeInDisabledRange(time, this.props)) ||
-      ((this.props.excludeTimes ||
-        this.props.includeTimes ||
-        this.props.filterTime) &&
+      (this.props.filterTime &&
         isTimeDisabled(time, this.props))
     ) {
       return;
@@ -91,9 +86,6 @@ export default class Time extends React.Component {
   liClasses = (time, currH, currM) => {
     let classes = [
       "react-datepicker__time-list-item",
-      this.props.timeClassName
-        ? this.props.timeClassName(time, currH, currM)
-        : undefined,
     ];
 
     if (
@@ -106,9 +98,7 @@ export default class Time extends React.Component {
     if (
       ((this.props.minTime || this.props.maxTime) &&
         isTimeInDisabledRange(time, this.props)) ||
-      ((this.props.excludeTimes ||
-        this.props.includeTimes ||
-        this.props.filterTime) &&
+      (this.props.filterTime &&
         isTimeDisabled(time, this.props))
     ) {
       classes.push("react-datepicker__time-list-item--disabled");

@@ -171,42 +171,6 @@ describe("Day", () => {
     });
   });
 
-  describe("custom day className", () => {
-    const className = "customClassName";
-
-    it("should apply className returned from passed dayClassName prop function", () => {
-      const day = newDate();
-      const dayClassNameFunc = () => className;
-      const shallowDay = renderDay(day, { dayClassName: dayClassNameFunc });
-      expect(shallowDay.hasClass(className)).to.equal(true);
-    });
-
-    it("should pass rendered days date to dayClassName func", () => {
-      const day = newDate();
-      const dayClassNameFunc = (date) => {
-        expect(date).to.equal(day);
-        return className;
-      };
-      const shallowDay = renderDay(day, { dayClassName: dayClassNameFunc });
-      expect(shallowDay.hasClass(className)).to.equal(true);
-    });
-
-    it("should not add any additional className when passed dayClassName prop function returns undefined", () => {
-      const day = newDate();
-      const dayClassNameFunc = () => undefined;
-      const shallowDay = renderDay(day, { dayClassName: dayClassNameFunc });
-      expect(shallowDay.hasClass(className)).to.equal(false);
-      expect(shallowDay.hasClass("undefined")).to.equal(false);
-    });
-
-    it("should not add any additional className when dayClassName prop is not passed", () => {
-      const day = newDate();
-      const shallowDay = renderDay(day);
-      expect(shallowDay.hasClass(className)).to.equal(false);
-      expect(shallowDay.hasClass("undefined")).to.equal(false);
-    });
-  });
-
   describe("in range", () => {
     const className = "react-datepicker__day--in-range";
 
@@ -355,18 +319,6 @@ describe("Day", () => {
       expect(shallowDay.hasClass(className)).to.equal(false);
     });
 
-    it("should be disabled if date is disabled", () => {
-      const day = newDate();
-      const shallowDay = renderDay(day, { excludeDates: [day] });
-      expect(shallowDay.hasClass(className)).to.equal(true);
-    });
-
-    it("should have aria-disabled attribute with true value if date is disabled", () => {
-      const day = newDate();
-      const shallowDay = renderDay(day, { excludeDates: [day] });
-      expect(shallowDay.prop("aria-disabled")).to.equal(true);
-    });
-
     it("should have aria-disabled attribute with false value if date is not disabled", () => {
       const shallowDay = renderDay(newDate());
       expect(shallowDay.prop("aria-disabled")).to.equal(false);
@@ -376,8 +328,6 @@ describe("Day", () => {
   describe("aria-label", () => {
     const ariaLabelPrefixWhenEnabled =
       "A prefix in my native language desbribing that the date can be selected";
-    const ariaLabelPrefixWhenDisabled =
-      "A prefix in my native language desbribing that the date can not be selected";
 
     it("should have the correct provided prefix if date is not disabled", () => {
       const shallowDay = renderDay(newDate(), {
@@ -385,17 +335,6 @@ describe("Day", () => {
       });
       expect(
         shallowDay.html().indexOf(`aria-label="${ariaLabelPrefixWhenEnabled}`)
-      ).not.equal(-1);
-    });
-
-    it("should have the correct provided prefix if date is disabled", () => {
-      const day = newDate();
-      const shallowDay = renderDay(day, {
-        ariaLabelPrefixWhenDisabled: ariaLabelPrefixWhenDisabled,
-        excludeDates: [day],
-      });
-      expect(
-        shallowDay.html().indexOf(`aria-label="${ariaLabelPrefixWhenDisabled}`)
       ).not.equal(-1);
     });
   });
@@ -416,15 +355,6 @@ describe("Day", () => {
       const dayNode = shallow(<Day day={day} onClick={onClick} />);
       dayNode.find(".react-datepicker__day").simulate("click");
       expect(onClickCalled).to.be.true;
-    });
-
-    it("should not call onClick if day is disabled", () => {
-      const day = newDate();
-      const dayNode = shallow(
-        <Day day={day} excludeDates={[day]} onClick={onClick} />
-      );
-      dayNode.find(".react-datepicker__day").simulate("click");
-      expect(onClickCalled).to.be.false;
     });
   });
 
@@ -534,18 +464,6 @@ describe("Day", () => {
         startDate,
         selectingDate,
         selectsRange: true,
-      });
-      expect(shallowDay.hasClass(rangeDayClassName)).to.be.false;
-    });
-
-    it("should not highlight for disabled dates", () => {
-      const endDate = newDate();
-      const selectingDate = subDays(endDate, 1);
-      const shallowDay = renderDay(selectingDate, {
-        selectingDate,
-        endDate,
-        selectsRange: true,
-        excludeDates: [selectingDate],
       });
       expect(shallowDay.hasClass(rangeDayClassName)).to.be.false;
     });

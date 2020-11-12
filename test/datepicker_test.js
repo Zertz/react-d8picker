@@ -513,14 +513,6 @@ describe("DatePicker", () => {
         utils.formatDate(data.callback.args[0][0], data.testFormat)
       ).to.equal(utils.formatDate(data.copyM, data.testFormat));
     });
-    it("should not select excludeDates", () => {
-      var data = getOnInputKeyDownStuff({
-        excludeDates: [utils.subDays(utils.newDate(), 1)],
-      });
-      TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowLeft"));
-      TestUtils.Simulate.keyDown(data.nodeInput, getKey("Enter"));
-      expect(data.callback.calledOnce).to.be.false;
-    });
     it("should not select dates excluded from filterDate", () => {
       var data = getOnInputKeyDownStuff({
         filterDate: (date) =>

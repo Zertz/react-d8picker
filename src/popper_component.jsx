@@ -24,7 +24,6 @@ export default class PopperComponent extends React.Component {
 
   static propTypes = {
     className: PropTypes.string,
-    wrapperClassName: PropTypes.string,
     hidePopper: PropTypes.bool,
     popperComponent: PropTypes.element,
     popperModifiers: PropTypes.object, // <datepicker/> props
@@ -39,7 +38,6 @@ export default class PopperComponent extends React.Component {
   render() {
     const {
       className,
-      wrapperClassName,
       hidePopper,
       popperComponent,
       popperModifiers,
@@ -82,7 +80,6 @@ export default class PopperComponent extends React.Component {
 
     const wrapperClasses = classnames(
       "react-datepicker-wrapper",
-      wrapperClassName
     );
 
     return (

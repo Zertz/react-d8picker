@@ -8,15 +8,12 @@ export default class Week extends React.Component {
   static propTypes = {
     ariaLabelPrefix: PropTypes.string,
     day: PropTypes.instanceOf(Date).isRequired,
-    dayClassName: PropTypes.func,
     disabledDayAriaLabelPrefix: PropTypes.string,
     chooseDayAriaLabelPrefix: PropTypes.string,
     endDate: PropTypes.instanceOf(Date),
-    excludeDates: PropTypes.array,
     filterDate: PropTypes.func,
     formatWeekNumber: PropTypes.func,
     highlightDates: PropTypes.instanceOf(Map),
-    includeDates: PropTypes.array,
     inline: PropTypes.bool,
     locale: PropTypes.oneOfType([
       PropTypes.string,
@@ -105,8 +102,6 @@ export default class Week extends React.Component {
             onMouseEnter={this.handleDayMouseEnter.bind(this, day)}
             minDate={this.props.minDate}
             maxDate={this.props.maxDate}
-            excludeDates={this.props.excludeDates}
-            includeDates={this.props.includeDates}
             highlightDates={this.props.highlightDates}
             selectingDate={this.props.selectingDate}
             filterDate={this.props.filterDate}
@@ -115,7 +110,6 @@ export default class Week extends React.Component {
             selectsRange={this.props.selectsRange}
             startDate={this.props.startDate}
             endDate={this.props.endDate}
-            dayClassName={this.props.dayClassName}
             renderDayContents={this.props.renderDayContents}
             handleOnKeyDown={this.props.handleOnKeyDown}
             isInputFocused={this.props.isInputFocused}

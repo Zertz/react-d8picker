@@ -64,21 +64,9 @@ describe("Calendar", function () {
     assert(utils.isSameDay(calendar.state().date, minDate));
   });
 
-  it("should start with the min include date in view if after the current date", function () {
-    const minDate = utils.addYears(utils.newDate(), 1);
-    const calendar = getCalendar({ includeDates: [minDate] });
-    assert(utils.isSameDay(calendar.state().date, minDate));
-  });
-
   it("should start with the max date in view if before the current date", function () {
     const maxDate = utils.subYears(utils.newDate(), 1);
     const calendar = getCalendar({ maxDate });
-    assert(utils.isSameDay(calendar.state().date, maxDate));
-  });
-
-  it("should start with the max include date in view if before the current date", function () {
-    const maxDate = utils.subYears(utils.newDate(), 1);
-    const calendar = getCalendar({ includeDates: [maxDate] });
     assert(utils.isSameDay(calendar.state().date, maxDate));
   });
 
@@ -127,37 +115,11 @@ describe("Calendar", function () {
     assert(utils.isSameDay(calendar.state().date, oneMonthFromOpenToDate));
   });
 
-  it("should show month navigation if toggled on", function () {
-    const calendar = getCalendar({
-      includeDates: [utils.newDate()],
-    });
-    const nextNavigationButton = calendar.find(
-      ".react-datepicker__navigation--next"
-    );
-    expect(nextNavigationButton).to.have.length(1);
-  });
-
   it("should correctly format weekday using formatWeekDay prop", function () {
     const calendar = getCalendar({ formatWeekDay: (day) => day[0] });
     calendar
       .find(".react-datepicker__day-name")
       .forEach((dayName) => expect(dayName.text()).to.have.length(1));
-  });
-
-  it("should contain the correct class when using the weekDayClassName prop", () => {
-    const func = (date) => (isSunday(date) ? "sunday" : undefined);
-
-    const calendar = mount(
-      <Calendar
-        dateFormat={dateFormat}
-        onClickOutside={() => {}}
-        onSelect={() => {}}
-        weekDayClassName={func}
-      />
-    );
-
-    const sunday = calendar.find(".react-datepicker__day-name.sunday");
-    expect(sunday).to.have.length(1);
   });
 
   it("should render the months correctly adjusted by monthSelectedIn", () => {

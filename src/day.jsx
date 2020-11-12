@@ -22,7 +22,6 @@ export default class Day extends React.Component {
     ariaLabelPrefixWhenEnabled: PropTypes.string,
     ariaLabelPrefixWhenDisabled: PropTypes.string,
     day: PropTypes.instanceOf(Date).isRequired,
-    dayClassName: PropTypes.func,
     endDate: PropTypes.instanceOf(Date),
     highlightDates: PropTypes.instanceOf(Map),
     inline: PropTypes.bool,
@@ -187,13 +186,9 @@ export default class Day extends React.Component {
     );
   };
 
-  getClassNames = (date) => {
-    const dayClassName = this.props.dayClassName
-      ? this.props.dayClassName(date)
-      : undefined;
+  getClassNames = () => {
     return classnames(
       "react-datepicker__day",
-      dayClassName,
       "react-datepicker__day--" + getDayOfWeekCode(this.props.day),
       {
         "react-datepicker__day--disabled": this.isDisabled(),
@@ -294,7 +289,7 @@ export default class Day extends React.Component {
   render = () => (
     <div
       ref={this.dayEl}
-      className={this.getClassNames(this.props.day)}
+      className={this.getClassNames()}
       onKeyDown={this.handleOnKeyDown}
       onClick={this.handleClick}
       onMouseEnter={this.handleMouseEnter}

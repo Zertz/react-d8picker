@@ -102,27 +102,19 @@ export default class DatePicker extends React.Component {
     ariaLabelledBy: PropTypes.string,
     autoComplete: PropTypes.string,
     autoFocus: PropTypes.bool,
-    calendarClassName: PropTypes.string,
     children: PropTypes.node,
     chooseDayAriaLabelPrefix: PropTypes.string,
     className: PropTypes.string,
     // eslint-disable-next-line react/no-unused-prop-types
     dateFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     dateFormatCalendar: PropTypes.string,
-    dayClassName: PropTypes.func,
-    weekDayClassName: PropTypes.func,
     disabledDayAriaLabelPrefix: PropTypes.string,
-    monthClassName: PropTypes.func,
-    timeClassName: PropTypes.func,
     disabled: PropTypes.bool,
     endDate: PropTypes.instanceOf(Date),
-    excludeDates: PropTypes.array,
     filterDate: PropTypes.func,
     formatWeekNumber: PropTypes.func,
     highlightDates: PropTypes.array,
     id: PropTypes.string,
-    includeDates: PropTypes.array,
-    includeTimes: PropTypes.array,
     injectTimes: PropTypes.array,
     inline: PropTypes.bool,
     locale: PropTypes.oneOfType([
@@ -177,7 +169,6 @@ export default class DatePicker extends React.Component {
     timeIntervals: PropTypes.number,
     minTime: PropTypes.instanceOf(Date),
     maxTime: PropTypes.instanceOf(Date),
-    excludeTimes: PropTypes.array,
     filterTime: PropTypes.func,
     clearButtonTitle: PropTypes.string,
     previousMonthButtonLabel: PropTypes.oneOfType([
@@ -190,7 +181,6 @@ export default class DatePicker extends React.Component {
     ]),
     renderCustomHeader: PropTypes.func,
     renderDayContents: PropTypes.func,
-    wrapperClassName: PropTypes.string,
     focusSelectedMonth: PropTypes.bool,
     onDayMouseEnter: PropTypes.func,
     onMonthMouseLeave: PropTypes.func,
@@ -670,13 +660,10 @@ export default class DatePicker extends React.Component {
         selectsRange={this.props.selectsRange}
         startDate={this.props.startDate}
         endDate={this.props.endDate}
-        excludeDates={this.props.excludeDates}
         filterDate={this.props.filterDate}
         onClickOutside={this.handleCalendarClickOutside}
         formatWeekNumber={this.props.formatWeekNumber}
         highlightDates={this.state.highlightDates}
-        includeDates={this.props.includeDates}
-        includeTimes={this.props.includeTimes}
         injectTimes={this.props.injectTimes}
         inline={this.props.inline}
         peekNextMonth={this.props.peekNextMonth}
@@ -689,10 +676,6 @@ export default class DatePicker extends React.Component {
         monthSelectedIn={this.state.monthSelectedIn}
         onMonthChange={this.props.onMonthChange}
         onYearChange={this.props.onYearChange}
-        dayClassName={this.props.dayClassName}
-        weekDayClassName={this.props.weekDayClassName}
-        monthClassName={this.props.monthClassName}
-        timeClassName={this.props.timeClassName}
         showTimeSelect={this.props.showTimeSelect}
         showTimeSelectOnly={this.props.showTimeSelectOnly}
         onTimeChange={this.handleTimeChange}
@@ -700,10 +683,8 @@ export default class DatePicker extends React.Component {
         timeIntervals={this.props.timeIntervals}
         minTime={this.props.minTime}
         maxTime={this.props.maxTime}
-        excludeTimes={this.props.excludeTimes}
         filterTime={this.props.filterTime}
         timeCaption={this.props.timeCaption}
-        className={this.props.calendarClassName}
         previousMonthButtonLabel={this.props.previousMonthButtonLabel}
         nextMonthButtonLabel={this.props.nextMonthButtonLabel}
         renderCustomHeader={this.props.renderCustomHeader}
@@ -771,7 +752,6 @@ export default class DatePicker extends React.Component {
     return (
       <PopperComponent
         className={this.props.popperClassName}
-        wrapperClassName={this.props.wrapperClassName}
         hidePopper={!this.isCalendarOpen()}
         popperModifiers={this.props.popperModifiers}
         targetComponent={

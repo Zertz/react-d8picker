@@ -7,16 +7,11 @@ import CodeExampleComponent from "../Example";
 import Default from "../../examples/default";
 import ShowTime from "../../examples/showTime";
 import ShowTimeOnly from "../../examples/showTimeOnly";
-import ExcludeTimes from "../../examples/excludeTimes";
-import IncludeTimes from "../../examples/includeTimes";
 import InjectTimes from "../../examples/injectTimes";
 import FilterTimes from "../../examples/filterTimes";
 import ExcludeTimePeriod from "../../examples/excludeTimePeriod";
 import CustomDateFormat from "../../examples/customDateFormat";
 import CustomClassName from "../../examples/customClassName";
-import CustomCalendarClassName from "../../examples/customCalendarClassName";
-import CustomDayClassName from "../../examples/customDayClassName";
-import CustomTimeClassName from "../../examples/customTimeClassName";
 import Today from "../../examples/today";
 import PlaceholderText from "../../examples/placeholderText";
 import SpecificDateRange from "../../examples/specificDateRange";
@@ -25,10 +20,8 @@ import MaxDate from "../../examples/maxDate";
 import Locale from "../../examples/locale";
 import LocaleWithTime from "../../examples/localeWithTime";
 import LocaleWithoutGlobalVariable from "../../examples/localeWithoutGlobalVariable";
-import ExcludeDates from "../../examples/excludeDates";
 import HighlightDates from "../../examples/highlightDates";
 import HighlightDatesRanges from "../../examples/highlightDatesRanges";
-import IncludeDates from "../../examples/includeDates";
 import FilterDates from "../../examples/filterDates";
 import Disabled from "../../examples/disabled";
 import ReadOnly from "../../examples/readOnly";
@@ -79,24 +72,12 @@ export default class exampleComponents extends React.Component {
       component: RenderCustomDay,
     },
     {
-      title: "Custom calendar class name",
-      component: CustomCalendarClassName,
-    },
-    {
       title: "Custom class name",
       component: CustomClassName,
     },
     {
-      title: "Custom day class name",
-      component: CustomDayClassName,
-    },
-    {
       title: "Custom date format",
       component: CustomDateFormat,
-    },
-    {
-      title: "Custom time class name",
-      component: CustomTimeClassName,
     },
     {
       title: "Date range for one datepicker",
@@ -115,14 +96,6 @@ export default class exampleComponents extends React.Component {
       component: WeekNumbers,
     },
     {
-      title: "Exclude dates",
-      component: ExcludeDates,
-    },
-    {
-      title: "Exclude Times",
-      component: ExcludeTimes,
-    },
-    {
       title: "Filter dates",
       component: FilterDates,
     },
@@ -137,14 +110,6 @@ export default class exampleComponents extends React.Component {
     {
       title: "Highlight dates with custom class names and ranges",
       component: HighlightDatesRanges,
-    },
-    {
-      title: "Include dates",
-      component: IncludeDates,
-    },
-    {
-      title: "Include Times",
-      component: IncludeTimes,
     },
     {
       title: "Inject Specific Times",

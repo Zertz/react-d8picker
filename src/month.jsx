@@ -10,15 +10,11 @@ export default class Month extends React.Component {
     chooseDayAriaLabelPrefix: PropTypes.string,
     disabledDayAriaLabelPrefix: PropTypes.string,
     day: PropTypes.instanceOf(Date).isRequired,
-    dayClassName: PropTypes.func,
-    monthClassName: PropTypes.func,
     endDate: PropTypes.instanceOf(Date),
     orderInDisplay: PropTypes.number,
-    excludeDates: PropTypes.array,
     filterDate: PropTypes.func,
     formatWeekNumber: PropTypes.func,
     highlightDates: PropTypes.instanceOf(Map),
-    includeDates: PropTypes.array,
     inline: PropTypes.bool,
     locale: PropTypes.oneOfType([
       PropTypes.string,
@@ -143,8 +139,6 @@ export default class Month extends React.Component {
           locale={this.props.locale}
           minDate={this.props.minDate}
           maxDate={this.props.maxDate}
-          excludeDates={this.props.excludeDates}
-          includeDates={this.props.includeDates}
           inline={this.props.inline}
           highlightDates={this.props.highlightDates}
           selectingDate={this.props.selectingDate}
@@ -155,7 +149,6 @@ export default class Month extends React.Component {
           showWeekNumber={this.props.showWeekNumbers}
           startDate={this.props.startDate}
           endDate={this.props.endDate}
-          dayClassName={this.props.dayClassName}
           renderDayContents={this.props.renderDayContents}
           handleOnKeyDown={this.props.handleOnKeyDown}
           isInputFocused={this.props.isInputFocused}
@@ -365,10 +358,7 @@ export default class Month extends React.Component {
   };
 
   getClassNames = () => {
-    const { day, monthClassName } = this.props;
-    const _monthClassName = monthClassName ? monthClassName(day) : undefined;
-
-    return classnames("react-datepicker__month", _monthClassName);
+    return "react-datepicker__month";
   };
 
   render() {

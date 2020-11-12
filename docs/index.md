@@ -7,21 +7,17 @@
 | `ariaLabelledBy`             | `string`                       |                           |             |
 | `autoComplete`               | `string`                       |                           |             |
 | `autoFocus`                  | `bool`                         |                           |             |
-| `calendarClassName`          | `string`                       |                           |             |
 | `children`                   | `node`                         |                           |             |
 | `chooseDayAriaLabelPrefix`   | `string`                       |                           |             |
 | `className`                  | `string`                       |                           |             |
 | `clearButtonTitle`           | `string`                       |                           |             |
 | `dateFormat`                 | `union(string\|array)`         | `"MM/dd/yyyy"`            |             |
 | `dateFormatCalendar`         | `string`                       | `"LLLL yyyy"`             |             |
-| `dayClassName`               | `func`                         |                           |             |
 | `disabled`                   | `bool`                         | `false`                   |             |
 | `disabledDayAriaLabelPrefix` | `string`                       |                           |             |
 | `enableTabLoop`              | `bool`                         | `true`                    |             |
 | `endDate`                    | `instanceOfDate`               |                           |             |
-| `excludeDates`               | `array`                        |                           |             |
 | `excludeScrollbar`           | `bool`                         | `true`                    |             |
-| `excludeTimes`               | `array`                        |                           |             |
 | `filterDate`                 | `func`                         |                           |             |
 | `filterTime`                 | `func`                         |                           |             |
 | `focusSelectedMonth`         | `bool`                         | `false`                   |             |
@@ -29,8 +25,6 @@
 | `formatWeekNumber`           | `func`                         |                           |             |
 | `highlightDates`             | `array`                        |                           |             |
 | `id`                         | `string`                       |                           |             |
-| `includeDates`               | `array`                        |                           |             |
-| `includeTimes`               | `array`                        |                           |             |
 | `injectTimes`                | `array`                        |                           |             |
 | `inline`                     | `bool`                         |                           |             |
 | `locale`                     | `union(string\|shape)`         |                           |             |
@@ -38,7 +32,6 @@
 | `maxTime`                    | `instanceOfDate`               |                           |             |
 | `minDate`                    | `instanceOfDate`               |                           |             |
 | `minTime`                    | `instanceOfDate`               |                           |             |
-| `monthClassName`             | `func`                         |                           |             |
 | `monthsShown`                | `number`                       | `1`                       |             |
 | `name`                       | `string`                       |                           |             |
 | `nextMonthButtonLabel`       | `union(string\|node)`          | `"Next Month"`            |             |
@@ -81,7 +74,6 @@
 | `strictParsing`              | `bool`                         | `false`                   |             |
 | `tabIndex`                   | `number`                       |                           |             |
 | `timeCaption`                | `string`                       | `"Time"`                  |             |
-| `timeClassName`              | `func`                         |                           |             |
 | `timeFormat`                 | `string`                       |                           |             |
 | `timeIntervals`              | `number`                       | `30`                      |             |
 | `title`                      | `string`                       |                           |             |
@@ -89,6 +81,4 @@
 | `useWeekdaysShort`           | `bool`                         |                           |             |
 | `value`                      | `string`                       |                           |             |
 | `weekAriaLabelPrefix`        | `string`                       |                           |             |
-| `weekDayClassName`           | `func`                         |                           |             |
 | `weekLabel`                  | `string`                       |                           |             |
-| `wrapperClassName`           | `string`                       |                           |             |

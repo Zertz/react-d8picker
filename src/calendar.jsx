@@ -51,18 +51,11 @@ export default class Calendar extends React.Component {
     container: PropTypes.func,
     dateFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
       .isRequired,
-    dayClassName: PropTypes.func,
-    weekDayClassName: PropTypes.func,
     disabledDayAriaLabelPrefix: PropTypes.string,
-    monthClassName: PropTypes.func,
-    timeClassName: PropTypes.func,
     endDate: PropTypes.instanceOf(Date),
-    excludeDates: PropTypes.array,
     filterDate: PropTypes.func,
     formatWeekNumber: PropTypes.func,
     highlightDates: PropTypes.instanceOf(Map),
-    includeDates: PropTypes.array,
-    includeTimes: PropTypes.array,
     injectTimes: PropTypes.array,
     inline: PropTypes.bool,
     locale: PropTypes.oneOfType([
@@ -88,7 +81,6 @@ export default class Calendar extends React.Component {
     onTimeChange: PropTypes.func,
     minTime: PropTypes.instanceOf(Date),
     maxTime: PropTypes.instanceOf(Date),
-    excludeTimes: PropTypes.array,
     filterTime: PropTypes.func,
     timeCaption: PropTypes.string,
     openToDate: PropTypes.instanceOf(Date),
@@ -293,17 +285,10 @@ export default class Calendar extends React.Component {
         const day = addDays(startOfWeek, offset);
         const weekDayName = this.formatWeekday(day, this.props.locale);
 
-        const weekDayClassName = this.props.weekDayClassName
-          ? this.props.weekDayClassName(day)
-          : undefined;
-
         return (
           <div
             key={offset}
-            className={classnames(
-              "react-datepicker__day-name",
-              weekDayClassName
-            )}
+            className="react-datepicker__day-name"
           >
             {weekDayName}
           </div>
@@ -566,8 +551,6 @@ export default class Calendar extends React.Component {
             weekAriaLabelPrefix={this.props.weekAriaLabelPrefix}
             onChange={this.changeMonthYear}
             day={monthDate}
-            dayClassName={this.props.dayClassName}
-            monthClassName={this.props.monthClassName}
             onDayClick={this.handleDayClick}
             handleOnKeyDown={this.props.handleOnKeyDown}
             onDayMouseEnter={this.handleDayMouseEnter}
@@ -578,10 +561,8 @@ export default class Calendar extends React.Component {
             locale={this.props.locale}
             minDate={this.props.minDate}
             maxDate={this.props.maxDate}
-            excludeDates={this.props.excludeDates}
             highlightDates={this.props.highlightDates}
             selectingDate={this.state.selectingDate}
-            includeDates={this.props.includeDates}
             inline={this.props.inline}
             filterDate={this.props.filterDate}
             preSelection={this.props.preSelection}
@@ -621,13 +602,10 @@ export default class Calendar extends React.Component {
           selected={this.props.selected}
           openToDate={this.props.openToDate}
           onChange={this.props.onTimeChange}
-          timeClassName={this.props.timeClassName}
           format={this.props.timeFormat}
-          includeTimes={this.props.includeTimes}
           intervals={this.props.timeIntervals}
           minTime={this.props.minTime}
           maxTime={this.props.maxTime}
-          excludeTimes={this.props.excludeTimes}
           filterTime={this.props.filterTime}
           timeCaption={this.props.timeCaption}
           todayButton={this.props.todayButton}
