@@ -15,8 +15,6 @@ import CustomClassName from "../../examples/customClassName";
 import Today from "../../examples/today";
 import PlaceholderText from "../../examples/placeholderText";
 import SpecificDateRange from "../../examples/specificDateRange";
-import MinDate from "../../examples/minDate";
-import MaxDate from "../../examples/maxDate";
 import Locale from "../../examples/locale";
 import LocaleWithTime from "../../examples/localeWithTime";
 import LocaleWithoutGlobalVariable from "../../examples/localeWithoutGlobalVariable";
@@ -33,7 +31,6 @@ import OpenToDate from "../../examples/openToDate";
 import WeekNumbers from "../../examples/weekNumbers";
 import MultiMonth from "../../examples/multiMonth";
 import MultiMonthPrevious from "../../examples/multiMonthPrevious";
-import MultiMonthInline from "../../examples/multiMonthInline";
 import Children from "../../examples/children";
 import RenderCustomHeader from "../../examples/renderCustomHeader";
 import RenderCustomDay from "../../examples/renderCustomDay";
@@ -132,20 +129,8 @@ export default class exampleComponents extends React.Component {
       component: LocaleWithoutGlobalVariable,
     },
     {
-      title: "Min date",
-      component: MinDate,
-    },
-    {
-      title: "Max date",
-      component: MaxDate,
-    },
-    {
       title: "Multiple months",
       component: MultiMonth,
-    },
-    {
-      title: "Multiple months inline",
-      component: MultiMonthInline,
     },
     {
       title: "onBlur callbacks in console",
