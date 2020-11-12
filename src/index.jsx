@@ -30,7 +30,6 @@ import {
   getHightLightDaysMap,
   getYear,
   getMonth,
-  registerLocale,
   setDefaultLocale,
   getDefaultLocale,
 } from "./date_utils";
@@ -38,7 +37,7 @@ import onClickOutside from "react-onclickoutside";
 
 export { default as CalendarContainer } from "./calendar_container";
 
-export { registerLocale, setDefaultLocale, getDefaultLocale };
+export { setDefaultLocale, getDefaultLocale };
 
 const outsideClickIgnoreClass = "react-datepicker-ignore-onclickoutside";
 const WrappedCalendar = onClickOutside(Calendar);
@@ -115,10 +114,7 @@ export default class DatePicker extends React.Component {
     id: PropTypes.string,
     injectTimes: PropTypes.array,
     inline: PropTypes.bool,
-    locale: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({ locale: PropTypes.object }),
-    ]),
+    locale: PropTypes.shape({ locale: PropTypes.object }),
     maxDate: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
     monthsShown: PropTypes.number,

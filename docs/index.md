@@ -27,7 +27,7 @@
 | `id`                         | `string`                       |                           |             |
 | `injectTimes`                | `array`                        |                           |             |
 | `inline`                     | `bool`                         |                           |             |
-| `locale`                     | `union(string\|shape)`         |                           |             |
+| `locale`                     | `shape`                        |                           |             |
 | `maxDate`                    | `instanceOfDate`               |                           |             |
 | `maxTime`                    | `instanceOfDate`               |                           |             |
 | `minDate`                    | `instanceOfDate`               |                           |             |

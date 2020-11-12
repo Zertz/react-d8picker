@@ -130,15 +130,7 @@ export function isValid(date) {
 // ** Date Formatting **
 
 export function formatDate(date, formatStr, locale) {
-  if (locale === "en") {
-    return format(date, formatStr, { awareOfUnicodeTokens: true });
-  }
   let localeObj = getLocaleObject(locale);
-  if (locale && !localeObj) {
-    console.warn(
-      `A locale object was not found for the provided string ["${locale}"].`
-    );
-  }
   if (
     !localeObj &&
     !!getDefaultLocale() &&
@@ -311,15 +303,6 @@ export function getDaysDiff(date1, date2) {
 
 // ** Date Localization **
 
-export function registerLocale(localeName, localeData) {
-  const scope = typeof window !== "undefined" ? window : global;
-
-  if (!scope.__localeData__) {
-    scope.__localeData__ = {};
-  }
-  scope.__localeData__[localeName] = localeData;
-}
-
 export function setDefaultLocale(localeName) {
   const scope = typeof window !== "undefined" ? window : global;
 
@@ -333,14 +316,8 @@ export function getDefaultLocale() {
 }
 
 export function getLocaleObject(localeSpec) {
-  if (typeof localeSpec === "string") {
-    // Treat it as a locale name registered by registerLocale
-    const scope = typeof window !== "undefined" ? window : global;
-    return scope.__localeData__ ? scope.__localeData__[localeSpec] : null;
-  } else {
-    // Treat it as a raw date-fns locale object
-    return localeSpec;
-  }
+  // Treat it as a raw date-fns locale object
+  return localeSpec;
 }
 
 export function getFormattedWeekdayInLocale(date, formatFunc, locale) {

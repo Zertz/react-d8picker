@@ -15,10 +15,7 @@ export default class Week extends React.Component {
     formatWeekNumber: PropTypes.func,
     highlightDates: PropTypes.instanceOf(Map),
     inline: PropTypes.bool,
-    locale: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({ locale: PropTypes.object }),
-    ]),
+    locale: PropTypes.shape({ locale: PropTypes.object }),
     maxDate: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
     month: PropTypes.number,

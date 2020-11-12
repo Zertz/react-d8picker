@@ -56,10 +56,7 @@ export default class Calendar extends React.Component {
     highlightDates: PropTypes.instanceOf(Map),
     injectTimes: PropTypes.array,
     inline: PropTypes.bool,
-    locale: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({ locale: PropTypes.object }),
-    ]),
+    locale: PropTypes.shape({ locale: PropTypes.object }),
     maxDate: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
     monthsShown: PropTypes.number,

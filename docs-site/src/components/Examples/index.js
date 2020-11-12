@@ -15,8 +15,6 @@ import CustomClassName from "../../examples/customClassName";
 import Today from "../../examples/today";
 import PlaceholderText from "../../examples/placeholderText";
 import SpecificDateRange from "../../examples/specificDateRange";
-import Locale from "../../examples/locale";
-import LocaleWithTime from "../../examples/localeWithTime";
 import LocaleWithoutGlobalVariable from "../../examples/localeWithoutGlobalVariable";
 import HighlightDates from "../../examples/highlightDates";
 import HighlightDatesRanges from "../../examples/highlightDatesRanges";
@@ -115,14 +113,6 @@ export default class exampleComponents extends React.Component {
     {
       title: "Inline version",
       component: Inline,
-    },
-    {
-      title: "Locale",
-      component: Locale,
-    },
-    {
-      title: "Locale with time",
-      component: LocaleWithTime,
     },
     {
       title: "Locale without global variables",

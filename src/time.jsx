@@ -45,10 +45,7 @@ export default class Time extends React.Component {
     monthRef: PropTypes.object,
     timeCaption: PropTypes.string,
     injectTimes: PropTypes.array,
-    locale: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({ locale: PropTypes.object }),
-    ]),
+    locale: PropTypes.shape({ locale: PropTypes.object }),
     showTimeSelectOnly: PropTypes.bool,
   };
 

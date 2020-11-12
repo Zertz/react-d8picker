@@ -2,22 +2,18 @@ import React from "react";
 import Calendar from "../src/calendar";
 import Month from "../src/month";
 import Day from "../src/day";
-import ReactDOM from "react-dom";
-import TestUtils from "react-dom/test-utils";
-import DatePicker from "../src/index.jsx";
 import { shallow, mount } from "enzyme";
 import sinon from "sinon";
 import * as utils from "../src/date_utils";
+import enUS from "date-fns/locale/en-US";
 import eo from "date-fns/locale/eo";
 import fi from "date-fns/locale/fi";
-import { isSunday } from "date-fns";
 
 // TODO Possibly rename
 const DATE_FORMAT = "MM/dd/yyyy";
 
 describe("Calendar", function () {
   const dateFormat = "MMMM yyyy";
-  utils.registerLocale("fi", fi);
 
   function getCalendar(extraProps) {
     return shallow(
@@ -430,7 +426,6 @@ describe("Calendar", function () {
   it("uses weekdaysShort instead of weekdaysMin provided useWeekdaysShort prop is present", () => {
     const calendarShort = mount(
       <Calendar
-        locale="en"
         dateFormat={dateFormat}
         onClickOutside={() => {}}
         onSelect={() => {}}
@@ -439,7 +434,6 @@ describe("Calendar", function () {
     );
     const calendarMin = mount(
       <Calendar
-        locale="en"
         dateFormat={dateFormat}
         onClickOutside={() => {}}
         onSelect={() => {}}
@@ -466,7 +460,7 @@ describe("Calendar", function () {
       expect(firstHeader.text()).to.equal(firstWeekDayMin);
     }
 
-    it("should use the 'en' locale by default", function () {
+    it("should use the 'en-US' locale by default", function () {
       const selected = utils.newDate();
       const calendar = getCalendar({ selected });
       testLocale(calendar, selected);
@@ -474,43 +468,36 @@ describe("Calendar", function () {
 
     it("should use the default locale when set", function () {
       const selected = utils.newDate();
-      utils.setDefaultLocale("fi");
+      utils.setDefaultLocale(fi);
 
       const calendar = getCalendar({ selected });
-      testLocale(calendar, selected, "fi");
-      utils.setDefaultLocale("");
+      testLocale(calendar, selected, fi);
+      utils.setDefaultLocale();
     });
 
     it("should use the locale specified as a prop", function () {
-      utils.registerLocale("fi", fi);
-      const locale = "fi";
+      const locale = fi;
       const selected = utils.newDate();
       const calendar = getCalendar({ selected, locale });
       testLocale(calendar, selected, locale);
     });
 
     it("should override the default locale with the locale prop", function () {
-      const locale = "en";
+      const locale = enUS;
       const selected = utils.newDate();
-      utils.setDefaultLocale("fi");
+      utils.setDefaultLocale(fi);
 
       const calendar = getCalendar({ selected, locale });
       testLocale(calendar, selected, locale);
-      utils.setDefaultLocale("");
+      utils.setDefaultLocale();
     });
 
     it("should accept a raw date-fns locale object", function () {
-      // Note that we explicitly do not call `registerLocale`, because that
-      // would create a global variable, which we want to avoid.
       const locale = eo;
       const selected = utils.newDate();
 
       const calendar = getCalendar({ selected, locale });
       testLocale(calendar, selected, locale);
-
-      // Other tests touch this global, so it will always be present, but at the
-      // very least we can make sure the test worked without 'eo' being added.
-      expect(window.__localeData__).not.to.haveOwnProperty("eo");
     });
 
     it("should render empty custom header", function () {
