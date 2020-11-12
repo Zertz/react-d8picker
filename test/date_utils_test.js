@@ -7,7 +7,6 @@ import {
   isSameDay,
   isSameMonth,
   isSameQuarter,
-  isSameYear,
   isDayDisabled,
   isDayExcluded,
   isMonthDisabled,
@@ -18,7 +17,6 @@ import {
   yearDisabledAfter,
   getEffectiveMinDate,
   getEffectiveMaxDate,
-  addZero,
   isTimeDisabled,
   isTimeInDisabledRange,
   isDayInRange,
@@ -27,12 +25,9 @@ import {
   isQuarterInRange,
   getStartOfYear,
   getYearsPeriod,
-  yearsDisabledAfter,
-  yearsDisabledBefore,
 } from "../src/date_utils";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
-import ptBR from "date-fns/locale/pt-BR";
 
 describe("date_utils", function () {
   describe("newDate", function () {
@@ -134,27 +129,6 @@ describe("date_utils", function () {
 
     it("should return true for equal quarters", function () {
       expect(isSameQuarter(newDate("2016-02-10"), newDate("2016-03-29"))).to.be
-        .true;
-    });
-  });
-
-  describe("isSameYear", function () {
-    it("should return true for null dates", function () {
-      expect(isSameYear(null, null)).to.be.true;
-    });
-
-    it("should return false for a null and non-null date", function () {
-      expect(isSameYear(newDate(), null)).to.be.false;
-      expect(isSameYear(null, newDate())).to.be.false;
-    });
-
-    it("should return false for non-equal years ", function () {
-      expect(isSameYear(newDate("2016-02-10"), newDate("2015-02-10"))).to.be
-        .false;
-    });
-
-    it("should return true for equal years", function () {
-      expect(isSameYear(newDate("2016-02-10"), newDate("2016-12-24"))).to.be
         .true;
     });
   });
@@ -417,22 +391,6 @@ describe("date_utils", function () {
     });
   });
 
-  describe("addZero", () => {
-    it("should return the same number if greater than 10", () => {
-      const input = 11;
-      const expected = "11";
-      const result = addZero(input);
-      assert(result === expected);
-    });
-
-    it("should return the number prefixed with zero if less than 10", () => {
-      const input = 1;
-      const expected = "01";
-      const result = addZero(input);
-      assert(result === expected);
-    });
-  });
-
   describe("isTimeDisabled", function () {
     it("should be enabled by default", () => {
       const date = newDate();
@@ -535,45 +493,28 @@ describe("date_utils", function () {
       const value = "01/15/2019";
       const dateFormat = "MM/dd/yyyy";
 
-      expect(parseDate(value, dateFormat, null, true)).to.not.be.null;
+      expect(parseDate(value, dateFormat, null)).to.not.be.null;
     });
 
     it("should parse date that matches one of the formats", () => {
       const value = "01/15/2019";
       const dateFormat = ["MM/dd/yyyy", "yyyy-MM-dd"];
 
-      expect(parseDate(value, dateFormat, null, true)).to.not.be.null;
+      expect(parseDate(value, dateFormat, null)).to.not.be.null;
     });
 
     it("should not parse date that does not match the format", () => {
       const value = "01/15/20";
       const dateFormat = "MM/dd/yyyy";
 
-      expect(parseDate(value, dateFormat, null, true)).to.be.null;
+      expect(parseDate(value, dateFormat, null)).to.be.null;
     });
 
     it("should not parse date that does not match any of the formats", () => {
       const value = "01/15/20";
       const dateFormat = ["MM/dd/yyyy", "yyyy-MM-dd"];
 
-      expect(parseDate(value, dateFormat, null, true)).to.be.null;
-    });
-
-    it("should parse date without strict parsing", () => {
-      const value = "01/15/20";
-      const dateFormat = "MM/dd/yyyy";
-
-      expect(parseDate(value, dateFormat, null, false)).to.not.be.null;
-    });
-
-    it("should parse date based on locale", () => {
-      const value = "26/05/1995";
-      const dateFormat = "P";
-
-      const expected = new Date("05/26/1995");
-      const actual = parseDate(value, dateFormat, ptBR, false);
-
-      assert(isEqual(actual, expected));
+      expect(parseDate(value, dateFormat, null)).to.be.null;
     });
 
     it("should not parse date based on locale without a given locale", () => {
@@ -659,54 +600,6 @@ describe("date_utils", function () {
       const { startPeriod, endPeriod } = getYearsPeriod(date, 9);
       expect(startPeriod).to.be.eq(1999);
       expect(endPeriod).to.be.eq(2007);
-    });
-  });
-
-  describe("yearsDisabledAfter", () => {
-    it("should return false by default", () => {
-      expect(yearsDisabledAfter(newDate())).to.be.false;
-    });
-
-    it("should return true if max date is in the same year", () => {
-      const day = newDate("2016-03-19");
-      const maxDate = newDate("2016-08-31");
-      expect(yearsDisabledAfter(day, { maxDate })).to.be.true;
-    });
-
-    it("should return false if max date is in the next period years", () => {
-      const day = newDate("2016-03-19");
-      const maxDate = newDate("2018-04-01");
-      expect(yearsDisabledAfter(day, { maxDate })).to.be.false;
-    });
-
-    it("should return false if max date is in a next period year", () => {
-      const day = newDate("1996-08-08 00:00:00");
-      const maxDate = newDate("2020-08-08 00:00:00");
-      expect(yearsDisabledAfter(day, { maxDate })).to.be.false;
-    });
-  });
-
-  describe("yearsDisabledBefore", () => {
-    it("should return false by default", () => {
-      expect(yearsDisabledBefore(newDate())).to.be.false;
-    });
-
-    it("should return true if min date is in the same year", () => {
-      const day = newDate("2016-02-19");
-      const minDate = newDate("2016-03-01");
-      expect(yearsDisabledBefore(day, { minDate })).to.be.true;
-    });
-
-    it("should return false if min date is in the previous period year", () => {
-      const day = newDate("2016-03-19");
-      const minDate = newDate("2004-03-29");
-      expect(yearsDisabledBefore(day, { minDate })).to.be.false;
-    });
-
-    it("should return false if min date is in a previous period year", () => {
-      const day = newDate("2044-08-08 00:00:00");
-      const minDate = newDate("2020-08-08 00:00:00");
-      expect(yearsDisabledBefore(day, { minDate })).to.be.false;
     });
   });
 });

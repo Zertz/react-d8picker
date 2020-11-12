@@ -40,7 +40,6 @@ import endOfMonth from "date-fns/endOfMonth";
 import dfIsEqual from "date-fns/isEqual";
 import dfIsSameDay from "date-fns/isSameDay";
 import dfIsSameMonth from "date-fns/isSameMonth";
-import dfIsSameYear from "date-fns/isSameYear";
 import dfIsSameQuarter from "date-fns/isSameQuarter";
 import isAfter from "date-fns/isAfter";
 import isBefore from "date-fns/isBefore";
@@ -208,14 +207,6 @@ export { addHours, subDays, subWeeks, subMonths, subYears };
 // ** Date Comparison **
 
 export { isBefore, isAfter };
-
-export function isSameYear(date1, date2) {
-  if (date1 && date2) {
-    return dfIsSameYear(date1, date2);
-  } else {
-    return !date1 && !date2;
-  }
-}
 
 export function isSameMonth(date1, date2) {
   if (date1 && date2) {
@@ -390,14 +381,6 @@ export function isOutOfBounds(day, { minDate, maxDate } = {}) {
   );
 }
 
-export function isTimeInList(time, times) {
-  return times.some(
-    (listTime) =>
-      getHours(listTime) === getHours(time) &&
-      getMinutes(listTime) === getMinutes(time)
-  );
-}
-
 export function isTimeDisabled(time, { filterTime } = {}) {
   return (filterTime && !filterTime(time)) || false;
 }
@@ -447,29 +430,9 @@ export function yearDisabledBefore(day, { minDate } = {}) {
   );
 }
 
-export function yearsDisabledBefore(
-  day,
-  { minDate, yearItemNumber = DEFAULT_YEAR_ITEM_NUMBER } = {}
-) {
-  const previousYear = getStartOfYear(subYears(day, yearItemNumber));
-  const { endPeriod } = getYearsPeriod(previousYear, yearItemNumber);
-  const minDateYear = minDate && getYear(minDate);
-  return (minDateYear && minDateYear > endPeriod) || false;
-}
-
 export function yearDisabledAfter(day, { maxDate } = {}) {
   const nextYear = addYears(day, 1);
   return (maxDate && differenceInCalendarYears(nextYear, maxDate) > 0) || false;
-}
-
-export function yearsDisabledAfter(
-  day,
-  { maxDate, yearItemNumber = DEFAULT_YEAR_ITEM_NUMBER } = {}
-) {
-  const nextYear = addYears(day, yearItemNumber);
-  const { startPeriod } = getYearsPeriod(nextYear, yearItemNumber);
-  const maxDateYear = maxDate && getYear(maxDate);
-  return (maxDateYear && maxDateYear < startPeriod) || false;
 }
 
 export function getEffectiveMinDate({ minDate }) {
@@ -542,10 +505,6 @@ export function timesToInjectAfter(
   }
 
   return times;
-}
-
-export function addZero(i) {
-  return i < 10 ? `0${i}` : `${i}`;
 }
 
 export function getYearsPeriod(

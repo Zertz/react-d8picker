@@ -242,7 +242,7 @@ describe("DatePicker", () => {
     );
 
     var input = ReactDOM.findDOMNode(datePicker.input);
-    input.value = utils.newDate("2014-01-02");
+    input.value = "02/01/2014";
     TestUtils.Simulate.change(input);
 
     expect(utils.getHours(date)).to.equal(10);
@@ -505,7 +505,7 @@ describe("DatePicker", () => {
     it("should update the selected date on manual input", () => {
       var data = getOnInputKeyDownStuff();
       TestUtils.Simulate.change(data.nodeInput, {
-        target: { value: "02/02/2017" },
+        target: { value: "2017-02-02" },
       });
       TestUtils.Simulate.keyDown(data.nodeInput, getKey("Enter"));
       data.copyM = utils.newDate("2017-02-02");

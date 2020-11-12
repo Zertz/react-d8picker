@@ -88,8 +88,8 @@ More examples of how to use the time picker are given on the [main website](http
 
 The date picker relies on [date-fns internationalization](https://date-fns.org/v2.0.0-alpha.18/docs/I18n) to localize its display components. By default, the date picker will use the locale globally set, which is English. Provided are 3 helper methods to set the locale:
 
-- **setDefaultLocale** (string): sets a registered locale as the default for all datepicker instances
-- **getDefaultLocale**: returns a string showing the currently set default locale
+- **setDefaultLocale** (string): sets a locale as the default for all datepicker instances
+- **getDefaultLocale**: returns the currently set default locale
 
 ```js
 import { setDefaultLocale } from "react-datepicker";
