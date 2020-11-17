@@ -1,15 +1,15 @@
 {
-  "author": "HackerOne",
-  "name": "react-datepicker",
-  "description": "A simple and reusable datepicker component for React",
-  "version": "3.3.0",
+  "author": "Zertz",
+  "name": "react-d8picker",
+  "description": "A simple and extendable date and time picker component for React",
+  "version": "4.0.0",
   "license": "MIT",
-  "homepage": "https://github.com/Hacker0x01/react-datepicker",
+  "homepage": "https://github.com/Zertz/react-d8picker",
   "main": "dist/index.js",
-  "browser": "dist/react-datepicker.min.js",
+  "browser": "dist/react-d8picker.min.js",
   "module": "dist/es/index.js",
-  "unpkg": "dist/react-datepicker.min.js",
-  "style": "dist/react-datepicker.min.css",
+  "unpkg": "dist/react-d8picker.min.js",
+  "style": "dist/react-d8picker.min.css",
   "files": [
     "*.md",
     "dist",
@@ -27,12 +27,9 @@
     "date",
     "react-component"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/Hacker0x01/react-datepicker.git"
-  },
+  "repository": "https://github.com/Zertz/react-d8picker",
   "bugs": {
-    "url": "https://github.com/Hacker0x01/react-datepicker/issues"
+    "url": "https://github.com/Zertz/react-d8picker/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -121,10 +118,10 @@
     "test:watch": "cross-env NODE_ENV=test karma start karma.conf.js --watch",
     "build": "cross-env NODE_ENV=production run-p build:** && run-p css:**",
     "build-dev": "cross-env NODE_ENV=development run-p build:** && run-p css:**",
-    "css:prod": "node-sass --output-style compressed src/stylesheets/datepicker.scss > dist/react-datepicker.min.css",
-    "css:modules:prod": "node-sass --output-style compressed src/stylesheets/datepicker-cssmodules.scss > dist/react-datepicker-min.module.css",
-    "css:dev": "node-sass --output-style expanded src/stylesheets/datepicker.scss > dist/react-datepicker.css",
-    "css:modules:dev": "node-sass --output-style expanded src/stylesheets/datepicker-cssmodules.scss > dist/react-datepicker.module.css",
+    "css:prod": "node-sass --output-style compressed src/stylesheets/datepicker.scss > dist/react-d8picker.min.css",
+    "css:modules:prod": "node-sass --output-style compressed src/stylesheets/datepicker-cssmodules.scss > dist/react-d8picker-min.module.css",
+    "css:dev": "node-sass --output-style expanded src/stylesheets/datepicker.scss > dist/react-d8picker.css",
+    "css:modules:dev": "node-sass --output-style expanded src/stylesheets/datepicker-cssmodules.scss > dist/react-d8picker.module.css",
     "build:js": "rollup -c",
     "js:dev": "rollup -cw"
   }

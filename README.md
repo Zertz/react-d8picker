@@ -1,12 +1,6 @@
 # React Date Picker
 
-[![npm version](https://badge.fury.io/js/react-datepicker.svg)](https://badge.fury.io/js/react-datepicker)
-[![Build Status](https://travis-ci.org/Hacker0x01/react-datepicker.svg?branch=master)](https://travis-ci.org/Hacker0x01/react-datepicker)
-[![Dependency Status](https://david-dm.org/Hacker0x01/react-datepicker.svg)](https://david-dm.org/Hacker0x01/react-datepicker)
-[![codecov](https://codecov.io/gh/Hacker0x01/react-datepicker/branch/master/graph/badge.svg)](https://codecov.io/gh/Hacker0x01/react-datepicker)
-[![Downloads](https://img.shields.io/npm/dm/react-datepicker.svg)](https://npmjs.org/package/react-datepicker)
-[![Code Quality: Javascript](https://img.shields.io/lgtm/grade/javascript/g/Hacker0x01/react-datepicker.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Hacker0x01/react-datepicker/context:javascript)
-[![Total Alerts](https://img.shields.io/lgtm/alerts/g/Hacker0x01/react-datepicker.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Hacker0x01/react-datepicker/alerts)
+[![npm version](https://badge.fury.io/js/react-d8picker.svg)](https://badge.fury.io/js/react-d8picker)
 
 A simple and reusable Datepicker component for React ([Demo](https://reactdatepicker.com/))
 
@@ -17,25 +11,25 @@ A simple and reusable Datepicker component for React ([Demo](https://reactdatepi
 The package can be installed via [npm](https://github.com/npm/cli):
 
 ```
-npm install react-datepicker --save
+npm install react-d8picker --save
 ```
 
 Or via [yarn](https://github.com/yarnpkg/yarn):
 
 ```
-yarn add react-datepicker
+yarn add react-d8picker
 ```
 
 You’ll need to install React and PropTypes separately since those dependencies aren’t included in the package. If you need to use a locale other than the default en-US, you'll also need to import that into your project from date-fns (see Localization section below). Below is a simple example of how to use the Datepicker in a React view. You will also need to require the CSS file from this package (or provide your own). The example below shows how to include the CSS from this package if your build system supports requiring CSS files (Webpack is one that does).
 
 ```js
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-d8picker";
 
-import "react-datepicker/dist/react-datepicker.css";
+import "react-d8picker/dist/react-d8picker.css";
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+// CSS Modules, react-d8picker-cssmodules.css
+// import 'react-d8picker/dist/react-d8picker-cssmodules.css';
 
 const Example = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -65,7 +59,7 @@ You can use `onSelect` event handler which fires each time some calendar date ha
 
 `onClickOutside` handler may be useful to close datepicker in `inline` mode
 
-See [here](https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md) for a full list of props that may be passed to the component. Examples are given on the [main website](https://hacker0x01.github.io/react-datepicker).
+See [here](https://github.com/Zertz/react-d8picker/blob/master/docs/datepicker.md) for a full list of props that may be passed to the component. Examples are given on the [main website](https://zertz.github.io/react-d8picker).
 
 ### Time picker
 
@@ -82,7 +76,7 @@ You can also include a time picker by adding the showTimeSelect prop
 
 Times will be displayed at 30-minute intervals by default (default configurable via timeIntervals prop)
 
-More examples of how to use the time picker are given on the [main website](https://hacker0x01.github.io/react-datepicker)
+More examples of how to use the time picker are given on the [main website](https://zertz.github.io/react-d8picker)
 
 ### Localization
 
@@ -92,7 +86,7 @@ The date picker relies on [date-fns internationalization](https://date-fns.org/v
 - **getDefaultLocale**: returns the currently set default locale
 
 ```js
-import { setDefaultLocale } from "react-datepicker";
+import { setDefaultLocale } from "react-d8picker";
 import es from "date-fns/locale/es";
 
 <DatePicker locale={es} />;
@@ -106,16 +100,7 @@ We're always trying to stay compatible with the latest version of React. We can'
 
 Latest compatible versions:
 
-- React 16 or newer: React-datepicker v2.9.4 and newer
-- React 15.5: React-datepicker v2.9.3
-- React 15.4.1: needs React-datepicker v0.40.0, newer won't work (due to react-onclickoutside dependencies)
-- React 0.14 or newer: All above React-datepicker v0.13.0
-- React 0.13: React-datepicker v0.13.0
-- pre React 0.13: React-datepicker v0.6.2
-
-### Moment.js
-
-Up until version 1.8.0, this package was using Moment.js. Starting v2.0.0, we switched to using `date-fns`, which uses native Date objects, to reduce the size of the package. If you're switching from 1.8.0 to 2.0.0 or higher, please see the updated example above of check out the [examples site](https://reactdatepicker.com) for up to date examples.
+- React 16 or newer: React-d8picker v4.0.0 and newer
 
 ### Browser Support
 

@@ -36,7 +36,7 @@ import SelectsRange from "../../examples/selectsRange";
 import SelectsRangeMultiMonth from "../../examples/selectsRangeMultiMonth";
 
 import "./style.scss";
-import "react-datepicker/dist/react-datepicker.css";
+import "react-d8picker/dist/react-d8picker.css";
 
 export default class exampleComponents extends React.Component {
   componentDidMount() {

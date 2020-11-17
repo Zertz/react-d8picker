@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-d8picker";
 import * as DateFNS from "date-fns/esm";
 import fi from "date-fns/locale/fi";
 import slugify from "slugify";

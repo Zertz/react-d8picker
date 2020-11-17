@@ -36,7 +36,7 @@ const config = {
       globals,
     },
     {
-      file: "dist/react-datepicker.js",
+      file: "dist/react-d8picker.js",
       format: "umd",
       name: "DatePicker",
       globals,

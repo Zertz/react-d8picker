@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ExampleComponents from "../Examples";
 import ribbon from "./ribbon.png";
 import logo from "./logo.png";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-d8picker";
 
 const Example = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -59,31 +59,10 @@ const Root = () => (
     <div className="wrapper">
       <h1>React Datepicker</h1>
       <p className="badges">
-        <a href="https://npmjs.org/package/react-datepicker">
+        <a href="https://npmjs.org/package/react-d8picker">
           <img
-            src="https://badge.fury.io/js/react-datepicker.svg"
+            src="https://badge.fury.io/js/react-d8picker.svg"
             alt="NPM package version badge"
-            className="badge"
-          />
-        </a>
-        <a href="https://travis-ci.org/Hacker0x01/react-datepicker">
-          <img
-            src="https://travis-ci.org/Hacker0x01/react-datepicker.svg?branch=master"
-            alt="Travis CI status badge"
-            className="badge"
-          />
-        </a>
-        <a href="https://david-dm.org/Hacker0x01/react-datepicker">
-          <img
-            src="https://david-dm.org/Hacker0x01/react-datepicker.svg"
-            alt="Dependency status badge"
-            className="badge"
-          />
-        </a>
-        <a href={"https://npmjs.org/package/react-datepicker"}>
-          <img
-            src="https://img.shields.io/npm/dm/react-datepicker.svg"
-            alt="Download count badge"
             className="badge"
           />
         </a>
@@ -93,11 +72,11 @@ const Root = () => (
       <h2>Installation</h2>
       <p>The package can be installed via NPM:</p>
       <p>
-        <code>npm install react-datepicker --save</code>
+        <code>npm install react-d8picker --save</code>
       </p>
       <p>Or by using Yarn:</p>
       <p>
-        <code>yarn add react-datepicker</code>
+        <code>yarn add react-d8picker</code>
       </p>
       <p>
         Below are examples which also can be edited directly via the editor on
@@ -108,7 +87,7 @@ const Root = () => (
       <ExampleComponents />
     </div>
 
-    <a href="https://github.com/Hacker0x01/react-datepicker/">
+    <a href="https://github.com/Zertz/react-d8picker/">
       <img className="github-ribbon" src={ribbon} alt="Fork me on GitHub" />
     </a>
   </div>
