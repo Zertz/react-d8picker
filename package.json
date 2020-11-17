@@ -2,7 +2,7 @@
   "author": "Zertz",
   "name": "react-d8picker",
   "description": "A simple and extendable date and time picker component for React",
-  "version": "4.0.3",
+  "version": "4.0.5",
   "license": "MIT",
   "homepage": "https://github.com/Zertz/react-d8picker",
   "main": "dist/index.js",
