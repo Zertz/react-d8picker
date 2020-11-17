@@ -43,6 +43,6 @@ jobs:
           scope: "@zertz"
       - run: yarn
       - run: yarn build
-      - run: yarn publish
+      - run: echo @zertz:registry=https://npm.pkg.github.com/ >> .npmrc && yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
