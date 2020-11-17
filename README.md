@@ -40,7 +40,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const Example = () => {
   const [startDate, setStartDate] = useState(new Date());
   return (
-    <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
   );
 };
 ```
@@ -50,7 +50,7 @@ const Example = () => {
 The most basic use of the DatePicker can be described with:
 
 ```js
-<DatePicker selected={startdate} onChange={date => setStartDate(date)} />
+<DatePicker selected={startdate} onChange={(date) => setStartDate(date)} />
 ```
 
 You can use `onSelect` event handler which fires each time some calendar date has been selected
@@ -88,23 +88,15 @@ More examples of how to use the time picker are given on the [main website](http
 
 The date picker relies on [date-fns internationalization](https://date-fns.org/v2.0.0-alpha.18/docs/I18n) to localize its display components. By default, the date picker will use the locale globally set, which is English. Provided are 3 helper methods to set the locale:
 
-- **registerLocale** (string, object): loads an imported locale object from date-fns
-- **setDefaultLocale** (string): sets a registered locale as the default for all datepicker instances
-- **getDefaultLocale**: returns a string showing the currently set default locale
+- **setDefaultLocale** (string): sets a locale as the default for all datepicker instances
+- **getDefaultLocale**: returns the currently set default locale
 
 ```js
-import { registerLocale, setDefaultLocale } from  "react-datepicker";
-import es from 'date-fns/locale/es';
-registerLocale('es', es)
+import { setDefaultLocale } from "react-datepicker";
+import es from "date-fns/locale/es";
 
-<DatePicker
-  locale="es"
-/>
+<DatePicker locale={es} />;
 ```
-
-Locales can be changed in the following way:
-
-- **Globally** - `setDefaultLocale('es');`
 
 ## Compatibility
 

@@ -37,16 +37,6 @@ describe("DatePicker", () => {
       expect(elem).to.have.length(0);
     });
 
-    it("should not show previous month button when showTimeSelectOnly prop is present", () => {
-      var elem = datePicker.find(".react-datepicker__navigation--previous");
-      expect(elem).to.have.length(0);
-    });
-
-    it("should not show next month button when showTimeSelectOnly prop is present", () => {
-      var elem = datePicker.find(".react-datepicker__navigation--next");
-      expect(elem).to.have.length(0);
-    });
-
     it("should not show today button when showTimeSelectOnly prop is present", () => {
       var elem = datePicker.find(".react-datepicker__today-button");
       expect(elem).to.have.length(0);

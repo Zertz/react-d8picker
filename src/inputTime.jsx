@@ -4,21 +4,18 @@ import PropTypes from "prop-types";
 export default class inputTime extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
-    date: PropTypes.instanceOf(Date),
     timeString: PropTypes.string,
-    timeInputLabel: PropTypes.string,
-    customTimeInput: PropTypes.element
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      time: this.props.timeString
+      time: this.props.timeString,
     };
   }
 
-  onTimeChange = time => {
+  onTimeChange = (time) => {
     this.setState({ time });
     const date = new Date();
     date.setHours(time.split(":")[0]);
@@ -28,15 +25,7 @@ export default class inputTime extends React.Component {
 
   renderTimeInput = () => {
     const { time } = this.state;
-    const { date, timeString, customTimeInput } = this.props;
-
-    if (customTimeInput) {
-      return React.cloneElement(customTimeInput, {
-        date,
-        value: time,
-        onChange: this.onTimeChange
-      });
-    }
+    const { timeString } = this.props;
 
     return (
       <input
@@ -46,7 +35,7 @@ export default class inputTime extends React.Component {
         name="time-input"
         required
         value={time}
-        onChange={ev => {
+        onChange={(ev) => {
           this.onTimeChange(ev.target.value || timeString);
         }}
       />
@@ -56,9 +45,6 @@ export default class inputTime extends React.Component {
   render() {
     return (
       <div className="react-datepicker__input-time-container">
-        <div className="react-datepicker-time__caption">
-          {this.props.timeInputLabel}
-        </div>
         <div className="react-datepicker-time__input-container">
           <div className="react-datepicker-time__input">
             {this.renderTimeInput()}

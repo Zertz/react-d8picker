@@ -31,9 +31,11 @@ describe("WeekNumber", () => {
     it("should have an aria-label containing the provided prefix", () => {
       const ariaLabelPrefix = "A prefix in my native language";
       const shallowWeekNumber = shallow(
-        <WeekNumber day={1} ariaLabelPrefix={ariaLabelPrefix} />
+        <WeekNumber weekNumber={1} ariaLabelPrefix={ariaLabelPrefix} />
       );
-      expect(shallowWeekNumber.html().indexOf(`aria-label="${ariaLabelPrefix}`)).not.equal(-1);
+      expect(
+        shallowWeekNumber.html().indexOf(`aria-label="${ariaLabelPrefix}`)
+      ).not.equal(-1);
     });
   });
 });

@@ -1,12 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 import TimeComponent from "../src/time";
-import * as utils from "../src/date_utils";
 import ptBR from "date-fns/locale/pt-BR";
 
 describe("TimeComponent", () => {
-  utils.registerLocale("pt-BR", ptBR);
-
   let sandbox;
 
   beforeEach(() => {
@@ -14,7 +11,7 @@ describe("TimeComponent", () => {
     // mock global time to June 14, 1990 13:28:12, so test results will be constant
     sandbox.useFakeTimers({
       now: new Date("1990-06-14 13:28").valueOf(),
-      toFake: ["Date"]
+      toFake: ["Date"],
     });
   });
 
@@ -43,7 +40,7 @@ describe("TimeComponent", () => {
     });
 
     it("should format the time based on the pt-BR locale", () => {
-      mount(<TimeComponent format="p" locale="pt-BR" />);
+      mount(<TimeComponent format="p" locale={ptBR} />);
       expect(spy.args[0][1].innerHTML).to.eq("13:00");
     });
   });
@@ -123,7 +120,7 @@ describe("TimeComponent", () => {
       expect(
         TimeComponent.calcCenterPosition(200, {
           offsetTop: 0,
-          clientHeight: 50
+          clientHeight: 50,
         })
       ).to.be.eq(-75);
     });
@@ -132,7 +129,7 @@ describe("TimeComponent", () => {
       expect(
         TimeComponent.calcCenterPosition(200, {
           offsetTop: 150,
-          clientHeight: 50
+          clientHeight: 50,
         })
       ).to.be.eq(75);
     });
@@ -147,7 +144,7 @@ describe("TimeComponent", () => {
       expect(
         TimeComponent.calcCenterPosition(90, {
           offsetTop: 60,
-          clientHeight: 30
+          clientHeight: 30,
         })
       ).to.be.eq(30);
     });
