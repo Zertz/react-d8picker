@@ -19,9 +19,9 @@ describe("TimeComponent", () => {
     const timeComponent = mount(
       <TimeComponent
         injectTimes={[
-          utils.addMinutes(today, 1),
-          utils.addMinutes(today, 725),
-          utils.addMinutes(today, 1439),
+          utils.add(today, { minutes: 1 }),
+          utils.add(today, { minutes: 725 }),
+          utils.add(today, { minutes: 1439 }),
         ]}
       />
     );
@@ -38,9 +38,9 @@ describe("TimeComponent", () => {
       <TimeComponent
         timeIntervals={60}
         injectTimes={[
-          utils.addMinutes(today, 0),
-          utils.addMinutes(today, 60),
-          utils.addMinutes(today, 1440),
+          utils.add(today, { minutes: 0 }),
+          utils.add(today, { minutes: 60 }),
+          utils.add(today, { minutes: 1440 }),
         ]}
       />
     );
@@ -57,9 +57,9 @@ describe("TimeComponent", () => {
       <TimeComponent
         timeIntervals={60}
         injectTimes={[
-          utils.addMinutes(today, 1),
-          utils.addMinutes(today, 2),
-          utils.addMinutes(today, 3),
+          utils.add(today, { minutes: 1 }),
+          utils.add(today, { minutes: 2 }),
+          utils.add(today, { minutes: 3 }),
         ]}
       />
     );
@@ -76,9 +76,9 @@ describe("TimeComponent", () => {
       <TimeComponent
         timeIntervals={60}
         injectTimes={[
-          utils.addMinutes(today, 3),
-          utils.addMinutes(today, 1),
-          utils.addMinutes(today, 2),
+          utils.add(today, { minutes: 3 }),
+          utils.add(today, { minutes: 1 }),
+          utils.add(today, { minutes: 2 }),
         ]}
       />
     );

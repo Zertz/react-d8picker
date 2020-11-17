@@ -1,16 +1,7 @@
 import isDate from "date-fns/isDate";
 import isValidDate from "date-fns/isValid";
 import format from "date-fns/format";
-import addMinutes from "date-fns/addMinutes";
-import addHours from "date-fns/addHours";
-import addDays from "date-fns/addDays";
-import addWeeks from "date-fns/addWeeks";
-import addMonths from "date-fns/addMonths";
-import addYears from "date-fns/addYears";
-import subDays from "date-fns/subDays";
-import subWeeks from "date-fns/subWeeks";
-import subMonths from "date-fns/subMonths";
-import subYears from "date-fns/subYears";
+import add from "date-fns/add";
 import getSeconds from "date-fns/getSeconds";
 import getMinutes from "date-fns/getMinutes";
 import getHours from "date-fns/getHours";
@@ -198,11 +189,7 @@ export function getEndOfMonth(date) {
 
 // *** Addition ***
 
-export { addMinutes, addDays, addWeeks, addMonths, addYears };
-
-// *** Subtraction ***
-
-export { addHours, subDays, subWeeks, subMonths, subYears };
+export { add };
 
 // ** Date Comparison **
 
@@ -410,28 +397,28 @@ export function isTimeInDisabledRange(time, { minTime, maxTime }) {
 }
 
 export function monthDisabledBefore(day, { minDate } = {}) {
-  const previousMonth = subMonths(day, 1);
+  const previousMonth = add(day, { months: -1 });
   return (
     (minDate && differenceInCalendarMonths(minDate, previousMonth) > 0) || false
   );
 }
 
 export function monthDisabledAfter(day, { maxDate } = {}) {
-  const nextMonth = addMonths(day, 1);
+  const nextMonth = add(day, { months: 1 });
   return (
     (maxDate && differenceInCalendarMonths(nextMonth, maxDate) > 0) || false
   );
 }
 
 export function yearDisabledBefore(day, { minDate } = {}) {
-  const previousYear = subYears(day, 1);
+  const previousYear = add(day, { years: -1 });
   return (
     (minDate && differenceInCalendarYears(minDate, previousYear) > 0) || false
   );
 }
 
 export function yearDisabledAfter(day, { maxDate } = {}) {
-  const nextYear = addYears(day, 1);
+  const nextYear = add(day, { years: 1 });
   return (maxDate && differenceInCalendarYears(nextYear, maxDate) > 0) || false;
 }
 
@@ -487,14 +474,13 @@ export function timesToInjectAfter(
   const l = injectedTimes.length;
   const times = [];
   for (let i = 0; i < l; i++) {
-    const injectedTime = addMinutes(
-      addHours(startOfDay, getHours(injectedTimes[i])),
-      getMinutes(injectedTimes[i])
+    const injectedTime = add(
+      add(startOfDay, { hours: getHours(injectedTimes[i]) }),
+      { minutes: getMinutes(injectedTimes[i]) }
     );
-    const nextTime = addMinutes(
-      startOfDay,
-      (currentMultiplier + 1) * intervals
-    );
+    const nextTime = add(startOfDay, {
+      minutes: (currentMultiplier + 1) * intervals,
+    });
 
     if (
       isAfter(injectedTime, currentTime) &&

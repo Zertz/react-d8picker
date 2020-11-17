@@ -8,16 +8,12 @@ import {
   newDate,
   setMonth,
   getMonth,
-  addMonths,
-  subMonths,
+  add,
   getStartOfWeek,
   getStartOfToday,
-  addDays,
   setYear,
   getYear,
   isBefore,
-  addYears,
-  subYears,
   isAfter,
   getFormattedWeekdayInLocale,
   getWeekdayShortInLocale,
@@ -169,7 +165,7 @@ export default class Calendar extends React.Component {
   increaseMonth = () => {
     this.setState(
       ({ date }) => ({
-        date: addMonths(date, 1),
+        date: add(date, { months: 1 }),
       }),
       () => this.handleMonthChange(this.state.date)
     );
@@ -178,7 +174,7 @@ export default class Calendar extends React.Component {
   decreaseMonth = () => {
     this.setState(
       ({ date }) => ({
-        date: subMonths(date, 1),
+        date: add(date, { months: -1 }),
       }),
       () => this.handleMonthChange(this.state.date)
     );
@@ -265,7 +261,7 @@ export default class Calendar extends React.Component {
     }
     return dayNames.concat(
       [0, 1, 2, 3, 4, 5, 6].map((offset) => {
-        const day = addDays(startOfWeek, offset);
+        const day = add(startOfWeek, { days: offset });
         const weekDayName = this.formatWeekday(day, this.props.locale);
 
         return (
@@ -289,7 +285,7 @@ export default class Calendar extends React.Component {
   decreaseYear = () => {
     this.setState(
       ({ date }) => ({
-        date: subYears(date, 1),
+        date: add(date, { years: -1 }),
       }),
       () => this.handleYearChange(this.state.date)
     );
@@ -298,7 +294,7 @@ export default class Calendar extends React.Component {
   increaseYear = () => {
     this.setState(
       ({ date }) => ({
-        date: addYears(date, 1),
+        date: add(date, { years: 1 }),
       }),
       () => this.handleYearChange(this.state.date)
     );
@@ -387,10 +383,10 @@ export default class Calendar extends React.Component {
     var monthsToSubtract = this.props.showPreviousMonths
       ? this.props.monthsShown - 1
       : 0;
-    var fromMonthDate = subMonths(this.state.date, monthsToSubtract);
+    var fromMonthDate = add(this.state.date, { months: monthsToSubtract * -1 });
     for (var i = 0; i < this.props.monthsShown; ++i) {
       var monthsToAdd = i - this.props.monthSelectedIn;
-      var monthDate = addMonths(fromMonthDate, monthsToAdd);
+      var monthDate = add(fromMonthDate, { months: monthsToAdd });
       var monthKey = `month-${i}`;
       var monthShowsDuplicateDaysEnd = i < this.props.monthsShown - 1;
       var monthShowsDuplicateDaysStart = i > 0;

@@ -87,7 +87,7 @@ export default class Week extends React.Component {
     }
     return days.concat(
       [0, 1, 2, 3, 4, 5, 6].map((offset) => {
-        const day = utils.addDays(startOfWeek, offset);
+        const day = utils.add(startOfWeek, { days: offset });
         return (
           <Day
             ariaLabelPrefixWhenEnabled={this.props.chooseDayAriaLabelPrefix}

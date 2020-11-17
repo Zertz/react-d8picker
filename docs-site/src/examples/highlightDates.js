@@ -4,7 +4,10 @@
     <DatePicker
       selected={startDate}
       onChange={(date) => setStartDate(date)}
-      highlightDates={[subDays(new Date(), 7), addDays(new Date(), 7)]}
+      highlightDates={[
+        add(new Date(), { days: -7 }),
+        add(new Date(), { days: 7 }),
+      ]}
       placeholderText="This highlights a week ago and a week from today"
     />
   );

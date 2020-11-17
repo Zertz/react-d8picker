@@ -332,7 +332,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("ArrowLeft")
     );
-    data.copyM = utils.subDays(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { days: -1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -344,7 +344,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("ArrowRight")
     );
-    data.copyM = utils.addDays(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { days: 1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -356,7 +356,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("ArrowUp")
     );
-    data.copyM = utils.subWeeks(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { weeks: -1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -368,7 +368,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("ArrowDown")
     );
-    data.copyM = utils.addWeeks(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { weeks: 1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -380,7 +380,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("PageUp")
     );
-    data.copyM = utils.subMonths(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { months: -1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -392,7 +392,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("PageDown")
     );
-    data.copyM = utils.addMonths(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { months: 1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -404,7 +404,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("End")
     );
-    data.copyM = utils.addYears(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { years: 1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -416,15 +416,15 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("Home")
     );
-    data.copyM = utils.subYears(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { years: -1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
   });
   it("should not preSelect date if not between minDate and maxDate", () => {
     var data = getOnInputKeyDownStuff({
-      minDate: utils.subDays(utils.newDate(), 1),
-      maxDate: utils.addDays(utils.newDate(), 1),
+      minDate: utils.add(utils.newDate(), { days: -1 }),
+      maxDate: utils.add(utils.newDate(), { days: 1 }),
     });
     TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowDown"));
     expect(
@@ -433,7 +433,7 @@ describe("DatePicker", () => {
   });
   it("should not preSelect date if before minDate", () => {
     var data = getOnInputKeyDownStuff({
-      minDate: utils.subDays(utils.newDate(), 1),
+      minDate: utils.add(utils.newDate(), { days: -1 }),
     });
     TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowUp"));
     expect(
@@ -442,7 +442,7 @@ describe("DatePicker", () => {
   });
   it("should not preSelect date if after maxDate", () => {
     var data = getOnInputKeyDownStuff({
-      maxDate: utils.addDays(utils.newDate(), 1),
+      maxDate: utils.add(utils.newDate(), { days: 1 }),
     });
     TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowDown"));
     expect(
@@ -457,26 +457,32 @@ describe("DatePicker", () => {
     );
   });
   it("should not manual select date if before minDate", () => {
-    var minDate = utils.subDays(utils.newDate(), 1);
+    var minDate = utils.add(utils.newDate(), { days: -1 });
     var data = getOnInputKeyDownStuff({
       minDate: minDate,
     });
     TestUtils.Simulate.change(data.nodeInput, {
       target: {
-        value: utils.formatDate(utils.subDays(minDate, 1), data.testFormat),
+        value: utils.formatDate(
+          utils.add(minDate, { days: -1 }),
+          data.testFormat
+        ),
       },
     });
     TestUtils.Simulate.keyDown(data.nodeInput, getKey("Enter"));
     expect(data.callback.calledOnce).to.be.false;
   });
   it("should not manual select date if after maxDate", () => {
-    var maxDate = utils.addDays(utils.newDate(), 1);
+    var maxDate = utils.add(utils.newDate(), { days: 1 });
     var data = getOnInputKeyDownStuff({
       maxDate: maxDate,
     });
     TestUtils.Simulate.change(data.nodeInput, {
       target: {
-        value: utils.formatDate(utils.addDays(maxDate, 1), data.testFormat),
+        value: utils.formatDate(
+          utils.add(maxDate, { days: 1 }),
+          data.testFormat
+        ),
       },
     });
     TestUtils.Simulate.keyDown(data.nodeInput, getKey("Enter"));
@@ -495,7 +501,7 @@ describe("DatePicker", () => {
         getKey("Enter")
       );
 
-      data.copyM = utils.subDays(data.copyM, 1);
+      data.copyM = utils.add(data.copyM, { days: -1 });
       expect(data.callback.calledTwice).to.be.true;
       var result = data.callback.args[0][0];
       expect(utils.formatDate(result, data.testFormat)).to.equal(
@@ -517,7 +523,7 @@ describe("DatePicker", () => {
       var data = getOnInputKeyDownStuff({
         filterDate: (date) =>
           utils.getDay(date) !==
-          utils.getDay(utils.subDays(utils.newDate(), 1)),
+          utils.getDay(utils.add(utils.newDate(), { days: -1 })),
       });
       TestUtils.Simulate.keyDown(data.nodeInput, getKey("ArrowLeft"));
       TestUtils.Simulate.keyDown(data.nodeInput, getKey("Enter"));
@@ -549,7 +555,7 @@ describe("DatePicker", () => {
       getSelectedDayNode(data.datePicker),
       getKey("ArrowLeft")
     );
-    data.copyM = utils.subDays(data.copyM, 1);
+    data.copyM = utils.add(data.copyM, { days: -1 });
     expect(
       utils.formatDate(data.datePicker.state.preSelection, data.testFormat)
     ).to.equal(utils.formatDate(data.copyM, data.testFormat));
@@ -701,7 +707,7 @@ describe("DatePicker", () => {
   });
   it("should switch month in inline mode immediately", () => {
     const selected = utils.newDate();
-    const future = utils.addDays(utils.newDate(), 100);
+    const future = utils.add(utils.newDate(), { days: 100 });
     const datePicker = mount(<DatePicker inline selected={selected} />);
     expect(
       utils.formatDate(datePicker.state("preSelection"), "yyyy-MM-dd")
@@ -713,7 +719,7 @@ describe("DatePicker", () => {
   });
   it("should switch month in inline mode immediately, when year is updated", () => {
     const selected = utils.newDate();
-    const future = utils.addYears(utils.newDate(), 1);
+    const future = utils.add(utils.newDate(), { years: 1 });
     const datePicker = mount(<DatePicker inline selected={selected} />);
     expect(
       utils.formatDate(datePicker.state("preSelection"), "yyyy-MM-dd")
@@ -857,7 +863,7 @@ describe("DatePicker", () => {
 
     it("should change dates of range set endDate when startDate is set", () => {
       let startDate = utils.newDate();
-      const nextDay = utils.addDays(startDate, 1);
+      const nextDay = utils.add(startDate, { days: 1 });
       let endDate = null;
       const onChange = (dates = []) => {
         [startDate, endDate] = dates;
@@ -919,7 +925,7 @@ describe("DatePicker", () => {
 
     it("should change dates of range change startDate when endDate set before startDate", () => {
       const selected = utils.newDate();
-      const selectedPrevious = utils.subDays(utils.newDate(), 3);
+      const selectedPrevious = utils.add(utils.newDate(), { days: -3 });
       let [startDate, endDate] = [selected, null];
       const onChange = (dates = []) => {
         [startDate, endDate] = dates;

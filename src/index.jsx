@@ -13,14 +13,7 @@ import {
   getSeconds,
   getMinutes,
   getHours,
-  addDays,
-  addMonths,
-  addWeeks,
-  addYears,
-  subDays,
-  subMonths,
-  subWeeks,
-  subYears,
+  add,
   isDayDisabled,
   isDayInRange,
   getEffectiveMinDate,
@@ -539,28 +532,28 @@ export default class DatePicker extends React.Component {
       let newSelection;
       switch (eventKey) {
         case "ArrowLeft":
-          newSelection = subDays(copy, 1);
+          newSelection = add(copy, { days: -1 });
           break;
         case "ArrowRight":
-          newSelection = addDays(copy, 1);
+          newSelection = add(copy, { days: 1 });
           break;
         case "ArrowUp":
-          newSelection = subWeeks(copy, 1);
+          newSelection = add(copy, { weeks: -1 });
           break;
         case "ArrowDown":
-          newSelection = addWeeks(copy, 1);
+          newSelection = add(copy, { weeks: 1 });
           break;
         case "PageUp":
-          newSelection = subMonths(copy, 1);
+          newSelection = add(copy, { months: -1 });
           break;
         case "PageDown":
-          newSelection = addMonths(copy, 1);
+          newSelection = add(copy, { months: 1 });
           break;
         case "Home":
-          newSelection = subYears(copy, 1);
+          newSelection = add(copy, { years: -1 });
           break;
         case "End":
-          newSelection = addYears(copy, 1);
+          newSelection = add(copy, { years: 1 });
           break;
       }
       if (!newSelection) {
