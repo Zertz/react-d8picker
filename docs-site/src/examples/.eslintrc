@@ -17,9 +17,7 @@
     "setHours": false,
     "setMinutes": false,
     "getDate": false,
-    "addDays": false,
-    "subDays": false,
-    "addMonths": false,
+    "add": false,
     "fi": false,
     "getDay": false,
     "isValid": false,
@@ -27,7 +25,6 @@
     "range": false,
     "getYear": false,
     "getMonth": false,
-    "PropTypes": false,
-    "subMonths": false
+    "PropTypes": false
   }
 }

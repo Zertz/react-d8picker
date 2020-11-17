@@ -7,7 +7,7 @@ import {
   setMinutes,
   newDate,
   getStartOfDay,
-  addMinutes,
+  add,
   formatDate,
   isBefore,
   isEqual,
@@ -126,7 +126,7 @@ export default class Time extends React.Component {
     const activeTime = setHours(setMinutes(base, currM), currH);
 
     for (let i = 0; i < multiplier; i++) {
-      const currentTime = addMinutes(base, i * intervals);
+      const currentTime = add(base, { minutes: i * intervals });
       times.push(currentTime);
 
       if (sortedInjectTimes) {

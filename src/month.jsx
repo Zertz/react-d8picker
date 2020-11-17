@@ -104,7 +104,7 @@ export default class Month extends React.Component {
 
   isWeekInMonth = (startOfWeek) => {
     const day = this.props.day;
-    const endOfWeek = utils.addDays(startOfWeek, 6);
+    const endOfWeek = utils.add(startOfWeek, { days: 6 });
     return (
       utils.isSameMonth(startOfWeek, day) || utils.isSameMonth(endOfWeek, day)
     );
@@ -158,7 +158,7 @@ export default class Month extends React.Component {
       if (breakAfterNextPush) break;
 
       i++;
-      currentWeekStart = utils.addWeeks(currentWeekStart, 1);
+      currentWeekStart = utils.add(currentWeekStart, { weeks: 1 });
 
       // If one of these conditions is true, we will either break on this week
       // or break on the next week
@@ -200,13 +200,13 @@ export default class Month extends React.Component {
       case "ArrowRight":
         this.handleMonthNavigation(
           month === 11 ? 0 : month + 1,
-          utils.addMonths(this.props.preSelection, 1)
+          utils.add(this.props.preSelection, { months: 1 })
         );
         break;
       case "ArrowLeft":
         this.handleMonthNavigation(
           month === 0 ? 11 : month - 1,
-          utils.subMonths(this.props.preSelection, 1)
+          utils.add(this.props.preSelection, { months: -1 })
         );
         break;
     }

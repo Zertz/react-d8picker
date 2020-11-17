@@ -34,34 +34,34 @@ describe("Calendar", function () {
   });
 
   it("should start with the selected date in view if provided", function () {
-    const selected = utils.addYears(utils.newDate(), 1);
+    const selected = utils.add(utils.newDate(), { years: 1 });
     const calendar = getCalendar({ selected });
     assert(utils.isSameDay(calendar.state().date, selected));
   });
 
   it("should start with the pre-selected date in view if provided", function () {
-    const preSelected = utils.addYears(utils.newDate(), 2);
-    const selected = utils.addYears(utils.newDate(), 1);
+    const preSelected = utils.add(utils.newDate(), { years: 2 });
+    const selected = utils.add(utils.newDate(), { years: 1 });
     const calendar = getCalendar({ preSelected, selected });
     assert(utils.isSameDay(calendar.state().date, selected));
   });
 
   it("should start with the current date in view if in date range", function () {
     const now = utils.newDate();
-    const minDate = utils.subYears(now, 1);
-    const maxDate = utils.addYears(now, 1);
+    const minDate = utils.add(now, { years: -1 });
+    const maxDate = utils.add(now, { years: 1 });
     const calendar = getCalendar({ minDate, maxDate });
     assert(utils.isSameDay(calendar.state().date, now));
   });
 
   it("should start with the min date in view if after the current date", function () {
-    const minDate = utils.addYears(utils.newDate(), 1);
+    const minDate = utils.add(utils.newDate(), { years: 1 });
     const calendar = getCalendar({ minDate });
     assert(utils.isSameDay(calendar.state().date, minDate));
   });
 
   it("should start with the max date in view if before the current date", function () {
-    const maxDate = utils.subYears(utils.newDate(), 1);
+    const maxDate = utils.add(utils.newDate(), { years: -1 });
     const calendar = getCalendar({ maxDate });
     assert(utils.isSameDay(calendar.state().date, maxDate));
   });
@@ -287,7 +287,7 @@ describe("Calendar", function () {
 
       getCalendar({
         renderCustomHeader,
-        minDate: utils.subMonths(utils.newDate(), 1),
+        minDate: utils.add(utils.newDate(), { months: -1 }),
         maxDate: utils.newDate(),
       });
 
@@ -312,7 +312,7 @@ describe("Calendar", function () {
       getCalendar({
         renderCustomHeader,
         minDate: utils.newDate(),
-        maxDate: utils.addMonths(utils.newDate(), 1),
+        maxDate: utils.add(utils.newDate(), { months: 1 }),
       });
 
       const {

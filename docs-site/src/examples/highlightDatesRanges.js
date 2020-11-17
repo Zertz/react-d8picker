@@ -3,18 +3,18 @@
   const highlightWithRanges = [
     {
       "react-datepicker__day--highlighted-custom-1": [
-        subDays(new Date(), 4),
-        subDays(new Date(), 3),
-        subDays(new Date(), 2),
-        subDays(new Date(), 1),
+        add(new Date(), { days: -4 }),
+        add(new Date(), { days: -3 }),
+        add(new Date(), { days: -2 }),
+        add(new Date(), { days: -1 }),
       ],
     },
     {
       "react-datepicker__day--highlighted-custom-2": [
-        addDays(new Date(), 1),
-        addDays(new Date(), 2),
-        addDays(new Date(), 3),
-        addDays(new Date(), 4),
+        add(new Date(), { days: 1 }),
+        add(new Date(), { days: 2 }),
+        add(new Date(), { days: 3 }),
+        add(new Date(), { days: 4 }),
       ],
     },
   ];

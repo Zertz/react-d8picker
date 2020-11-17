@@ -13,7 +13,7 @@ describe("Month", () => {
     expect(days).to.have.length(dayCount);
     range(0, dayCount).forEach((offset) => {
       const day = days.get(offset);
-      const expectedDay = utils.addDays(start, offset);
+      const expectedDay = utils.add(start, { days: offset });
       assert(
         utils.isSameDay(day.props.day, expectedDay),
         `Day ${(offset % 7) + 1} ` +
@@ -67,7 +67,9 @@ describe("Month", () => {
     assertDateRangeInclusive(
       mount(<Month day={monthStart} peekNextMonth />),
       utils.getStartOfWeek(monthStart),
-      utils.getEndOfWeek(utils.addWeeks(utils.addMonths(monthStart, 1), 1))
+      utils.getEndOfWeek(
+        utils.add(utils.add(monthStart, { months: 1 }), { weeks: 1 })
+      )
     );
   });
 

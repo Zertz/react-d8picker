@@ -1,8 +1,6 @@
 import {
   newDate,
-  addHours,
-  addDays,
-  subDays,
+  add,
   isEqual,
   isSameDay,
   isSameMonth,
@@ -146,7 +144,7 @@ describe("date_utils", function () {
 
     it("should be disabled if before the min date", () => {
       const day = newDate();
-      const minDate = addDays(day, 1);
+      const minDate = add(day, { days: 1 });
       expect(isDayDisabled(day, { minDate })).to.be.true;
     });
 
@@ -157,7 +155,7 @@ describe("date_utils", function () {
 
     it("should be disabled if after the max date", () => {
       const day = newDate();
-      const maxDate = subDays(day, 1);
+      const maxDate = add(day, { days: -1 });
       expect(isDayDisabled(day, { maxDate })).to.be.true;
     });
 
@@ -177,7 +175,7 @@ describe("date_utils", function () {
       const day = newDate();
       const dayClone = newDate(day);
       const filterDate = (d) => {
-        addDays(d, 1);
+        add(d, { days: 1 });
         return true;
       };
       isDayDisabled(day, { filterDate });
@@ -205,7 +203,7 @@ describe("date_utils", function () {
 
     it("should be disabled if before the min date", () => {
       const day = newDate();
-      const minDate = addDays(day, 40);
+      const minDate = add(day, { days: 40 });
       expect(isMonthDisabled(day, { minDate })).to.be.true;
     });
 
@@ -216,7 +214,7 @@ describe("date_utils", function () {
 
     it("should be disabled if after the max date", () => {
       const day = newDate();
-      const maxDate = subDays(day, 40);
+      const maxDate = add(day, { days: -40 });
       expect(isMonthDisabled(day, { maxDate })).to.be.true;
     });
 
@@ -236,7 +234,7 @@ describe("date_utils", function () {
       const day = newDate();
       const dayClone = newDate(day);
       const filterDate = (d) => {
-        addDays(d, 40);
+        add(d, { days: 40 });
         return true;
       };
       isMonthDisabled(day, { filterDate });
@@ -257,7 +255,7 @@ describe("date_utils", function () {
 
     it("should be disabled if before the min date", () => {
       const day = newDate();
-      const minDate = addDays(day, 40);
+      const minDate = add(day, { days: 40 });
       expect(isQuarterDisabled(day, { minDate })).to.be.true;
     });
 
@@ -268,7 +266,7 @@ describe("date_utils", function () {
 
     it("should be disabled if after the max date", () => {
       const day = newDate();
-      const maxDate = subDays(day, 40);
+      const maxDate = add(day, { days: -40 });
       expect(isQuarterDisabled(day, { maxDate })).to.be.true;
     });
 
@@ -288,7 +286,7 @@ describe("date_utils", function () {
       const day = newDate();
       const dayClone = newDate(day);
       const filterDate = (d) => {
-        addDays(d, 40);
+        add(d, { days: 40 });
         return true;
       };
       isQuarterDisabled(day, { filterDate });
@@ -417,7 +415,7 @@ describe("date_utils", function () {
       const time = setHours(setMinutes(date, 30), 1);
       const timeClone = newDate(time);
       const filterTime = (t) => {
-        addHours(t, 1);
+        add(t, { hours: 1 });
         return true;
       };
       isTimeDisabled(time, { filterTime });
