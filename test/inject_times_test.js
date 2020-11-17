@@ -1,7 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
 import * as utils from "../src/date_utils";
-import { setTime, newDate } from "../src/date_utils";
 import TimeComponent from "../src/time";
 
 describe("TimeComponent", () => {
@@ -22,7 +21,7 @@ describe("TimeComponent", () => {
         injectTimes={[
           utils.addMinutes(today, 1),
           utils.addMinutes(today, 725),
-          utils.addMinutes(today, 1439)
+          utils.addMinutes(today, 1439),
         ]}
       />
     );
@@ -41,7 +40,7 @@ describe("TimeComponent", () => {
         injectTimes={[
           utils.addMinutes(today, 0),
           utils.addMinutes(today, 60),
-          utils.addMinutes(today, 1440)
+          utils.addMinutes(today, 1440),
         ]}
       />
     );
@@ -60,7 +59,7 @@ describe("TimeComponent", () => {
         injectTimes={[
           utils.addMinutes(today, 1),
           utils.addMinutes(today, 2),
-          utils.addMinutes(today, 3)
+          utils.addMinutes(today, 3),
         ]}
       />
     );
@@ -79,7 +78,7 @@ describe("TimeComponent", () => {
         injectTimes={[
           utils.addMinutes(today, 3),
           utils.addMinutes(today, 1),
-          utils.addMinutes(today, 2)
+          utils.addMinutes(today, 2),
         ]}
       />
     );
@@ -87,10 +86,10 @@ describe("TimeComponent", () => {
     const injectedItems = timeComponent.find(
       ".react-datepicker__time-list-item--injected"
     );
-    expect(injectedItems.map(node => node.text())).eql([
+    expect(injectedItems.map((node) => node.text())).eql([
       "12:01 AM",
       "12:02 AM",
-      "12:03 AM"
+      "12:03 AM",
     ]);
   });
 });

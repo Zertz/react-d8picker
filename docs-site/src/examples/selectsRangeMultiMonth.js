@@ -8,11 +8,16 @@
   };
   return (
     <DatePicker
-      selected={startDate}
       onChange={onChange}
       startDate={startDate}
       endDate={endDate}
+      monthsShown={2}
       selectsRange
+      value={
+        startDate && endDate
+          ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+          : undefined
+      }
     />
   );
 };

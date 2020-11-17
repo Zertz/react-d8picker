@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
-import DatePicker, {
-  registerLocale,
-  CalendarContainer
-} from "react-datepicker";
+import DatePicker from "react-datepicker";
 import * as DateFNS from "date-fns/esm";
 import fi from "date-fns/locale/fi";
-import ptBR from "date-fns/locale/pt-BR";
-import enGB from "date-fns/locale/en-GB";
 import slugify from "slugify";
 import range from "lodash/range";
 import prismGitHubTheme from "prism-react-renderer/themes/github";
@@ -16,13 +11,8 @@ import editIcon from "./edit-regular.svg";
 
 export default class CodeExampleComponent extends React.Component {
   static propTypes = {
-    example: PropTypes.object.isRequired
+    example: PropTypes.object.isRequired,
   };
-  componentDidMount() {
-    registerLocale("fi", fi);
-    registerLocale("pt-BR", ptBR);
-    registerLocale("en-GB", enGB);
-  }
 
   render() {
     const { title, description, component } = this.props.example;
@@ -40,10 +30,9 @@ export default class CodeExampleComponent extends React.Component {
               PropTypes,
               useState,
               DatePicker,
-              CalendarContainer,
               ...DateFNS,
               range,
-              fi
+              fi,
             }}
             theme={prismGitHubTheme}
           >
