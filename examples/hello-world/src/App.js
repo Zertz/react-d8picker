@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-d8picker";
 
-import "react-datepicker/dist/react-datepicker.css";
+import "react-d8picker/dist/react-d8picker.css";
 
 class App extends Component {
   state = {
