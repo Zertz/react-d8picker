@@ -80,7 +80,6 @@ export default class Calendar extends React.Component {
     showPreviousMonths: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     startDate: PropTypes.instanceOf(Date),
-    todayButton: PropTypes.string,
     useWeekdaysShort: PropTypes.bool,
     formatWeekDay: PropTypes.func,
     weekLabel: PropTypes.string,
@@ -300,20 +299,6 @@ export default class Calendar extends React.Component {
     );
   };
 
-  renderTodayButton = () => {
-    if (!this.props.todayButton || this.props.showTimeSelectOnly) {
-      return;
-    }
-    return (
-      <div
-        className="react-datepicker__today-button"
-        onClick={(e) => this.props.onSelect(getStartOfToday(), e)}
-      >
-        {this.props.todayButton}
-      </div>
-    );
-  };
-
   renderCustomHeader = (headerArgs = {}) => {
     const { monthDate, i } = headerArgs;
 
@@ -462,7 +447,6 @@ export default class Calendar extends React.Component {
           maxTime={this.props.maxTime}
           filterTime={this.props.filterTime}
           timeCaption={this.props.timeCaption}
-          todayButton={this.props.todayButton}
           monthRef={this.state.monthContainer}
           injectTimes={this.props.injectTimes}
           locale={this.props.locale}
@@ -484,7 +468,6 @@ export default class Calendar extends React.Component {
         >
           {this.renderMonths()}
           {this.renderYears()}
-          {this.renderTodayButton()}
           {this.renderTimeSection()}
           {this.props.children}
         </Container>

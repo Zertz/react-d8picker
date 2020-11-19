@@ -74,7 +74,6 @@
 | `timeFormat`                 | `string`                       |                           |             |
 | `timeIntervals`              | `number`                       | `30`                      |             |
 | `title`                      | `string`                       |                           |             |
-| `todayButton`                | `node`                         |                           |             |
 | `useWeekdaysShort`           | `bool`                         |                           |             |
 | `value`                      | `string`                       |                           |             |
 | `weekAriaLabelPrefix`        | `string`                       |                           |             |

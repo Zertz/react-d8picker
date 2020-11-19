@@ -16,4 +16,3 @@
 | `selected`           | `instanceOfDate` |               |             |
 | `showTimeSelectOnly` | `bool`           |               |             |
 | `timeCaption`        | `string`         | `"Time"`      |             |
-| `todayButton`        | `node`           | `null`        |             |

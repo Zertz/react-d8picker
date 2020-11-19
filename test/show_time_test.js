@@ -26,20 +26,4 @@ describe("DatePicker", () => {
     const caption = timeComponent.find(".react-datepicker-time__header");
     expect(caption.text()).to.equal("Custom time");
   });
-
-  describe("Time Select Only", () => {
-    var datePicker = mount(
-      <DatePicker showTimeSelect showTimeSelectOnly todayButton="Today" />
-    );
-
-    it("should not show month container when showTimeSelectOnly prop is present", () => {
-      var elem = datePicker.find(".react-datepicker__month-container");
-      expect(elem).to.have.length(0);
-    });
-
-    it("should not show today button when showTimeSelectOnly prop is present", () => {
-      var elem = datePicker.find(".react-datepicker__today-button");
-      expect(elem).to.have.length(0);
-    });
-  });
 });

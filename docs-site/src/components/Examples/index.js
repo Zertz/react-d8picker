@@ -12,7 +12,6 @@ import FilterTimes from "../../examples/filterTimes";
 import ExcludeTimePeriod from "../../examples/excludeTimePeriod";
 import CustomDateFormat from "../../examples/customDateFormat";
 import CustomClassName from "../../examples/customClassName";
-import Today from "../../examples/today";
 import PlaceholderText from "../../examples/placeholderText";
 import SpecificDateRange from "../../examples/specificDateRange";
 import LocaleWithoutGlobalVariable from "../../examples/localeWithoutGlobalVariable";
@@ -172,10 +171,6 @@ export default class exampleComponents extends React.Component {
     {
       title: "TabIndex",
       component: TabIndex,
-    },
-    {
-      title: "Today button",
-      component: Today,
     },
   ];
 

@@ -359,26 +359,6 @@ describe("Calendar", function () {
     });
   });
 
-  it("should not show the today button by default", function () {
-    const calendar = getCalendar();
-    const todayButton = calendar.find(".react-datepicker__today-button");
-    expect(todayButton).to.have.length(0);
-  });
-
-  it("should show the today button if toggled on", function () {
-    const calendar = getCalendar({ todayButton: "Vandaag" });
-    const todayButton = calendar.find(".react-datepicker__today-button");
-    expect(todayButton).to.have.length(1);
-    expect(todayButton.text()).to.equal("Vandaag");
-  });
-
-  it("should set the date when pressing todayButton", () => {
-    const calendar = getCalendar({ todayButton: "Vandaag" });
-    const todayButton = calendar.find(".react-datepicker__today-button");
-    todayButton.simulate("click");
-    expect(utils.isSameDay(calendar.state().date, utils.newDate()));
-  });
-
   it("should use a hash for week label if weekLabel is NOT provided", () => {
     const calendar = getCalendar({ showWeekNumbers: true });
     const weekLabel = calendar.find(".react-datepicker__day-name");

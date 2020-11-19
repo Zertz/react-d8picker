@@ -21,7 +21,6 @@ export default class Time extends React.Component {
     return {
       intervals: 30,
       onTimeChange: () => {},
-      todayButton: null,
       timeCaption: "Time",
     };
   }
@@ -38,7 +37,6 @@ export default class Time extends React.Component {
     selected: PropTypes.instanceOf(Date),
     openToDate: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
-    todayButton: PropTypes.node,
     minTime: PropTypes.instanceOf(Date),
     maxTime: PropTypes.instanceOf(Date),
     filterTime: PropTypes.func,
@@ -161,13 +159,7 @@ export default class Time extends React.Component {
     const { height } = this.state;
 
     return (
-      <div
-        className={`react-datepicker__time-container ${
-          this.props.todayButton
-            ? "react-datepicker__time-container--with-today-button"
-            : ""
-        }`}
-      >
+      <div className="react-datepicker__time-container">
         <div
           className={`react-datepicker__header react-datepicker__header--time ${
             this.props.showTimeSelectOnly

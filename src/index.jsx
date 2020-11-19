@@ -142,7 +142,6 @@ export default class DatePicker extends React.Component {
     tabIndex: PropTypes.number,
     timeCaption: PropTypes.string,
     title: PropTypes.string,
-    todayButton: PropTypes.node,
     useWeekdaysShort: PropTypes.bool,
     formatWeekDay: PropTypes.func,
     value: PropTypes.string,
@@ -645,7 +644,6 @@ export default class DatePicker extends React.Component {
         peekNextMonth={this.props.peekNextMonth}
         showPreviousMonths={this.props.showPreviousMonths}
         showWeekNumbers={this.props.showWeekNumbers}
-        todayButton={this.props.todayButton}
         weekLabel={this.props.weekLabel}
         outsideClickIgnoreClass={outsideClickIgnoreClass}
         monthsShown={this.props.monthsShown}

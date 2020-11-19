@@ -57,7 +57,6 @@ General datepicker component.
 | `timeFormat`          | `string`                       |                 |             |
 | `timeIntervals`       | `number`                       | `30`            |             |
 | `title`               | `string`                       |                 |             |
-| `todayButton`         | `node`                         |                 |             |
 | `useWeekdaysShort`    | `bool`                         |                 |             |
 | `utcOffset`           | `union(number\|string)`        |                 |             |
 | `value`               | `string`                       |                 |             |
