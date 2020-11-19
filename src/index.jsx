@@ -153,7 +153,6 @@ export default class DatePicker extends React.Component {
     minTime: PropTypes.instanceOf(Date),
     maxTime: PropTypes.instanceOf(Date),
     filterTime: PropTypes.func,
-    clearButtonTitle: PropTypes.string,
     renderCustomHeader: PropTypes.func,
     renderDayContents: PropTypes.func,
     focusSelectedMonth: PropTypes.bool,

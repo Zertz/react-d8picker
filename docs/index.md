@@ -10,7 +10,6 @@
 | `children`                   | `node`                         |                           |             |
 | `chooseDayAriaLabelPrefix`   | `string`                       |                           |             |
 | `className`                  | `string`                       |                           |             |
-| `clearButtonTitle`           | `string`                       |                           |             |
 | `dateFormat`                 | `union(string\|array)`         | `"MM/dd/yyyy"`            |             |
 | `dateFormatCalendar`         | `string`                       | `"LLLL yyyy"`             |             |
 | `disabled`                   | `bool`                         | `false`                   |             |
