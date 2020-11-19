@@ -17,7 +17,6 @@
 | `disabledDayAriaLabelPrefix` | `string`                       |                           |             |
 | `enableTabLoop`              | `bool`                         | `true`                    |             |
 | `endDate`                    | `instanceOfDate`               |                           |             |
-| `excludeScrollbar`           | `bool`                         | `true`                    |             |
 | `filterDate`                 | `func`                         |                           |             |
 | `filterTime`                 | `func`                         |                           |             |
 | `focusSelectedMonth`         | `bool`                         | `false`                   |             |

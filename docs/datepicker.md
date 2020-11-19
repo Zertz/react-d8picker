@@ -15,7 +15,6 @@ General datepicker component.
 | `dateFormatCalendar`  | `string`                       | `'LLLL yyyy'`   |             |
 | `disabled`            | `bool`                         | `false`         |             |
 | `endDate`             | `instanceOf(Date)`             |                 |             |
-| `excludeScrollbar`    | `array`                        |                 |             |
 | `filterDate`          | `func`                         |                 |             |
 | `filterTime`          | `func`                         |                 |             |
 | `formatWeekNumber`    | `func`                         |                 |             |

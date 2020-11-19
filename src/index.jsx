@@ -81,7 +81,6 @@ export default class DatePicker extends React.Component {
         return date;
       },
       focusSelectedMonth: false,
-      excludeScrollbar: true,
     };
   }
 
@@ -160,7 +159,6 @@ export default class DatePicker extends React.Component {
     focusSelectedMonth: PropTypes.bool,
     onDayMouseEnter: PropTypes.func,
     onMonthMouseLeave: PropTypes.func,
-    excludeScrollbar: PropTypes.bool,
     enableTabLoop: PropTypes.bool,
     weekAriaLabelPrefix: PropTypes.string,
   };
@@ -665,7 +663,6 @@ export default class DatePicker extends React.Component {
         onDayMouseEnter={this.props.onDayMouseEnter}
         onMonthMouseLeave={this.props.onMonthMouseLeave}
         showFullMonthYearPicker={this.props.showFullMonthYearPicker}
-        excludeScrollbar={this.props.excludeScrollbar}
         handleOnKeyDown={this.onDayKeyDown}
         isInputFocused={this.state.focused}
         setPreSelection={this.setPreSelection}
