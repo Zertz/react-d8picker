@@ -10,7 +10,6 @@ import {
   getMonth,
   add,
   getStartOfWeek,
-  getStartOfToday,
   setYear,
   getYear,
   isBefore,

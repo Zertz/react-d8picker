@@ -171,10 +171,6 @@ export function getStartOfQuarter(date) {
   return startOfQuarter(date);
 }
 
-export function getStartOfToday() {
-  return startOfDay(newDate());
-}
-
 // *** End of ***
 
 export function getEndOfWeek(date) {
