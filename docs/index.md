@@ -32,19 +32,19 @@
 | `minTime`                    | `instanceOfDate`               |                           |             |
 | `monthsShown`                | `number`                       | `1`                       |             |
 | `name`                       | `string`                       |                           |             |
-| `onBlur`                     | `func`                         | `() {}`                   |             |
-| `onChange`                   | `func`                         | `() {}`                   |             |
-| `onClickOutside`             | `func`                         | `() {}`                   |             |
+| `onBlur`                     | `func`                         | `() => {}`                |             |
+| `onChange`                   | `func`                         | `() => {}`                |             |
+| `onClickOutside`             | `func`                         | `() => {}`                |             |
 | `onDayMouseEnter`            | `func`                         |                           |             |
-| `onFocus`                    | `func`                         | `() {}`                   |             |
-| `onInputClick`               | `func`                         | `() {}`                   |             |
-| `onInputError`               | `func`                         | `() {}`                   |             |
-| `onKeyDown`                  | `func`                         | `() {}`                   |             |
-| `onMonthChange`              | `func`                         | `() {}`                   |             |
+| `onFocus`                    | `func`                         | `() => {}`                |             |
+| `onInputClick`               | `func`                         | `() => {}`                |             |
+| `onInputError`               | `func`                         | `() => {}`                |             |
+| `onKeyDown`                  | `func`                         | `() => {}`                |             |
+| `onMonthChange`              | `func`                         | `() => {}`                |             |
 | `onMonthMouseLeave`          | `func`                         |                           |             |
-| `onSelect`                   | `func`                         | `() {}`                   |             |
+| `onSelect`                   | `func`                         | `() => {}`                |             |
 | `onWeekSelect`               | `func`                         |                           |             |
-| `onYearChange`               | `func`                         | `() {}`                   |             |
+| `onYearChange`               | `func`                         | `() => {}`                |             |
 | `open`                       | `bool`                         |                           |             |
 | `openToDate`                 | `instanceOfDate`               |                           |             |
 | `peekNextMonth`              | `bool`                         |                           |             |
