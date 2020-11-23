@@ -6,7 +6,6 @@ General datepicker component.
 | --------------------- | ------------------------------ | -------------- | ----------- |
 | `allowSameDay`        | `bool`                         | `false`        |             |
 | `ariaLabelledBy`      | `string`                       | `null`         |             |
-| `autoComplete`        | `string`                       |                |             |
 | `autoFocus`           | `bool`                         |                |             |
 | `children`            | `node`                         |                |             |
 | `className`           | `string`                       |                |             |

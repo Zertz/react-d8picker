@@ -5,7 +5,6 @@
 | `allowSameDay`               | `bool`                         | `false`                   |             |
 | `ariaLabelClose`             | `string`                       |                           |             |
 | `ariaLabelledBy`             | `string`                       |                           |             |
-| `autoComplete`               | `string`                       |                           |             |
 | `autoFocus`                  | `bool`                         |                           |             |
 | `children`                   | `node`                         |                           |             |
 | `chooseDayAriaLabelPrefix`   | `string`                       |                           |             |
