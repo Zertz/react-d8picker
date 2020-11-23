@@ -57,10 +57,6 @@ You can use `onSelect` event handler which fires each time some calendar date ha
 />
 ```
 
-`onClickOutside` handler may be useful to close datepicker in `inline` mode
-
-See [here](https://github.com/Zertz/react-d8picker/blob/master/docs/datepicker.md) for a full list of props that may be passed to the component. Examples are given on the [main website](https://zertz.github.io/react-d8picker).
-
 ### Time picker
 
 You can also include a time picker by adding the showTimeSelect prop
@@ -121,10 +117,6 @@ To begin local development:
 The last step starts documentation app as a simple webserver on http://localhost:3000.
 
 You can run `yarn test` to execute the test suite and linters. To help you develop the component we’ve set up some tests that cover the basic functionality (can be found in `/tests`). Even though we’re big fans of testing, this only covers a small piece of the component. We highly recommend you add tests when you’re adding new functionality.
-
-### The examples
-
-The examples are hosted within the docs folder and are ran in the simple app that loads the Datepicker. To extend the examples with a new example, you can simply duplicate one of the existing examples and change the unique properties of your example.
 
 ## Accessibility
 

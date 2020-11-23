@@ -101,12 +101,6 @@ tmp
 *.iml
 .idea
 
-docs/calendar.md
-docs/date_input.md
-docs/day.md
-docs/month.md
-docs/week.md
-
 # We are using Yarn
 package-lock.json
 scripts/.DS_Store
