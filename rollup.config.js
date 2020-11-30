@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 
+import typescript from "@rollup/plugin-typescript";
 import babel from "rollup-plugin-babel";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import resolve from "rollup-plugin-node-resolve";
@@ -8,7 +9,6 @@ import commonjs from "rollup-plugin-commonjs";
 import filesize from "rollup-plugin-filesize";
 import localResolve from "rollup-plugin-local-resolve";
 import { terser } from "rollup-plugin-terser";
-
 import replace from "rollup-plugin-replace";
 import pkg from "./package.json";
 
@@ -27,7 +27,7 @@ const globals = {
 };
 
 const config = {
-  input: "src/index.jsx",
+  input: "src/index.tsx",
   output: [
     {
       file: pkg.browser,
@@ -52,9 +52,10 @@ const config = {
     },
   ],
   plugins: [
+    typescript(),
     resolve({
       mainFields: ["module"],
-      extensions: [".js", ".jsx"],
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
     }),
     peerDepsExternal(),
     babel(),

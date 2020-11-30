@@ -37,11 +37,20 @@ describe("Day", () => {
 
     it("should render custom day contents", () => {
       const day = newDate();
-      function renderDayContents(day, date) {
-        const tooltipText = `Tooltip for date: ${date}`;
-        return <span title={tooltipText}>{getDate(date)}</span>;
-      }
-      const shallowDay = renderDay(day, { renderDayContents });
+
+      const shallowDay = renderDay(day, {
+        // eslint-disable-next-line react/prop-types
+        renderDay: function renderFn({ day, setRef, ...props }) {
+          const tooltipText = `Tooltip for date: ${day}`;
+
+          return (
+            <span {...props} ref={setRef} title={tooltipText}>
+              {getDate(day)}
+            </span>
+          );
+        },
+      });
+
       expect(shallowDay.find("span"));
     });
   });
@@ -339,39 +348,19 @@ describe("Day", () => {
   });
 
   describe("click", () => {
-    var onClickCalled;
-
-    function onClick() {
-      onClickCalled = true;
-    }
-
-    beforeEach(() => {
-      onClickCalled = false;
-    });
-
     it("should call onClick if day is enabled", () => {
+      let onClickCalled = false;
+
+      function onClick() {
+        onClickCalled = true;
+      }
+
       const day = newDate();
       const dayNode = shallow(<Day day={day} onClick={onClick} />);
-      dayNode.find(".react-datepicker__day").simulate("click");
+      dayNode
+        .find(".react-datepicker__day")
+        .simulate("click", { persist: () => {} });
       expect(onClickCalled).to.be.true;
-    });
-  });
-
-  describe("mouse enter", () => {
-    var onMouseEnterCalled;
-
-    function onMouseEnter() {
-      onMouseEnterCalled = true;
-    }
-
-    beforeEach(() => {
-      onMouseEnterCalled = false;
-    });
-
-    it("should call onMouseEnter if day is hovered", () => {
-      const shallowDay = renderDay(newDate(), { onMouseEnter });
-      shallowDay.find(".react-datepicker__day").simulate("mouseenter");
-      expect(onMouseEnterCalled).to.be.true;
     });
   });
 
@@ -483,10 +472,10 @@ describe("Day", () => {
         <Day day={day} preSelection={day} />
       ).instance();
 
-      sandbox.spy(dayInstance.dayEl.current, "focus");
+      sandbox.spy(dayInstance.dayEl, "focus");
       dayInstance.componentDidMount();
       defer(() => {
-        expect(dayInstance.dayEl.current.focus.calledOnce).to.equal(true);
+        expect(dayInstance.dayEl.focus.calledOnce).to.equal(true);
         // eslint-disable-next-line no-undef
         done();
       });
@@ -498,10 +487,10 @@ describe("Day", () => {
         <Day day={day} preSelection={day} inline />
       ).instance();
 
-      sandbox.spy(dayInstance.dayEl.current, "focus");
+      sandbox.spy(dayInstance.dayEl, "focus");
       dayInstance.componentDidMount();
       defer(() => {
-        expect(dayInstance.dayEl.current.focus.calledOnce).to.equal(false);
+        expect(dayInstance.dayEl.focus.calledOnce).to.equal(false);
         // eslint-disable-next-line no-undef
         done();
       });

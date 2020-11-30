@@ -20,7 +20,6 @@ export default class Week extends React.Component {
     minDate: PropTypes.instanceOf(Date),
     month: PropTypes.number,
     onDayClick: PropTypes.func,
-    onDayMouseEnter: PropTypes.func,
     onWeekSelect: PropTypes.func,
     preSelection: PropTypes.instanceOf(Date),
     selected: PropTypes.instanceOf(Date),
@@ -29,7 +28,7 @@ export default class Week extends React.Component {
     showWeekNumber: PropTypes.bool,
     startDate: PropTypes.instanceOf(Date),
     setOpen: PropTypes.func,
-    renderDayContents: PropTypes.func,
+    renderDay: PropTypes.func,
     handleOnKeyDown: PropTypes.func,
     isInputFocused: PropTypes.bool,
     containerRef: PropTypes.oneOfType([
@@ -43,12 +42,6 @@ export default class Week extends React.Component {
   handleDayClick = (day, event) => {
     if (this.props.onDayClick) {
       this.props.onDayClick(day, event);
-    }
-  };
-
-  handleDayMouseEnter = (day) => {
-    if (this.props.onDayMouseEnter) {
-      this.props.onDayMouseEnter(day);
     }
   };
 
@@ -96,7 +89,6 @@ export default class Week extends React.Component {
             day={day}
             month={this.props.month}
             onClick={this.handleDayClick.bind(this, day)}
-            onMouseEnter={this.handleDayMouseEnter.bind(this, day)}
             minDate={this.props.minDate}
             maxDate={this.props.maxDate}
             highlightDates={this.props.highlightDates}
@@ -107,7 +99,7 @@ export default class Week extends React.Component {
             selectsRange={this.props.selectsRange}
             startDate={this.props.startDate}
             endDate={this.props.endDate}
-            renderDayContents={this.props.renderDayContents}
+            renderDay={this.props.renderDay}
             handleOnKeyDown={this.props.handleOnKeyDown}
             isInputFocused={this.props.isInputFocused}
             containerRef={this.props.containerRef}

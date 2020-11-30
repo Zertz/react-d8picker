@@ -22,7 +22,7 @@ module.exports = function (config) {
       module: {
         rules: [
           {
-            test: /\.jsx?$/,
+            test: /\.(j|t)sx?$/,
             exclude: /node_modules/,
             loader: "babel-loader",
             query: {
@@ -44,7 +44,7 @@ module.exports = function (config) {
         }),
       ],
       resolve: {
-        extensions: [".jsx", ".js"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
       externals: {
         cheerio: "window",

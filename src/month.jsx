@@ -20,7 +20,6 @@ export default class Month extends React.Component {
     maxDate: PropTypes.instanceOf(Date),
     minDate: PropTypes.instanceOf(Date),
     onDayClick: PropTypes.func,
-    onDayMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onWeekSelect: PropTypes.func,
     peekNextMonth: PropTypes.bool,
@@ -31,7 +30,7 @@ export default class Month extends React.Component {
     selectsRange: PropTypes.bool,
     showWeekNumbers: PropTypes.bool,
     startDate: PropTypes.instanceOf(Date),
-    renderDayContents: PropTypes.func,
+    renderDay: PropTypes.func,
     showFullMonthYearPicker: PropTypes.bool,
     handleOnKeyDown: PropTypes.func,
     isInputFocused: PropTypes.bool,
@@ -55,12 +54,6 @@ export default class Month extends React.Component {
   handleDayClick = (day, event) => {
     if (this.props.onDayClick) {
       this.props.onDayClick(day, event, this.props.orderInDisplay);
-    }
-  };
-
-  handleDayMouseEnter = (day) => {
-    if (this.props.onDayMouseEnter) {
-      this.props.onDayMouseEnter(day);
     }
   };
 
@@ -130,7 +123,6 @@ export default class Month extends React.Component {
           day={currentWeekStart}
           month={utils.getMonth(this.props.day)}
           onDayClick={this.handleDayClick}
-          onDayMouseEnter={this.handleDayMouseEnter}
           onWeekSelect={this.props.onWeekSelect}
           formatWeekNumber={this.props.formatWeekNumber}
           locale={this.props.locale}
@@ -146,7 +138,7 @@ export default class Month extends React.Component {
           showWeekNumber={this.props.showWeekNumbers}
           startDate={this.props.startDate}
           endDate={this.props.endDate}
-          renderDayContents={this.props.renderDayContents}
+          renderDay={this.props.renderDay}
           handleOnKeyDown={this.props.handleOnKeyDown}
           isInputFocused={this.props.isInputFocused}
           containerRef={this.props.containerRef}

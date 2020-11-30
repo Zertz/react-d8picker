@@ -1,7 +1,6 @@
 import React from "react";
 import Calendar from "../src/calendar";
 import Month from "../src/month";
-import Day from "../src/day";
 import { shallow, mount } from "enzyme";
 import sinon from "sinon";
 import * as utils from "../src/date_utils";
@@ -143,7 +142,7 @@ describe("Calendar", function () {
       "December",
     ];
 
-    const renderCustomHeader = (params) => {
+    const renderHeader = (params) => {
       const {
         date,
         changeYear,
@@ -200,9 +199,9 @@ describe("Calendar", function () {
     };
 
     it("should call render custom header function and returns parameters", function () {
-      const renderCustomHeader = sinon.spy();
+      const renderHeader = sinon.spy();
 
-      getCalendar({ renderCustomHeader });
+      getCalendar({ renderHeader });
 
       const match = {
         changeMonth: sinon.match.func,
@@ -214,12 +213,12 @@ describe("Calendar", function () {
         prevMonthButtonDisabled: sinon.match.bool,
       };
 
-      expect(renderCustomHeader.calledWithMatch(match)).to.be.true;
+      expect(renderHeader.calledWithMatch(match)).to.be.true;
     });
 
     it("should render custom header with selects and buttons", function () {
       const calendar = getCalendar({
-        renderCustomHeader,
+        renderHeader,
       });
 
       expect(calendar.find(".react-datepicker__header--custom")).to.have.length(
@@ -238,9 +237,9 @@ describe("Calendar", function () {
       expect(nextMonth).to.have.length(1);
     });
 
-    it("should render day names with renderCustomHeader", function () {
+    it("should render day names with renderHeader", function () {
       const calendar = getCalendar({
-        renderCustomHeader,
+        renderHeader,
       });
 
       expect(calendar.find(".react-datepicker__header--custom")).to.have.length(
@@ -252,7 +251,7 @@ describe("Calendar", function () {
 
     it("should go to previous month", function () {
       const calendar = getCalendar({
-        renderCustomHeader,
+        renderHeader,
       });
 
       const selected = utils.newDate(calendar.state().date);
@@ -267,7 +266,7 @@ describe("Calendar", function () {
 
     it("should go to next month", function () {
       const calendar = getCalendar({
-        renderCustomHeader,
+        renderHeader,
       });
 
       const selected = utils.newDate(calendar.state().date);
@@ -283,10 +282,10 @@ describe("Calendar", function () {
     });
 
     it("nextMonthButtonDisabled flag should be true", function () {
-      const renderCustomHeader = sinon.spy();
+      const renderHeader = sinon.spy();
 
       getCalendar({
-        renderCustomHeader,
+        renderHeader,
         minDate: utils.add(utils.newDate(), { months: -1 }),
         maxDate: utils.newDate(),
       });
@@ -294,7 +293,7 @@ describe("Calendar", function () {
       const {
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
-      } = renderCustomHeader.getCall(0).args[0];
+      } = renderHeader.getCall(0).args[0];
 
       assert(
         prevMonthButtonDisabled === false,
@@ -307,10 +306,10 @@ describe("Calendar", function () {
     });
 
     it("prevMonthButtonDisabled flag should be true", function () {
-      const renderCustomHeader = sinon.spy();
+      const renderHeader = sinon.spy();
 
       getCalendar({
-        renderCustomHeader,
+        renderHeader,
         minDate: utils.newDate(),
         maxDate: utils.add(utils.newDate(), { months: 1 }),
       });
@@ -318,7 +317,7 @@ describe("Calendar", function () {
       const {
         prevMonthButtonDisabled,
         nextMonthButtonDisabled,
-      } = renderCustomHeader.getCall(0).args[0];
+      } = renderHeader.getCall(0).args[0];
 
       assert(
         prevMonthButtonDisabled === true,
@@ -332,7 +331,7 @@ describe("Calendar", function () {
 
     it("should select april from month select", function () {
       const calendar = getCalendar({
-        renderCustomHeader,
+        renderHeader,
       });
 
       const monthSelect = calendar.find(".month-select");
@@ -346,7 +345,7 @@ describe("Calendar", function () {
 
     it("should select 2017 from month select", function () {
       const calendar = getCalendar({
-        renderCustomHeader,
+        renderHeader,
       });
 
       const yearSelect = calendar.find(".year-select");
@@ -369,22 +368,6 @@ describe("Calendar", function () {
     const calendar = getCalendar({ showWeekNumbers: true, weekLabel: "Foo" });
     const weekLabel = calendar.find(".react-datepicker__day-name");
     expect(weekLabel.at(0).text()).to.equal("Foo");
-  });
-
-  it("should track the currently hovered day", () => {
-    const calendar = mount(
-      <Calendar
-        dateFormat={dateFormat}
-        onClickOutside={() => {}}
-        onSelect={() => {}}
-      />
-    );
-    const day = calendar.find(Day).first();
-    day.simulate("mouseenter");
-    const month = calendar.find(Month).first();
-    expect(month.prop("selectingDate")).to.exist;
-    expect(utils.isSameDay(month.prop("selectingDate"), day.prop("day"))).to.be
-      .true;
   });
 
   it("should clear the hovered day when the mouse leaves", () => {
@@ -481,7 +464,7 @@ describe("Calendar", function () {
     });
 
     it("should render empty custom header", function () {
-      const calendar = getCalendar({ renderCustomHeader: () => {} });
+      const calendar = getCalendar({ renderHeader: () => {} });
 
       const header = calendar.find(".react-datepicker__header--custom");
       expect(header).to.have.length(1);

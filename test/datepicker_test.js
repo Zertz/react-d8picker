@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import TestUtils from "react-dom/test-utils";
 import { mount } from "enzyme";
 import defer from "lodash/defer";
-import DatePicker from "../src/index.jsx";
+import DatePicker from "../src";
 import Day from "../src/day";
 import WeekNumber from "../src/week_number";
 import TestWrapper from "./test_wrapper.jsx";
@@ -584,19 +584,6 @@ describe("DatePicker", () => {
     );
   });
 
-  it("should autofocus the input given the autoFocus prop", () => {
-    var div = document.createElement("div");
-    document.body.appendChild(div);
-    ReactDOM.render(<DatePicker autoFocus />, div);
-    expect(div.querySelector("input")).to.equal(document.activeElement);
-  });
-  it("should autofocus the input when calling the setFocus method", () => {
-    var div = document.createElement("div");
-    document.body.appendChild(div);
-    var datePicker = ReactDOM.render(<DatePicker />, div);
-    datePicker.setFocus();
-    expect(div.querySelector("input")).to.equal(document.activeElement);
-  });
   it("should clear preventFocus timeout id when component is unmounted", () => {
     var div = document.createElement("div");
     document.body.appendChild(div);
@@ -629,37 +616,7 @@ describe("DatePicker", () => {
     TestUtils.Simulate.change(input);
     expect(cleared).to.be.true;
   });
-  it("should correctly update the input when the value prop changes", () => {
-    const datePicker = mount(<DatePicker />);
-    expect(datePicker.find("input").prop("value")).to.equal("");
-    datePicker.setProps({ value: "foo" });
-    expect(datePicker.find("input").prop("value")).to.equal("foo");
-  });
-  it("should preserve user input as they are typing", () => {
-    const onChange = (date) => datePicker.setProps({ selected: date });
-    const datePicker = mount(
-      <DatePicker
-        dateFormat={["yyyy-MM-dd", "MM/dd/yyyy", "MM/dd/yy"]}
-        onChange={onChange}
-      />
-    );
-    expect(datePicker.find("input").prop("value")).to.equal("");
 
-    const str = "12/30/1982";
-    datePicker.find("input").simulate("focus");
-    str.split("").forEach((c, i) => {
-      datePicker.find("input").simulate("change", {
-        target: { value: datePicker.find("input").prop("value") + c },
-      });
-      datePicker.update();
-      expect(datePicker.find("input").prop("value")).to.equal(
-        str.substring(0, i + 1)
-      );
-    });
-    expect(
-      utils.formatDate(datePicker.prop("selected"), "yyyy-MM-dd")
-    ).to.equal("1982-12-30");
-  });
   it("should default to the currently selected date", () => {
     const datePicker = mount(
       <DatePicker selected={utils.newDate("1988-12-30")} />
@@ -729,13 +686,7 @@ describe("DatePicker", () => {
       utils.formatDate(datePicker.state("preSelection"), "yyyy-MM-dd")
     ).to.equal(utils.formatDate(future, "yyyy-MM-dd"));
   });
-  it("should clear the input when clear() member function is called", () => {
-    const datePicker = TestUtils.renderIntoDocument(
-      <DatePicker selected={utils.newDate("2015-12-15")} />
-    );
-    datePicker.clear();
-    expect(datePicker.state.inputValue).to.be.null;
-  });
+
   it("should not open when open is false and input is focused", () => {
     var datePicker = TestUtils.renderIntoDocument(<DatePicker open={false} />);
     var dateInput = datePicker.input;

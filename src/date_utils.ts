@@ -1,51 +1,51 @@
-import isDate from "date-fns/isDate";
-import isValidDate from "date-fns/isValid";
-import format from "date-fns/format";
 import add from "date-fns/add";
-import getSeconds from "date-fns/getSeconds";
-import getMinutes from "date-fns/getMinutes";
-import getHours from "date-fns/getHours";
-import getDay from "date-fns/getDay";
-import getDate from "date-fns/getDate";
-import dfgetWeek from "date-fns/getWeek";
-import getMonth from "date-fns/getMonth";
-import getQuarter from "date-fns/getQuarter";
-import getYear from "date-fns/getYear";
-import setSeconds from "date-fns/setSeconds";
-import setMinutes from "date-fns/setMinutes";
-import setHours from "date-fns/setHours";
-import setMonth from "date-fns/setMonth";
-import setQuarter from "date-fns/setQuarter";
-import setYear from "date-fns/setYear";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 import differenceInCalendarMonths from "date-fns/differenceInCalendarMonths";
 import differenceInCalendarYears from "date-fns/differenceInCalendarYears";
-import startOfDay from "date-fns/startOfDay";
-import startOfWeek from "date-fns/startOfWeek";
-import startOfMonth from "date-fns/startOfMonth";
-import startOfQuarter from "date-fns/startOfQuarter";
-import startOfYear from "date-fns/startOfYear";
 import endOfDay from "date-fns/endOfDay";
-import endOfWeek from "date-fns/endOfWeek";
 import endOfMonth from "date-fns/endOfMonth";
+import endOfWeek from "date-fns/endOfWeek";
+import format from "date-fns/format";
+import getDate from "date-fns/getDate";
+import getDay from "date-fns/getDay";
+import getHours from "date-fns/getHours";
+import getMinutes from "date-fns/getMinutes";
+import getMonth from "date-fns/getMonth";
+import getQuarter from "date-fns/getQuarter";
+import getSeconds from "date-fns/getSeconds";
+import dfgetWeek from "date-fns/getWeek";
+import getYear from "date-fns/getYear";
+import isAfter from "date-fns/isAfter";
+import isBefore from "date-fns/isBefore";
+import isDate from "date-fns/isDate";
 import dfIsEqual from "date-fns/isEqual";
 import dfIsSameDay from "date-fns/isSameDay";
 import dfIsSameMonth from "date-fns/isSameMonth";
 import dfIsSameQuarter from "date-fns/isSameQuarter";
-import isAfter from "date-fns/isAfter";
-import isBefore from "date-fns/isBefore";
+import isValidDate from "date-fns/isValid";
 import isWithinInterval from "date-fns/isWithinInterval";
-import toDate from "date-fns/toDate";
 import parse from "date-fns/parse";
 import parseISO from "date-fns/parseISO";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
+import setMonth from "date-fns/setMonth";
+import setQuarter from "date-fns/setQuarter";
+import setSeconds from "date-fns/setSeconds";
+import setYear from "date-fns/setYear";
+import startOfDay from "date-fns/startOfDay";
+import startOfMonth from "date-fns/startOfMonth";
+import startOfQuarter from "date-fns/startOfQuarter";
+import startOfWeek from "date-fns/startOfWeek";
+import startOfYear from "date-fns/startOfYear";
+import toDate from "date-fns/toDate";
 
 export const DEFAULT_YEAR_ITEM_NUMBER = 12;
 
 // ** Date Constructors **
 
-export function newDate(value) {
+export function newDate(value?: Date | string) {
   const d = value
-    ? typeof value === "string" || value instanceof String
+    ? typeof value === "string"
       ? parseISO(value)
       : toDate(value)
     : new Date();
@@ -60,7 +60,11 @@ export function parseDate(value, dateFormat, locale) {
       let tryParseDate = parse(value, df, new Date(), { locale: localeObject });
       if (
         isValid(tryParseDate) &&
-        value === format(tryParseDate, df, { awareOfUnicodeTokens: true })
+        value ===
+          format(tryParseDate, df, {
+            useAdditionalDayOfYearTokens: true,
+            useAdditionalWeekYearTokens: true,
+          })
       ) {
         parsedDate = tryParseDate;
       }
@@ -71,7 +75,11 @@ export function parseDate(value, dateFormat, locale) {
   parsedDate = parse(value, dateFormat, new Date(), { locale: localeObject });
 
   return isValid(parsedDate) &&
-    value === format(parsedDate, dateFormat, { awareOfUnicodeTokens: true })
+    value ===
+      format(parsedDate, dateFormat, {
+        useAdditionalDayOfYearTokens: true,
+        useAdditionalWeekYearTokens: true,
+      })
     ? parsedDate
     : null;
 }
@@ -79,50 +87,8 @@ export function parseDate(value, dateFormat, locale) {
 // ** Date "Reflection" **
 
 export { isDate };
-
-export function isValid(date) {
-  return isValidDate(date) && isAfter(date, new Date("1/1/1000"));
-}
-
-// ** Date Formatting **
-
-export function formatDate(date, formatStr, locale) {
-  let localeObj = getLocaleObject(locale);
-  if (
-    !localeObj &&
-    !!getDefaultLocale() &&
-    !!getLocaleObject(getDefaultLocale())
-  ) {
-    localeObj = getLocaleObject(getDefaultLocale());
-  }
-  return format(date, formatStr, {
-    locale: localeObj ? localeObj : null,
-    awareOfUnicodeTokens: true,
-  });
-}
-
-export function safeDateFormat(date, { dateFormat, locale }) {
-  return (
-    (date &&
-      formatDate(
-        date,
-        Array.isArray(dateFormat) ? dateFormat[0] : dateFormat,
-        locale
-      )) ||
-    ""
-  );
-}
-
-// ** Date Setters **
-
-export function setTime(date, { hour = 0, minute = 0, second = 0 }) {
-  return setHours(setMinutes(setSeconds(date, second), minute), hour);
-}
-
 export { setMinutes, setHours, setMonth, setQuarter, setYear };
-
 // ** Date Getters **
-
 // getDay Returns day of week, getDate returns day of month
 export {
   getSeconds,
@@ -134,6 +100,39 @@ export {
   getDay,
   getDate,
 };
+// ** Date Math **
+// *** Addition ***
+export { add };
+// ** Date Comparison **
+export { isBefore, isAfter };
+
+export function isValid(date) {
+  return isValidDate(date) && isAfter(date, new Date("1/1/1000"));
+}
+
+// ** Date Formatting **
+
+export function formatDate(date, formatStr: string, locale?: any) {
+  let localeObj = getLocaleObject(locale);
+  if (
+    !localeObj &&
+    !!getDefaultLocale() &&
+    !!getLocaleObject(getDefaultLocale())
+  ) {
+    localeObj = getLocaleObject(getDefaultLocale());
+  }
+  return format(date, formatStr, {
+    locale: localeObj ? localeObj : null,
+    useAdditionalDayOfYearTokens: true,
+    useAdditionalWeekYearTokens: true,
+  });
+}
+
+// ** Date Setters **
+
+export function setTime(date, { hour = 0, minute = 0, second = 0 }) {
+  return setHours(setMinutes(setSeconds(date, second), minute), hour);
+}
 
 export function getWeek(date, locale) {
   let localeObj =
@@ -142,7 +141,7 @@ export function getWeek(date, locale) {
   return dfgetWeek(date, localeObj ? { locale: localeObj } : null);
 }
 
-export function getDayOfWeekCode(day, locale) {
+export function getDayOfWeekCode(day, locale?: any) {
   return formatDate(day, "ddd", locale);
 }
 
@@ -180,16 +179,6 @@ export function getEndOfWeek(date) {
 export function getEndOfMonth(date) {
   return endOfMonth(date);
 }
-
-// ** Date Math **
-
-// *** Addition ***
-
-export { add };
-
-// ** Date Comparison **
-
-export { isBefore, isAfter };
 
 export function isSameMonth(date1, date2) {
   if (date1 && date2) {
@@ -247,12 +236,14 @@ export function getDaysDiff(date1, date2) {
 export function setDefaultLocale(localeName) {
   const scope = typeof window !== "undefined" ? window : global;
 
+  // @ts-expect-error
   scope.__localeId__ = localeName;
 }
 
 export function getDefaultLocale() {
   const scope = typeof window !== "undefined" ? window : global;
 
+  // @ts-expect-error
   return scope.__localeId__;
 }
 
@@ -287,7 +278,14 @@ export function getQuarterShortInLocale(quarter, locale) {
 
 // ** Utils for some components **
 
-export function isDayDisabled(day, { minDate, maxDate, filterDate } = {}) {
+export function isDayDisabled(
+  day,
+  { minDate, maxDate, filterDate } = {
+    minDate: null,
+    maxDate: null,
+    filterDate: null,
+  }
+) {
   return (
     isOutOfBounds(day, { minDate, maxDate }) ||
     (filterDate && !filterDate(newDate(day))) ||
@@ -299,7 +297,14 @@ export function isDayExcluded() {
   return false;
 }
 
-export function isMonthDisabled(month, { minDate, maxDate, filterDate } = {}) {
+export function isMonthDisabled(
+  month,
+  { minDate, maxDate, filterDate } = {
+    minDate: null,
+    maxDate: null,
+    filterDate: null,
+  }
+) {
   return (
     isOutOfBounds(month, { minDate, maxDate }) ||
     (filterDate && !filterDate(newDate(month))) ||
@@ -326,7 +331,11 @@ export function isMonthinRange(startDate, endDate, m, day) {
 
 export function isQuarterDisabled(
   quarter,
-  { minDate, maxDate, filterDate } = {}
+  { minDate, maxDate, filterDate } = {
+    minDate: null,
+    maxDate: null,
+    filterDate: null,
+  }
 ) {
   return (
     isOutOfBounds(quarter, { minDate, maxDate }) ||
@@ -335,7 +344,10 @@ export function isQuarterDisabled(
   );
 }
 
-export function isYearDisabled(year, { minDate, maxDate } = {}) {
+export function isYearDisabled(
+  year,
+  { minDate, maxDate } = { minDate: null, maxDate: null }
+) {
   const date = new Date(year, 0, 1);
   return isOutOfBounds(date, { minDate, maxDate }) || false;
 }
@@ -357,14 +369,17 @@ export function isQuarterInRange(startDate, endDate, q, day) {
   }
 }
 
-export function isOutOfBounds(day, { minDate, maxDate } = {}) {
+export function isOutOfBounds(
+  day,
+  { minDate, maxDate } = { minDate: null, maxDate: null }
+) {
   return (
     (minDate && differenceInCalendarDays(day, minDate) < 0) ||
     (maxDate && differenceInCalendarDays(day, maxDate) > 0)
   );
 }
 
-export function isTimeDisabled(time, { filterTime } = {}) {
+export function isTimeDisabled(time, { filterTime } = { filterTime: null }) {
   return (filterTime && !filterTime(time)) || false;
 }
 
@@ -392,28 +407,28 @@ export function isTimeInDisabledRange(time, { minTime, maxTime }) {
   return valid;
 }
 
-export function monthDisabledBefore(day, { minDate } = {}) {
+export function monthDisabledBefore(day, { minDate } = { minDate: null }) {
   const previousMonth = add(day, { months: -1 });
   return (
     (minDate && differenceInCalendarMonths(minDate, previousMonth) > 0) || false
   );
 }
 
-export function monthDisabledAfter(day, { maxDate } = {}) {
+export function monthDisabledAfter(day, { maxDate } = { maxDate: null }) {
   const nextMonth = add(day, { months: 1 });
   return (
     (maxDate && differenceInCalendarMonths(nextMonth, maxDate) > 0) || false
   );
 }
 
-export function yearDisabledBefore(day, { minDate } = {}) {
+export function yearDisabledBefore(day, { minDate } = { minDate: null }) {
   const previousYear = add(day, { years: -1 });
   return (
     (minDate && differenceInCalendarYears(minDate, previousYear) > 0) || false
   );
 }
 
-export function yearDisabledAfter(day, { maxDate } = {}) {
+export function yearDisabledAfter(day, { maxDate } = { maxDate: null }) {
   const nextYear = add(day, { years: 1 });
   return (maxDate && differenceInCalendarYears(nextYear, maxDate) > 0) || false;
 }
@@ -430,7 +445,7 @@ export function getHightLightDaysMap(
   highlightDates = [],
   defaultClassName = "react-datepicker__day--highlighted"
 ) {
-  const dateClasses = new Map();
+  const dateClasses = new Map<string, string[]>();
   for (let i = 0, len = highlightDates.length; i < len; i++) {
     const obj = highlightDates[i];
     if (isDate(obj)) {

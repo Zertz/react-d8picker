@@ -32,6 +32,7 @@ export default class Calendar extends React.Component {
       monthsShown: 1,
       monthSelectedIn: 0,
       timeCaption: "Time",
+      weekLabel: "#",
     };
   }
 
@@ -82,9 +83,8 @@ export default class Calendar extends React.Component {
     useWeekdaysShort: PropTypes.bool,
     formatWeekDay: PropTypes.func,
     weekLabel: PropTypes.string,
-    renderCustomHeader: PropTypes.func,
-    renderDayContents: PropTypes.func,
-    onDayMouseEnter: PropTypes.func,
+    renderHeader: PropTypes.func,
+    renderDay: PropTypes.func,
     onMonthMouseLeave: PropTypes.func,
     handleOnKeyDown: PropTypes.func,
     isInputFocused: PropTypes.bool,
@@ -179,13 +179,8 @@ export default class Calendar extends React.Component {
   };
 
   handleDayClick = (day, event, monthSelectedIn) => {
-    this.props.onSelect(day, event, monthSelectedIn);
+    this.props.onSelect(day, event, monthSelectedIn, true);
     this.props.setPreSelection && this.props.setPreSelection(day);
-  };
-
-  handleDayMouseEnter = (day) => {
-    this.setState({ selectingDate: day });
-    this.props.onDayMouseEnter && this.props.onDayMouseEnter(day);
   };
 
   handleMonthMouseLeave = () => {
@@ -197,10 +192,8 @@ export default class Calendar extends React.Component {
     if (this.props.onYearChange) {
       this.props.onYearChange(date);
     }
-    if (this.props.onSelect) {
-      this.props.onSelect(date);
-    }
 
+    this.props.onSelect(date);
     this.props.setPreSelection && this.props.setPreSelection(date);
   };
 
@@ -208,10 +201,8 @@ export default class Calendar extends React.Component {
     if (this.props.onMonthChange) {
       this.props.onMonthChange(date);
     }
-    if (this.props.onSelect) {
-      this.props.onSelect(date);
-    }
 
+    this.props.onSelect(date);
     this.props.setPreSelection && this.props.setPreSelection(date);
   };
 
@@ -253,7 +244,7 @@ export default class Calendar extends React.Component {
     if (this.props.showWeekNumbers) {
       dayNames.push(
         <div key="W" className="react-datepicker__day-name">
-          {this.props.weekLabel || "#"}
+          {this.props.weekLabel}
         </div>
       );
     }
@@ -298,7 +289,7 @@ export default class Calendar extends React.Component {
     );
   };
 
-  renderCustomHeader = (headerArgs = {}) => {
+  renderHeader = (headerArgs = {}) => {
     const { monthDate, i } = headerArgs;
 
     if (i !== 0 && i !== undefined) {
@@ -333,8 +324,8 @@ export default class Calendar extends React.Component {
             : ""
         }`}
       >
-        {this.props.renderCustomHeader &&
-          this.props.renderCustomHeader({
+        {this.props.renderHeader &&
+          this.props.renderHeader({
             ...this.state,
             changeMonth: this.changeMonth,
             changeYear: this.changeYear,
@@ -352,10 +343,6 @@ export default class Calendar extends React.Component {
         </div>
       </div>
     );
-  };
-
-  renderHeader = (headerArgs) => {
-    return this.renderCustomHeader(headerArgs);
   };
 
   renderMonths = () => {
@@ -391,7 +378,6 @@ export default class Calendar extends React.Component {
             day={monthDate}
             onDayClick={this.handleDayClick}
             handleOnKeyDown={this.props.handleOnKeyDown}
-            onDayMouseEnter={this.handleDayMouseEnter}
             onMouseLeave={this.handleMonthMouseLeave}
             onWeekSelect={this.props.onWeekSelect}
             orderInDisplay={i}
@@ -411,7 +397,7 @@ export default class Calendar extends React.Component {
             startDate={this.props.startDate}
             endDate={this.props.endDate}
             peekNextMonth={this.props.peekNextMonth}
-            renderDayContents={this.props.renderDayContents}
+            renderDay={this.props.renderDay}
             showFullMonthYearPicker={this.props.showFullMonthYearPicker}
             isInputFocused={this.props.isInputFocused}
             containerRef={this.containerRef}
