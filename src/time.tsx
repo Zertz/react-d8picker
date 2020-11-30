@@ -91,7 +91,7 @@ export default class Time extends React.Component<Props, State> {
   };
 
   liClasses = (time, currH, currM) => {
-    let classes = ["react-datepicker__time-list-item"];
+    const classes = ["react-datepicker__time-list-item"];
 
     if (
       this.props.selected &&

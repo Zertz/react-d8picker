@@ -50,10 +50,12 @@ export function newDate(value?: Date | string) {
 
 export function parseDate(value, dateFormat, locale) {
   let parsedDate = null;
-  let localeObject = getLocaleObject(locale) || getDefaultLocale();
+  const localeObject = getLocaleObject(locale) || getDefaultLocale();
   if (Array.isArray(dateFormat)) {
     dateFormat.forEach((df) => {
-      let tryParseDate = parse(value, df, new Date(), { locale: localeObject });
+      const tryParseDate = parse(value, df, new Date(), {
+        locale: localeObject,
+      });
       if (
         isValid(tryParseDate) &&
         value ===
@@ -122,7 +124,7 @@ export function setTime(date, { hour = 0, minute = 0, second = 0 }) {
 }
 
 export function getWeek(date, locale) {
-  let localeObj =
+  const localeObj =
     (locale && getLocaleObject(locale)) ||
     (getDefaultLocale() && getLocaleObject(getDefaultLocale()));
   return dfgetWeek(date, localeObj ? { locale: localeObj } : null);
@@ -139,7 +141,7 @@ export function getStartOfDay(date) {
 }
 
 export function getStartOfWeek(date, locale) {
-  let localeObj = locale
+  const localeObj = locale
     ? getLocaleObject(locale)
     : getLocaleObject(getDefaultLocale());
   return startOfWeek(date, { locale: localeObj });
@@ -211,14 +213,14 @@ export function getDaysDiff(date1, date2) {
 export function setDefaultLocale(localeName) {
   const scope = typeof window !== "undefined" ? window : global;
 
-  // @ts-expect-error
+  // @ts-expect-error TODO: define global
   scope.__localeId__ = localeName;
 }
 
 export function getDefaultLocale() {
   const scope = typeof window !== "undefined" ? window : global;
 
-  // @ts-expect-error
+  // @ts-expect-error TODO: define global
   return scope.__localeId__;
 }
 

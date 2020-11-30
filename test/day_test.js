@@ -27,7 +27,7 @@ describe("Day", () => {
 
     it("should apply the day of week class", () => {
       let day = newDate();
-      for (var i = 0; i < 7; i++) {
+      for (let i = 0; i < 7; i++) {
         const className = "react-datepicker__day--" + getDayOfWeekCode(day);
         const shallowDay = renderDay(day);
         expect(shallowDay.hasClass(className)).to.equal(true);
@@ -359,7 +359,7 @@ describe("Day", () => {
       const dayNode = shallow(<Day day={day} onClick={onClick} />);
       dayNode
         .find(".react-datepicker__day")
-        .simulate("click", { persist: () => {} });
+        .simulate("click", { persist: () => undefined });
       expect(onClickCalled).to.be.true;
     });
   });

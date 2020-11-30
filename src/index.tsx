@@ -140,16 +140,16 @@ export default class DatePicker extends React.Component<Props, State> {
     enableTabLoop: true,
     focusSelectedMonth: false,
     monthsShown: 1,
-    onBlur() {},
-    onChange() {},
-    onClickOutside() {},
-    onFocus() {},
-    onInputClick() {},
-    onInputError() {},
-    onKeyDown() {},
-    onMonthChange() {},
-    onSelect() {},
-    onYearChange() {},
+    onBlur: () => undefined,
+    onChange: () => undefined,
+    onClickOutside: () => undefined,
+    onFocus: () => undefined,
+    onInputClick: () => undefined,
+    onInputError: () => undefined,
+    onKeyDown: () => undefined,
+    onMonthChange: () => undefined,
+    onSelect: () => undefined,
+    onYearChange: () => undefined,
     readOnly: false,
     showTimeSelect: false,
     showPreviousMonths: false,
@@ -357,7 +357,7 @@ export default class DatePicker extends React.Component<Props, State> {
     keepInput?: boolean,
     monthSelectedIn?: any
   ) => {
-    let changedDate = date;
+    const changedDate = date;
 
     if (
       changedDate !== null &&
@@ -448,7 +448,7 @@ export default class DatePicker extends React.Component<Props, State> {
     const selected = this.props.selected
       ? this.props.selected
       : this.getPreSelection();
-    let changedDate = setTime(selected, {
+    const changedDate = setTime(selected, {
       hour: getHours(time),
       minute: getMinutes(time),
     });

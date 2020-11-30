@@ -18,9 +18,9 @@ describe("Calendar", function () {
     return shallow(
       <Calendar
         dateFormat={dateFormat}
-        onSelect={() => {}}
-        onClickOutside={() => {}}
-        hideCalendar={() => {}}
+        onSelect={() => undefined}
+        onClickOutside={() => undefined}
+        hideCalendar={() => undefined}
         {...extraProps}
       />
     );
@@ -94,9 +94,9 @@ describe("Calendar", function () {
   });
 
   it("should open on openToDate date rather than selected date when both are specified", function () {
-    var openToDate = utils.parseDate("09/28/1993", DATE_FORMAT);
-    var selected = utils.parseDate("09/28/1995", DATE_FORMAT);
-    var calendar = getCalendar({ openToDate, selected });
+    const openToDate = utils.parseDate("09/28/1993", DATE_FORMAT);
+    const selected = utils.parseDate("09/28/1995", DATE_FORMAT);
+    const calendar = getCalendar({ openToDate, selected });
     assert(utils.isSameDay(calendar.state().date, openToDate));
   });
 
@@ -374,8 +374,8 @@ describe("Calendar", function () {
     const calendar = mount(
       <Calendar
         dateFormat={dateFormat}
-        onClickOutside={() => {}}
-        onSelect={() => {}}
+        onClickOutside={() => undefined}
+        onSelect={() => undefined}
       />
     );
     calendar.setState({ selectingDate: utils.newDate() });
@@ -390,16 +390,16 @@ describe("Calendar", function () {
     const calendarShort = mount(
       <Calendar
         dateFormat={dateFormat}
-        onClickOutside={() => {}}
-        onSelect={() => {}}
+        onClickOutside={() => undefined}
+        onSelect={() => undefined}
         useWeekdaysShort
       />
     );
     const calendarMin = mount(
       <Calendar
         dateFormat={dateFormat}
-        onClickOutside={() => {}}
-        onSelect={() => {}}
+        onClickOutside={() => undefined}
+        onSelect={() => undefined}
       />
     );
 
@@ -464,7 +464,7 @@ describe("Calendar", function () {
     });
 
     it("should render empty custom header", function () {
-      const calendar = getCalendar({ renderHeader: () => {} });
+      const calendar = getCalendar({ renderHeader: () => undefined });
 
       const header = calendar.find(".react-datepicker__header--custom");
       expect(header).to.have.length(1);
@@ -476,7 +476,7 @@ describe("Calendar", function () {
     const calendar = mount(
       <Calendar
         dateFormat={DATE_FORMAT}
-        onSelect={() => {}}
+        onSelect={() => undefined}
         onClickOutside={clickOutsideSpy}
       />
     );

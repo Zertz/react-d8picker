@@ -43,7 +43,7 @@ export default class Week extends React.Component<Props> {
   };
 
   handleWeekClick = (day: Date, weekNumber: number, event: any) => {
-    if (typeof this.props.onWeekSelect) {
+    if (this.props.onWeekSelect) {
       this.props.onWeekSelect(day, weekNumber, event);
     }
 

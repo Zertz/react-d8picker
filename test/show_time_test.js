@@ -15,8 +15,8 @@ describe("DatePicker", () => {
   });
 
   it("should show time component when showTimeSelect prop is present", () => {
-    var datePicker = mount(<DatePicker showTimeSelect />);
-    var timeComponent = datePicker.find(TimeComponent);
+    const datePicker = mount(<DatePicker showTimeSelect />);
+    const timeComponent = datePicker.find(TimeComponent);
     expect(timeComponent).to.exist;
   });
 

@@ -366,20 +366,22 @@ export default class Calendar extends React.Component<Props, State> {
       return;
     }
 
-    var monthList = [];
+    const monthList = [];
 
-    var monthsToSubtract = this.props.showPreviousMonths
+    const monthsToSubtract = this.props.showPreviousMonths
       ? this.props.monthsShown - 1
       : 0;
 
-    var fromMonthDate = add(this.state.date, { months: monthsToSubtract * -1 });
+    const fromMonthDate = add(this.state.date, {
+      months: monthsToSubtract * -1,
+    });
 
-    for (var i = 0; i < this.props.monthsShown; ++i) {
-      var monthsToAdd = i - this.props.monthSelectedIn;
-      var monthDate = add(fromMonthDate, { months: monthsToAdd });
-      var monthKey = `month-${i}`;
-      var monthShowsDuplicateDaysEnd = i < this.props.monthsShown - 1;
-      var monthShowsDuplicateDaysStart = i > 0;
+    for (let i = 0; i < this.props.monthsShown; ++i) {
+      const monthsToAdd = i - this.props.monthSelectedIn;
+      const monthDate = add(fromMonthDate, { months: monthsToAdd });
+      const monthKey = `month-${i}`;
+      const monthShowsDuplicateDaysEnd = i < this.props.monthsShown - 1;
+      const monthShowsDuplicateDaysStart = i > 0;
 
       monthList.push(
         <div
