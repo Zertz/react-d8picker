@@ -143,8 +143,7 @@
 .react-datepicker__month {
   margin: $datepicker__margin;
   text-align: center;
-  .react-datepicker__month-text,
-  .react-datepicker__quarter-text {
+  .react-datepicker__month-text {
     display: inline-block;
     width: 4rem;
     margin: 2px;
@@ -270,8 +269,7 @@
   line-height: $datepicker__item-size;
 }
 
-.react-datepicker__month,
-.react-datepicker__quarter {
+.react-datepicker__month {
   &--selected,
   &--in-selecting-range,
   &--in-range {
@@ -295,7 +293,6 @@
 
 .react-datepicker__day,
 .react-datepicker__month-text,
-.react-datepicker__quarter-text,
 .react-datepicker__year-text {
   cursor: pointer;
 
@@ -369,12 +366,9 @@
   }
 }
 
-.react-datepicker__month-text,
-.react-datepicker__quarter-text {
+.react-datepicker__month-text {
   &.react-datepicker__month--selected,
-  &.react-datepicker__month--in-range,
-  &.react-datepicker__quarter--selected,
-  &.react-datepicker__quarter--in-range {
+  &.react-datepicker__month--in-range {
     &:hover {
       background-color: $datepicker__selected-color;
     }

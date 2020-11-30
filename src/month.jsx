@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classnames from "classnames";
 import Week from "./week";
 import * as utils from "./date_utils";
 
@@ -47,10 +46,6 @@ export default class Month extends React.Component {
     .fill()
     .map(() => React.createRef());
 
-  isDisabled = (date) => utils.isDayDisabled(date, this.props);
-
-  isExcluded = (date) => utils.isDayExcluded(date, this.props);
-
   handleDayClick = (day, event) => {
     if (this.props.onDayClick) {
       this.props.onDayClick(day, event, this.props.orderInDisplay);
@@ -61,38 +56,6 @@ export default class Month extends React.Component {
     if (this.props.onMouseLeave) {
       this.props.onMouseLeave();
     }
-  };
-
-  isRangeStartMonth = (m) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return utils.isSameMonth(utils.setMonth(day, m), startDate);
-  };
-
-  isRangeStartQuarter = (q) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return utils.isSameQuarter(utils.setQuarter(day, q), startDate);
-  };
-
-  isRangeEndMonth = (m) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return utils.isSameMonth(utils.setMonth(day, m), endDate);
-  };
-
-  isRangeEndQuarter = (q) => {
-    const { day, startDate, endDate } = this.props;
-    if (!startDate || !endDate) {
-      return false;
-    }
-    return utils.isSameQuarter(utils.setQuarter(day, q), endDate);
   };
 
   isWeekInMonth = (startOfWeek) => {
@@ -166,184 +129,6 @@ export default class Month extends React.Component {
     }
 
     return weeks;
-  };
-
-  onMonthClick = (e, m) => {
-    this.handleDayClick(
-      utils.getStartOfMonth(utils.setMonth(this.props.day, m)),
-      e
-    );
-  };
-
-  handleMonthNavigation = (newMonth, newDate) => {
-    if (this.isDisabled(newDate) || this.isExcluded(newDate)) return;
-    this.props.setPreSelection(newDate);
-    this.MONTH_REFS[newMonth].current &&
-      this.MONTH_REFS[newMonth].current.focus();
-  };
-
-  onMonthKeyDown = (event, month) => {
-    const eventKey = event.key;
-    switch (eventKey) {
-      case "Enter":
-        this.onMonthClick(event, month);
-        this.props.setPreSelection(this.props.selected);
-        break;
-      case "ArrowRight":
-        this.handleMonthNavigation(
-          month === 11 ? 0 : month + 1,
-          utils.add(this.props.preSelection, { months: 1 })
-        );
-        break;
-      case "ArrowLeft":
-        this.handleMonthNavigation(
-          month === 0 ? 11 : month - 1,
-          utils.add(this.props.preSelection, { months: -1 })
-        );
-        break;
-    }
-  };
-
-  onQuarterClick = (e, q) => {
-    this.handleDayClick(
-      utils.getStartOfQuarter(utils.setQuarter(this.props.day, q)),
-      e
-    );
-  };
-
-  getMonthClassNames = (m) => {
-    const {
-      day,
-      startDate,
-      endDate,
-      selected,
-      minDate,
-      maxDate,
-      preSelection,
-    } = this.props;
-    return classnames(
-      "react-datepicker__month-text",
-      `react-datepicker__month-${m}`,
-      {
-        "react-datepicker__month--disabled":
-          (minDate || maxDate) &&
-          utils.isMonthDisabled(utils.setMonth(day, m), this.props),
-        "react-datepicker__month--selected":
-          utils.getMonth(day) === m &&
-          utils.getYear(day) === utils.getYear(selected),
-        "react-datepicker__month-text--keyboard-selected":
-          utils.getMonth(preSelection) === m,
-        "react-datepicker__month--in-range": utils.isMonthinRange(
-          startDate,
-          endDate,
-          m,
-          day
-        ),
-        "react-datepicker__month--range-start": this.isRangeStartMonth(m),
-        "react-datepicker__month--range-end": this.isRangeEndMonth(m),
-      }
-    );
-  };
-
-  getTabIndex = (m) => {
-    const preSelectedMonth = utils.getMonth(this.props.preSelection);
-    const tabIndex = m === preSelectedMonth ? "0" : "-1";
-
-    return tabIndex;
-  };
-
-  getAriaLabel = (month) => {
-    const {
-      ariaLabelPrefix = "Choose",
-      disabledDayAriaLabelPrefix = "Not available",
-      day,
-    } = this.props;
-
-    const labelDate = utils.setMonth(day, month);
-    const prefix =
-      this.isDisabled(labelDate) || this.isExcluded(labelDate)
-        ? disabledDayAriaLabelPrefix
-        : ariaLabelPrefix;
-
-    return `${prefix} ${utils.formatDate(labelDate, "MMMM yyyy")}`;
-  };
-
-  getQuarterClassNames = (q) => {
-    const { day, startDate, endDate, selected, minDate, maxDate } = this.props;
-    return classnames(
-      "react-datepicker__quarter-text",
-      `react-datepicker__quarter-${q}`,
-      {
-        "react-datepicker__quarter--disabled":
-          (minDate || maxDate) &&
-          utils.isQuarterDisabled(utils.setQuarter(day, q), this.props),
-        "react-datepicker__quarter--selected":
-          utils.getQuarter(day) === q &&
-          utils.getYear(day) === utils.getYear(selected),
-        "react-datepicker__quarter--in-range": utils.isQuarterInRange(
-          startDate,
-          endDate,
-          q,
-          day
-        ),
-        "react-datepicker__quarter--range-start": this.isRangeStartQuarter(q),
-        "react-datepicker__quarter--range-end": this.isRangeEndQuarter(q),
-      }
-    );
-  };
-
-  renderMonths = () => {
-    const { showFullMonthYearPicker, locale } = this.props;
-    const monthsThreeColumns = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [9, 10, 11],
-    ];
-    const monthLayout = monthsThreeColumns;
-    return monthLayout.map((month, i) => (
-      <div className="react-datepicker__month-wrapper" key={i}>
-        {month.map((m, j) => (
-          <div
-            ref={this.MONTH_REFS[m]}
-            key={j}
-            onClick={(ev) => {
-              this.onMonthClick(ev, m);
-            }}
-            onKeyDown={(ev) => {
-              this.onMonthKeyDown(ev, m);
-            }}
-            tabIndex={this.getTabIndex(m)}
-            className={this.getMonthClassNames(m)}
-            role="button"
-            aria-label={this.getAriaLabel(m)}
-          >
-            {showFullMonthYearPicker
-              ? utils.getMonthInLocale(m, locale)
-              : utils.getMonthShortInLocale(m, locale)}
-          </div>
-        ))}
-      </div>
-    ));
-  };
-
-  renderQuarters = () => {
-    const quarters = [1, 2, 3, 4];
-    return (
-      <div className="react-datepicker__quarter-wrapper">
-        {quarters.map((q, j) => (
-          <div
-            key={j}
-            onClick={(ev) => {
-              this.onQuarterClick(ev, q);
-            }}
-            className={this.getQuarterClassNames(q)}
-          >
-            {utils.getQuarterShortInLocale(q, this.props.locale)}
-          </div>
-        ))}
-      </div>
-    );
   };
 
   getClassNames = () => {
