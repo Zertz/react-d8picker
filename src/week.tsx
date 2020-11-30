@@ -1,63 +1,62 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Day from "./day";
-import WeekNumber from "./week_number";
+import * as React from "react";
 import * as utils from "./date_utils";
+import Day from "./day";
+import { RenderDayProps } from "./types";
+import WeekNumber from "./week_number";
 
-export default class Week extends React.Component {
-  static propTypes = {
-    ariaLabelPrefix: PropTypes.string,
-    day: PropTypes.instanceOf(Date).isRequired,
-    disabledDayAriaLabelPrefix: PropTypes.string,
-    chooseDayAriaLabelPrefix: PropTypes.string,
-    endDate: PropTypes.instanceOf(Date),
-    filterDate: PropTypes.func,
-    formatWeekNumber: PropTypes.func,
-    highlightDates: PropTypes.instanceOf(Map),
-    inline: PropTypes.bool,
-    locale: PropTypes.shape({ locale: PropTypes.object }),
-    maxDate: PropTypes.instanceOf(Date),
-    minDate: PropTypes.instanceOf(Date),
-    month: PropTypes.number,
-    onDayClick: PropTypes.func,
-    onWeekSelect: PropTypes.func,
-    preSelection: PropTypes.instanceOf(Date),
-    selected: PropTypes.instanceOf(Date),
-    selectingDate: PropTypes.instanceOf(Date),
-    selectsRange: PropTypes.bool,
-    showWeekNumber: PropTypes.bool,
-    startDate: PropTypes.instanceOf(Date),
-    setOpen: PropTypes.func,
-    renderDay: PropTypes.func,
-    handleOnKeyDown: PropTypes.func,
-    isInputFocused: PropTypes.bool,
-    containerRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-    ]),
-    monthShowsDuplicateDaysEnd: PropTypes.bool,
-    monthShowsDuplicateDaysStart: PropTypes.bool,
-  };
+interface Props {
+  ariaLabelPrefix?: string;
+  day: Date;
+  disabledDayAriaLabelPrefix?: string;
+  chooseDayAriaLabelPrefix?: string;
+  endDate?: Date;
+  filterDate?: () => void;
+  formatWeekNumber?: (date: Date) => number;
+  highlightDates?: Map<unknown, unknown>;
+  inline?: boolean;
+  locale?: { locale: any };
+  maxDate?: Date;
+  minDate?: Date;
+  month?: number;
+  onDayClick?: (day: Date, event: any) => void;
+  onWeekSelect?: (day: Date, weekNumber: number, event: any) => void;
+  preSelection?: Date;
+  selected?: Date;
+  selectingDate?: Date;
+  selectsRange?: boolean;
+  showWeekNumber?: boolean;
+  startDate?: Date;
+  setOpen?: (open: boolean) => void;
+  renderDay?: (props: RenderDayProps) => React.ReactNode;
+  handleOnKeyDown?: () => void;
+  isInputFocused?: boolean;
+  containerRef?: React.RefObject<HTMLDivElement>;
+  monthShowsDuplicateDaysEnd?: boolean;
+  monthShowsDuplicateDaysStart?: boolean;
+}
 
-  handleDayClick = (day, event) => {
+export default class Week extends React.Component<Props> {
+  handleDayClick = (day: Date, event: any) => {
     if (this.props.onDayClick) {
       this.props.onDayClick(day, event);
     }
   };
 
-  handleWeekClick = (day, weekNumber, event) => {
-    if (typeof this.props.onWeekSelect === "function") {
+  handleWeekClick = (day: Date, weekNumber: number, event: any) => {
+    if (typeof this.props.onWeekSelect) {
       this.props.onWeekSelect(day, weekNumber, event);
     }
+
     if (this.props.setOpen) {
       this.props.setOpen(false);
     }
   };
 
-  formatWeekNumber = (date) => {
+  formatWeekNumber = (date: Date) => {
     if (this.props.formatWeekNumber) {
       return this.props.formatWeekNumber(date);
     }
+
     return utils.getWeek(date, this.props.locale);
   };
 
@@ -65,10 +64,12 @@ export default class Week extends React.Component {
     const startOfWeek = utils.getStartOfWeek(this.props.day, this.props.locale);
     const days = [];
     const weekNumber = this.formatWeekNumber(startOfWeek);
+
     if (this.props.showWeekNumber) {
       const onClickAction = this.props.onWeekSelect
         ? this.handleWeekClick.bind(this, startOfWeek, weekNumber)
         : undefined;
+
       days.push(
         <WeekNumber
           key="W"
@@ -78,9 +79,11 @@ export default class Week extends React.Component {
         />
       );
     }
+
     return days.concat(
       [0, 1, 2, 3, 4, 5, 6].map((offset) => {
         const day = utils.add(startOfWeek, { days: offset });
+
         return (
           <Day
             ariaLabelPrefixWhenEnabled={this.props.chooseDayAriaLabelPrefix}

@@ -1,101 +1,107 @@
-import Month from "./month";
-import Time from "./time";
-import React from "react";
-import PropTypes from "prop-types";
 import classnames from "classnames";
+import * as React from "react";
 import CalendarContainer from "./calendar_container";
 import {
+  add,
+  getEffectiveMaxDate,
+  getEffectiveMinDate,
+  getFormattedWeekdayInLocale,
+  getMonth,
+  getStartOfWeek,
+  getWeekdayMinInLocale,
+  getWeekdayShortInLocale,
+  getYear,
+  isAfter,
+  isBefore,
+  isSameDay,
+  monthDisabledAfter,
+  monthDisabledBefore,
   newDate,
   setMonth,
-  getMonth,
-  add,
-  getStartOfWeek,
   setYear,
-  getYear,
-  isBefore,
-  isAfter,
-  getFormattedWeekdayInLocale,
-  getWeekdayShortInLocale,
-  getWeekdayMinInLocale,
-  isSameDay,
-  monthDisabledBefore,
-  monthDisabledAfter,
-  yearDisabledBefore,
   yearDisabledAfter,
-  getEffectiveMinDate,
-  getEffectiveMaxDate,
+  yearDisabledBefore,
 } from "./date_utils";
+import Month from "./month";
+import Time from "./time";
+import { RenderDayProps, RenderHeaderProps } from "./types";
 
-export default class Calendar extends React.Component {
-  static get defaultProps() {
-    return {
-      monthsShown: 1,
-      monthSelectedIn: 0,
-      timeCaption: "Time",
-      weekLabel: "#",
-    };
-  }
+interface Props {
+  arrowProps?: Record<string, any>;
+  chooseDayAriaLabelPrefix?: string;
+  className?: string;
+  children?: React.ReactNode;
+  container?: () => void;
+  dateFormat: string | string[];
+  disabledDayAriaLabelPrefix?: string;
+  endDate?: Date;
+  filterDate?: () => void;
+  formatWeekNumber?: (date: Date) => number;
+  highlightDates?: Map<unknown, unknown>;
+  injectTimes?: any[];
+  inline?: boolean;
+  locale?: { locale: any };
+  maxDate?: Date;
+  minDate?: Date;
+  monthsShown?: number;
+  monthSelectedIn?: number;
+  onClickOutside: (event: any) => void;
+  onMonthChange?: (date: Date) => void;
+  onYearChange?: (date: Date) => void;
+  onSelect: (
+    day: Date,
+    event?: any,
+    monthSelectedIn?: number,
+    close?: boolean
+  ) => void;
+  onWeekSelect?: () => void;
+  showTimeSelect?: boolean;
+  showFullMonthYearPicker?: boolean;
+  showTimeSelectOnly?: boolean;
+  timeFormat?: string;
+  timeIntervals?: number;
+  onTimeChange?: () => void;
+  minTime?: Date;
+  maxTime?: Date;
+  filterTime?: () => void;
+  timeCaption?: string;
+  openToDate?: Date;
+  peekNextMonth?: boolean;
+  previousYearAriaLabel?: string;
+  preSelection?: Date;
+  selected?: Date;
+  selectsRange?: boolean;
+  showPreviousMonths?: boolean;
+  showWeekNumbers?: boolean;
+  startDate?: Date;
+  useWeekdaysShort?: boolean;
+  formatWeekDay?: () => void;
+  weekLabel?: string;
+  renderHeader?: (props: RenderHeaderProps) => React.ReactNode;
+  renderDay?: (props: RenderDayProps) => React.ReactNode;
+  onMonthMouseLeave?: () => void;
+  handleOnKeyDown?: () => void;
+  isInputFocused?: boolean;
+  weekAriaLabelPrefix?: string;
+  setPreSelection?: (day: Date) => void;
+}
 
-  static propTypes = {
-    arrowProps: PropTypes.object,
-    chooseDayAriaLabelPrefix: PropTypes.string,
-    className: PropTypes.string,
-    children: PropTypes.node,
-    container: PropTypes.func,
-    dateFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
-      .isRequired,
-    disabledDayAriaLabelPrefix: PropTypes.string,
-    endDate: PropTypes.instanceOf(Date),
-    filterDate: PropTypes.func,
-    formatWeekNumber: PropTypes.func,
-    highlightDates: PropTypes.instanceOf(Map),
-    injectTimes: PropTypes.array,
-    inline: PropTypes.bool,
-    locale: PropTypes.shape({ locale: PropTypes.object }),
-    maxDate: PropTypes.instanceOf(Date),
-    minDate: PropTypes.instanceOf(Date),
-    monthsShown: PropTypes.number,
-    monthSelectedIn: PropTypes.number,
-    onClickOutside: PropTypes.func.isRequired,
-    onMonthChange: PropTypes.func,
-    onYearChange: PropTypes.func,
-    onSelect: PropTypes.func.isRequired,
-    onWeekSelect: PropTypes.func,
-    showTimeSelect: PropTypes.bool,
-    showFullMonthYearPicker: PropTypes.bool,
-    showTimeSelectOnly: PropTypes.bool,
-    timeFormat: PropTypes.string,
-    timeIntervals: PropTypes.number,
-    onTimeChange: PropTypes.func,
-    minTime: PropTypes.instanceOf(Date),
-    maxTime: PropTypes.instanceOf(Date),
-    filterTime: PropTypes.func,
-    timeCaption: PropTypes.string,
-    openToDate: PropTypes.instanceOf(Date),
-    peekNextMonth: PropTypes.bool,
-    previousYearAriaLabel: PropTypes.string,
-    preSelection: PropTypes.instanceOf(Date),
-    selected: PropTypes.instanceOf(Date),
-    selectsRange: PropTypes.bool,
-    showPreviousMonths: PropTypes.bool,
-    showWeekNumbers: PropTypes.bool,
-    startDate: PropTypes.instanceOf(Date),
-    useWeekdaysShort: PropTypes.bool,
-    formatWeekDay: PropTypes.func,
-    weekLabel: PropTypes.string,
-    renderHeader: PropTypes.func,
-    renderDay: PropTypes.func,
-    onMonthMouseLeave: PropTypes.func,
-    handleOnKeyDown: PropTypes.func,
-    isInputFocused: PropTypes.bool,
-    weekAriaLabelPrefix: PropTypes.string,
-    setPreSelection: PropTypes.func,
+interface State {
+  date: Date;
+  selectingDate: Date | null;
+  monthContainer: HTMLDivElement;
+}
+
+export default class Calendar extends React.Component<Props, State> {
+  static defaultProps = {
+    monthsShown: 1,
+    monthSelectedIn: 0,
+    timeCaption: "Time",
+    weekLabel: "#",
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-
-    this.containerRef = React.createRef();
 
     this.state = {
       date: this.getDateInView(),
@@ -103,6 +109,10 @@ export default class Calendar extends React.Component {
       monthContainer: null,
     };
   }
+
+  assignMonthContainer: unknown;
+  containerRef: React.RefObject<HTMLDivElement> = React.createRef();
+  monthContainer: HTMLDivElement;
 
   componentDidMount() {
     // monthContainer height is needed in time component
@@ -144,10 +154,11 @@ export default class Calendar extends React.Component {
 
   getDateInView = () => {
     const { preSelection, selected, openToDate } = this.props;
-    const minDate = getEffectiveMinDate(this.props);
-    const maxDate = getEffectiveMaxDate(this.props);
+    const minDate = getEffectiveMinDate({ minDate: this.props.minDate });
+    const maxDate = getEffectiveMaxDate({ maxDate: this.props.maxDate });
     const current = newDate();
     const initialDate = openToDate || selected || preSelection;
+
     if (initialDate) {
       return initialDate;
     } else {
@@ -157,6 +168,7 @@ export default class Calendar extends React.Component {
         return maxDate;
       }
     }
+
     return current;
   };
 
@@ -178,7 +190,7 @@ export default class Calendar extends React.Component {
     );
   };
 
-  handleDayClick = (day, event, monthSelectedIn) => {
+  handleDayClick = (day: Date, event: any, monthSelectedIn: number) => {
     this.props.onSelect(day, event, monthSelectedIn, true);
     this.props.setPreSelection && this.props.setPreSelection(day);
   };
@@ -211,7 +223,7 @@ export default class Calendar extends React.Component {
     this.handleMonthChange(date);
   };
 
-  changeYear = (year) => {
+  changeYear = (year: number) => {
     this.setState(
       ({ date }) => ({
         date: setYear(date, year),
@@ -220,7 +232,7 @@ export default class Calendar extends React.Component {
     );
   };
 
-  changeMonth = (month) => {
+  changeMonth = (month: number) => {
     this.setState(
       ({ date }) => ({
         date: setMonth(date, month),
@@ -229,7 +241,7 @@ export default class Calendar extends React.Component {
     );
   };
 
-  changeMonthYear = (monthYear) => {
+  changeMonthYear = (monthYear: Date) => {
     this.setState(
       ({ date }) => ({
         date: setYear(setMonth(date, getMonth(monthYear)), getYear(monthYear)),
@@ -241,6 +253,7 @@ export default class Calendar extends React.Component {
   header = (date = this.state.date) => {
     const startOfWeek = getStartOfWeek(date, this.props.locale);
     const dayNames = [];
+
     if (this.props.showWeekNumbers) {
       dayNames.push(
         <div key="W" className="react-datepicker__day-name">
@@ -248,6 +261,7 @@ export default class Calendar extends React.Component {
         </div>
       );
     }
+
     return dayNames.concat(
       [0, 1, 2, 3, 4, 5, 6].map((offset) => {
         const day = add(startOfWeek, { days: offset });
@@ -266,6 +280,7 @@ export default class Calendar extends React.Component {
     if (this.props.formatWeekDay) {
       return getFormattedWeekdayInLocale(day, this.props.formatWeekDay, locale);
     }
+
     return this.props.useWeekdaysShort
       ? getWeekdayShortInLocale(day, locale)
       : getWeekdayMinInLocale(day, locale);
@@ -289,32 +304,33 @@ export default class Calendar extends React.Component {
     );
   };
 
-  renderHeader = (headerArgs = {}) => {
+  renderHeader = (
+    headerArgs: { monthDate: Date; i: number } = {
+      monthDate: undefined,
+      i: undefined,
+    }
+  ) => {
     const { monthDate, i } = headerArgs;
 
     if (i !== 0 && i !== undefined) {
       return null;
     }
 
-    const prevMonthButtonDisabled = monthDisabledBefore(
-      this.state.date,
-      this.props
-    );
+    const prevMonthButtonDisabled = monthDisabledBefore(this.state.date, {
+      minDate: this.props.minDate,
+    });
 
-    const nextMonthButtonDisabled = monthDisabledAfter(
-      this.state.date,
-      this.props
-    );
+    const nextMonthButtonDisabled = monthDisabledAfter(this.state.date, {
+      maxDate: this.props.maxDate,
+    });
 
-    const prevYearButtonDisabled = yearDisabledBefore(
-      this.state.date,
-      this.props
-    );
+    const prevYearButtonDisabled = yearDisabledBefore(this.state.date, {
+      minDate: this.props.minDate,
+    });
 
-    const nextYearButtonDisabled = yearDisabledAfter(
-      this.state.date,
-      this.props
-    );
+    const nextYearButtonDisabled = yearDisabledAfter(this.state.date, {
+      maxDate: this.props.maxDate,
+    });
 
     return (
       <div
@@ -351,16 +367,20 @@ export default class Calendar extends React.Component {
     }
 
     var monthList = [];
+
     var monthsToSubtract = this.props.showPreviousMonths
       ? this.props.monthsShown - 1
       : 0;
+
     var fromMonthDate = add(this.state.date, { months: monthsToSubtract * -1 });
+
     for (var i = 0; i < this.props.monthsShown; ++i) {
       var monthsToAdd = i - this.props.monthSelectedIn;
       var monthDate = add(fromMonthDate, { months: monthsToAdd });
       var monthKey = `month-${i}`;
       var monthShowsDuplicateDaysEnd = i < this.props.monthsShown - 1;
       var monthShowsDuplicateDaysStart = i > 0;
+
       monthList.push(
         <div
           key={monthKey}
@@ -374,7 +394,6 @@ export default class Calendar extends React.Component {
             chooseDayAriaLabelPrefix={this.props.chooseDayAriaLabelPrefix}
             disabledDayAriaLabelPrefix={this.props.disabledDayAriaLabelPrefix}
             weekAriaLabelPrefix={this.props.weekAriaLabelPrefix}
-            onChange={this.changeMonthYear}
             day={monthDate}
             onDayClick={this.handleDayClick}
             handleOnKeyDown={this.props.handleOnKeyDown}
@@ -407,6 +426,7 @@ export default class Calendar extends React.Component {
         </div>
       );
     }
+
     return monthList;
   };
 
@@ -442,10 +462,9 @@ export default class Calendar extends React.Component {
   };
 
   render() {
-    const Container = CalendarContainer;
     return (
       <div ref={this.containerRef}>
-        <Container
+        <CalendarContainer
           className={classnames("react-datepicker", this.props.className, {
             "react-datepicker--time-only": this.props.showTimeSelectOnly,
           })}
@@ -455,7 +474,7 @@ export default class Calendar extends React.Component {
           {this.renderYears()}
           {this.renderTimeSection()}
           {this.props.children}
-        </Container>
+        </CalendarContainer>
       </div>
     );
   }

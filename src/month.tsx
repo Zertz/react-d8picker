@@ -1,52 +1,49 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Week from "./week";
+import * as React from "react";
 import * as utils from "./date_utils";
+import { RenderDayProps } from "./types";
+import Week from "./week";
 
-export default class Month extends React.Component {
-  static propTypes = {
-    ariaLabelPrefix: PropTypes.string,
-    chooseDayAriaLabelPrefix: PropTypes.string,
-    disabledDayAriaLabelPrefix: PropTypes.string,
-    day: PropTypes.instanceOf(Date).isRequired,
-    endDate: PropTypes.instanceOf(Date),
-    orderInDisplay: PropTypes.number,
-    filterDate: PropTypes.func,
-    formatWeekNumber: PropTypes.func,
-    highlightDates: PropTypes.instanceOf(Map),
-    inline: PropTypes.bool,
-    locale: PropTypes.shape({ locale: PropTypes.object }),
-    maxDate: PropTypes.instanceOf(Date),
-    minDate: PropTypes.instanceOf(Date),
-    onDayClick: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onWeekSelect: PropTypes.func,
-    peekNextMonth: PropTypes.bool,
-    preSelection: PropTypes.instanceOf(Date),
-    setPreSelection: PropTypes.func,
-    selected: PropTypes.instanceOf(Date),
-    selectingDate: PropTypes.instanceOf(Date),
-    selectsRange: PropTypes.bool,
-    showWeekNumbers: PropTypes.bool,
-    startDate: PropTypes.instanceOf(Date),
-    renderDay: PropTypes.func,
-    showFullMonthYearPicker: PropTypes.bool,
-    handleOnKeyDown: PropTypes.func,
-    isInputFocused: PropTypes.bool,
-    weekAriaLabelPrefix: PropTypes.string,
-    containerRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-    ]),
-    monthShowsDuplicateDaysEnd: PropTypes.bool,
-    monthShowsDuplicateDaysStart: PropTypes.bool,
-  };
+interface Props {
+  ariaLabelPrefix?: string;
+  chooseDayAriaLabelPrefix?: string;
+  disabledDayAriaLabelPrefix?: string;
+  day: Date;
+  endDate?: Date;
+  orderInDisplay?: number;
+  filterDate?: () => void;
+  formatWeekNumber?: (date: Date) => number;
+  highlightDates?: Map<unknown, unknown>;
+  inline?: boolean;
+  locale?: { locale: {} };
+  maxDate?: Date;
+  minDate?: Date;
+  onDayClick?: (day: Date, event: any, orderInDisplay: number) => void;
+  onMouseLeave?: () => void;
+  onWeekSelect?: () => void;
+  peekNextMonth?: boolean;
+  preSelection?: Date;
+  setPreSelection?: (day: Date) => void;
+  selected?: Date;
+  selectingDate?: Date;
+  selectsRange?: boolean;
+  showWeekNumbers?: boolean;
+  startDate?: Date;
+  renderDay?: (props: RenderDayProps) => React.ReactNode;
+  showFullMonthYearPicker?: boolean;
+  handleOnKeyDown?: () => void;
+  isInputFocused?: boolean;
+  weekAriaLabelPrefix?: string;
+  containerRef?: React.RefObject<HTMLDivElement>;
+  monthShowsDuplicateDaysEnd?: boolean;
+  monthShowsDuplicateDaysStart?: boolean;
+}
 
+export default class Month extends React.Component<Props> {
   MONTH_REFS = Array(12)
-    .fill()
+    .fill(0)
     .map(() => React.createRef());
 
-  handleDayClick = (day, event) => {
+  handleDayClick = (day: Date, event: any) => {
     if (this.props.onDayClick) {
       this.props.onDayClick(day, event, this.props.orderInDisplay);
     }
@@ -58,9 +55,10 @@ export default class Month extends React.Component {
     }
   };
 
-  isWeekInMonth = (startOfWeek) => {
+  isWeekInMonth = (startOfWeek: Date) => {
     const day = this.props.day;
     const endOfWeek = utils.add(startOfWeek, { days: 6 });
+
     return (
       utils.isSameMonth(startOfWeek, day) || utils.isSameMonth(endOfWeek, day)
     );
@@ -68,10 +66,12 @@ export default class Month extends React.Component {
 
   renderWeeks = () => {
     const weeks = [];
+
     let currentWeekStart = utils.getStartOfWeek(
       utils.getStartOfMonth(this.props.day),
       this.props.locale
     );
+
     let i = 0;
     let breakAfterNextPush = false;
 
@@ -110,7 +110,9 @@ export default class Month extends React.Component {
         />
       );
 
-      if (breakAfterNextPush) break;
+      if (breakAfterNextPush) {
+        break;
+      }
 
       i++;
       currentWeekStart = utils.add(currentWeekStart, { weeks: 1 });
@@ -137,6 +139,7 @@ export default class Month extends React.Component {
 
   render() {
     const { day, ariaLabelPrefix = "month " } = this.props;
+
     return (
       <div
         className={this.getClassNames()}

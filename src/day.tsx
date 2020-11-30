@@ -20,7 +20,7 @@ import { RenderDayProps } from "./types";
 interface Props {
   ariaLabelPrefixWhenEnabled?: string;
   ariaLabelPrefixWhenDisabled?: string;
-  containerRef?: React.RefObject<HTMLInputElement>;
+  containerRef?: React.RefObject<HTMLDivElement>;
   day: Date;
   endDate?: Date;
   filterDate?: () => void;

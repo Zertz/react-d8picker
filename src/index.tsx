@@ -24,7 +24,7 @@ import {
   setDefaultLocale,
   setTime,
 } from "./date_utils";
-import PopperComponent, { popperPlacementPositions } from "./popper_component";
+import PopperComponent from "./popper_component";
 import { RenderDayProps, RenderHeaderProps, RenderInputProps } from "./types";
 
 export { default as CalendarContainer } from "./calendar_container";
@@ -115,7 +115,7 @@ export default class DatePicker extends React.Component<
     popperContainer?: () => void;
     popperClassName?: string;
     popperModifiers?: {};
-    popperPlacement?: typeof popperPlacementPositions;
+    popperPlacement?: unknown;
     popperProps?: {};
     // Render props
     renderDay?: (props: RenderDayProps) => React.ReactNode;
@@ -217,7 +217,7 @@ export default class DatePicker extends React.Component<
     return {
       focused: false,
       // transforming highlighted days (perhaps nested array)
-      // to flat Map for faster access in day.jsx
+      // to flat Map for faster access in <Day />
       highlightDates: getHightLightDaysMap(this.props.highlightDates),
       lastPreSelectChange: undefined,
       monthSelectedIn: undefined,
@@ -520,7 +520,7 @@ export default class DatePicker extends React.Component<
     }
   };
 
-  // keyDown events passed down to day.jsx
+  // keyDown events passed down to <Day />
   onDayKeyDown = (event) => {
     this.props.onKeyDown(event);
     const eventKey = event.key;

@@ -6,10 +6,10 @@ import defer from "lodash/defer";
 import DatePicker from "../src";
 import Day from "../src/day";
 import WeekNumber from "../src/week_number";
-import TestWrapper from "./test_wrapper.jsx";
-import PopperComponent from "../src/popper_component.jsx";
+import TestWrapper from "./test_wrapper";
+import PopperComponent from "../src/popper_component";
 import * as utils from "../src/date_utils";
-import Month from "../src/month.jsx";
+import Month from "../src/month";
 
 function getKey(key) {
   switch (key) {

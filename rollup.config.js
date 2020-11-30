@@ -20,7 +20,6 @@ const dateFnsDirs = fs
 
 const globals = {
   react: "React",
-  "prop-types": "PropTypes",
   "react-onclickoutside": "onClickOutside",
   "react-popper": "ReactPopper",
   classnames: "classNames",
@@ -55,7 +54,7 @@ const config = {
     typescript(),
     resolve({
       mainFields: ["module"],
-      extensions: [".js", ".jsx", ".ts", ".tsx"],
+      extensions: [".js", ".ts", ".tsx"],
     }),
     peerDepsExternal(),
     babel(),

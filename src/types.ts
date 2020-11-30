@@ -12,8 +12,8 @@ export interface RenderDayProps {
 }
 
 export interface RenderHeaderProps {
-  changeMonth: () => void;
-  changeYear: () => void;
+  changeMonth: (month: number) => void;
+  changeYear: (year: number) => void;
   date: Date;
   decreaseMonth: () => void;
   decreaseYear: () => void;

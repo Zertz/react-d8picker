@@ -1,10 +1,13 @@
-import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 export default function CalendarContainer({
   className,
   children,
   arrowProps = {},
+}: {
+  className: string;
+  children: React.ReactNode;
+  arrowProps: Record<string, any>; // react-popper arrow props
 }) {
   return (
     <div className={className}>
@@ -13,9 +16,3 @@ export default function CalendarContainer({
     </div>
   );
 }
-
-CalendarContainer.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-  arrowProps: PropTypes.object, // react-popper arrow props
-};

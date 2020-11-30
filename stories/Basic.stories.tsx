@@ -8,28 +8,44 @@ export default {
   component: DatePicker,
   args: {
     onChange() {},
+    monthsShown: 1,
     selected: new Date(),
+    selectsRange: false,
+    showWeekNumbers: false,
   },
 };
 
 const formatter = new Intl.DateTimeFormat("en", { month: "long" });
 
 const Template = (args) => {
-  const [{ selected }, updateArgs] = useArgs();
+  const [{ endDate, selected, startDate }, updateArgs] = useArgs();
 
   return (
     <DatePicker
       {...args}
-      onChange={(date) => updateArgs({ selected: date })}
+      endDate={endDate}
+      onChange={(date) =>
+        updateArgs(
+          Array.isArray(date)
+            ? { startDate: date[0] || startDate, endDate: date[1] || endDate }
+            : { selected: date }
+        )
+      }
       selected={selected}
+      startDate={startDate}
     />
   );
 };
 
 export const Basic = Template.bind({});
 
-Basic.args = {
-  showWeekNumbers: false,
+export const RangeProps = Template.bind({});
+
+RangeProps.args = {
+  endDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+  monthsShown: 2,
+  selectsRange: true,
+  startDate: new Date(),
 };
 
 export const RenderProps = Template.bind({});

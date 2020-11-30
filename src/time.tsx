@@ -1,55 +1,62 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {
-  getHours,
-  getMinutes,
-  setHours,
-  setMinutes,
-  newDate,
-  getStartOfDay,
   add,
   formatDate,
+  getHours,
+  getMinutes,
+  getStartOfDay,
   isBefore,
   isEqual,
-  isTimeInDisabledRange,
   isTimeDisabled,
+  isTimeInDisabledRange,
+  newDate,
+  setHours,
+  setMinutes,
   timesToInjectAfter,
 } from "./date_utils";
 
-export default class Time extends React.Component {
-  static get defaultProps() {
-    return {
-      intervals: 30,
-      onTimeChange: () => {},
-      timeCaption: "Time",
-    };
-  }
+interface Props {
+  format?: string;
+  intervals?: number;
+  timeCaption?: string;
+  selected?: Date;
+  openToDate?: Date;
+  onChange?: (time: Date) => void;
+  minTime?: Date;
+  maxTime?: Date;
+  filterTime?: () => void;
+  monthRef?: HTMLDivElement;
+  injectTimes?: any[];
+  locale?: { locale: any };
+  showTimeSelectOnly?: boolean;
+}
 
-  static calcCenterPosition = (listHeight, centerLiRef) => {
+interface State {
+  height: number | null;
+}
+
+export default class Time extends React.Component<Props, State> {
+  static defaultProps = {
+    intervals: 30,
+    timeCaption: "Time",
+  };
+
+  static calcCenterPosition = (
+    listHeight: number,
+    centerLiRef: HTMLLIElement
+  ) => {
     return (
       centerLiRef.offsetTop - (listHeight / 2 - centerLiRef.clientHeight / 2)
     );
   };
 
-  static propTypes = {
-    format: PropTypes.string,
-    intervals: PropTypes.number,
-    selected: PropTypes.instanceOf(Date),
-    openToDate: PropTypes.instanceOf(Date),
-    onChange: PropTypes.func,
-    minTime: PropTypes.instanceOf(Date),
-    maxTime: PropTypes.instanceOf(Date),
-    filterTime: PropTypes.func,
-    monthRef: PropTypes.object,
-    timeCaption: PropTypes.string,
-    injectTimes: PropTypes.array,
-    locale: PropTypes.shape({ locale: PropTypes.object }),
-    showTimeSelectOnly: PropTypes.bool,
-  };
-
   state = {
     height: null,
   };
+
+  centerLi: HTMLLIElement = null;
+  header: HTMLDivElement = null;
+  list: HTMLUListElement = null;
 
   componentDidMount() {
     // code to ensure selected time will always be in focus within time window when it first appears
@@ -59,6 +66,7 @@ export default class Time extends React.Component {
         : this.list.clientHeight,
       this.centerLi
     );
+
     if (this.props.monthRef && this.header) {
       this.setState({
         height: this.props.monthRef.clientHeight - this.header.clientHeight,
@@ -69,11 +77,16 @@ export default class Time extends React.Component {
   handleClick = (time) => {
     if (
       ((this.props.minTime || this.props.maxTime) &&
-        isTimeInDisabledRange(time, this.props)) ||
-      (this.props.filterTime && isTimeDisabled(time, this.props))
+        isTimeInDisabledRange(time, {
+          minTime: this.props.minTime,
+          maxTime: this.props.maxTime,
+        })) ||
+      (this.props.filterTime &&
+        isTimeDisabled(time, { filterTime: this.props.filterTime }))
     ) {
       return;
     }
+
     this.props.onChange(time);
   };
 
@@ -87,13 +100,19 @@ export default class Time extends React.Component {
     ) {
       classes.push("react-datepicker__time-list-item--selected");
     }
+
     if (
       ((this.props.minTime || this.props.maxTime) &&
-        isTimeInDisabledRange(time, this.props)) ||
-      (this.props.filterTime && isTimeDisabled(time, this.props))
+        isTimeInDisabledRange(time, {
+          minTime: this.props.minTime,
+          maxTime: this.props.maxTime,
+        })) ||
+      (this.props.filterTime &&
+        isTimeDisabled(time, { filterTime: this.props.filterTime }))
     ) {
       classes.push("react-datepicker__time-list-item--disabled");
     }
+
     if (
       this.props.injectTimes &&
       (getHours(time) * 60 + getMinutes(time)) % this.props.intervals !== 0
