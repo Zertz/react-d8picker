@@ -25,7 +25,7 @@ interface Props {
   endDate?: Date;
   filterDate?: () => void;
   handleOnKeyDown?: (event: any) => void;
-  highlightDates?: Map<unknown, unknown>;
+  highlightDates?: Map<string, string[]>;
   inline?: boolean;
   isInputFocused?: boolean;
   maxDate?: Date;

@@ -9,7 +9,7 @@ interface Props {
   popperComponent?: JSX.Element;
   popperModifiers?: Record<string, any>; // <datepicker/> props
   popperPlacement?: any; // <datepicker/> props
-  popperContainer?: unknown;
+  popperContainer?: any;
   popperProps?: Record<string, any>;
   targetComponent?: React.ReactNode;
   enableTabLoop?: boolean;

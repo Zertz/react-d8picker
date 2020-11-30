@@ -12,7 +12,7 @@ interface Props {
   orderInDisplay?: number;
   filterDate?: () => void;
   formatWeekNumber?: (date: Date) => number;
-  highlightDates?: Map<unknown, unknown>;
+  highlightDates?: Map<string, string[]>;
   inline?: boolean;
   locale?: { locale: {} };
   maxDate?: Date;

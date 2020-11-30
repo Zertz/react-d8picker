@@ -12,7 +12,7 @@ interface Props {
   endDate?: Date;
   filterDate?: () => void;
   formatWeekNumber?: (date: Date) => number;
-  highlightDates?: Map<unknown, unknown>;
+  highlightDates?: Map<string, string[]>;
   inline?: boolean;
   locale?: { locale: any };
   maxDate?: Date;

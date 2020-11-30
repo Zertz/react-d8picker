@@ -49,89 +49,90 @@ function hasPreSelectionChanged(date1, date2) {
  */
 const INPUT_ERR_1 = "Date input not valid.";
 
-export default class DatePicker extends React.Component<
-  {
-    ariaLabelClose?: string;
-    children?: React.ReactNode;
-    chooseDayAriaLabelPrefix?: string;
-    className?: string;
-    dateFormat?: string | any[];
-    dateFormatCalendar?: string;
-    disabledDayAriaLabelPrefix?: string;
-    disabled?: boolean;
-    endDate?: Date;
-    filterDate?: () => void;
-    formatWeekNumber?: () => void;
-    highlightDates?: any[];
-    id?: string;
-    injectTimes?: any[];
-    inline?: boolean;
-    locale?: { locale?: {} };
-    maxDate?: Date;
-    minDate?: Date;
-    monthsShown?: number;
-    name?: string;
-    onBlur?: (event: any) => void;
-    onChange?: (date: Date | [Date, Date], e?: any) => void;
-    onSelect?: (date: Date, event: any) => void;
-    onWeekSelect?: () => void;
-    onClickOutside?: (event: any) => void;
-    onFocus?: (event: any) => void;
-    onInputClick?: () => void;
-    onKeyDown?: (event: any) => void;
-    onMonthChange?: () => void;
-    onYearChange?: () => void;
-    onInputError?: (error: { code: number; msg: string }) => void;
-    open?: boolean;
-    openToDate?: Date;
-    peekNextMonth?: boolean;
-    readOnly?: boolean;
-    required?: boolean;
-    selected?: Date;
-    selectsRange?: boolean;
-    showPreviousMonths?: boolean;
-    showWeekNumbers?: boolean;
-    startDate?: Date;
-    startOpen?: boolean;
-    timeCaption?: string;
-    title?: string;
-    useWeekdaysShort?: boolean;
-    formatWeekDay?: () => void;
-    value: string;
-    weekLabel?: string;
-    showFullMonthYearPicker?: boolean;
-    showTimeSelect?: boolean;
-    showTimeSelectOnly?: boolean;
-    timeFormat?: string;
-    timeIntervals?: number;
-    minTime?: Date;
-    maxTime?: Date;
-    filterTime?: () => void;
-    focusSelectedMonth?: boolean;
-    onMonthMouseLeave?: () => void;
-    enableTabLoop?: boolean;
-    weekAriaLabelPrefix?: string;
-    // Popper props
-    popperContainer?: () => void;
-    popperClassName?: string;
-    popperModifiers?: {};
-    popperPlacement?: unknown;
-    popperProps?: {};
-    // Render props
-    renderDay?: (props: RenderDayProps) => React.ReactNode;
-    renderHeader?: (props: RenderHeaderProps) => void;
-    renderInput?: (props: RenderInputProps) => React.ReactNode;
-  },
-  {
-    focused: boolean;
-    highlightDates: Map<string, string[]>;
-    lastPreSelectChange: any;
-    monthSelectedIn: any;
-    open: boolean;
-    preSelection: Date;
-    preventFocus: boolean;
-  }
-> {
+interface Props {
+  ariaLabelClose?: string;
+  children?: React.ReactNode;
+  chooseDayAriaLabelPrefix?: string;
+  className?: string;
+  dateFormat?: string | any[];
+  dateFormatCalendar?: string;
+  disabledDayAriaLabelPrefix?: string;
+  disabled?: boolean;
+  endDate?: Date;
+  filterDate?: () => void;
+  formatWeekNumber?: () => void;
+  highlightDates?: any[];
+  id?: string;
+  injectTimes?: any[];
+  inline?: boolean;
+  locale?: { locale?: {} };
+  maxDate?: Date;
+  minDate?: Date;
+  monthsShown?: number;
+  name?: string;
+  onBlur?: (event: any) => void;
+  onChange?: (date: Date | [Date, Date], e?: any) => void;
+  onSelect?: (date: Date, event: any) => void;
+  onWeekSelect?: () => void;
+  onClickOutside?: (event: any) => void;
+  onFocus?: (event: any) => void;
+  onInputClick?: () => void;
+  onKeyDown?: (event: any) => void;
+  onMonthChange?: () => void;
+  onYearChange?: () => void;
+  onInputError?: (error: { code: number; msg: string }) => void;
+  open?: boolean;
+  openToDate?: Date;
+  peekNextMonth?: boolean;
+  readOnly?: boolean;
+  required?: boolean;
+  selected?: Date;
+  selectsRange?: boolean;
+  showPreviousMonths?: boolean;
+  showWeekNumbers?: boolean;
+  startDate?: Date;
+  startOpen?: boolean;
+  timeCaption?: string;
+  title?: string;
+  useWeekdaysShort?: boolean;
+  formatWeekDay?: () => void;
+  value: string;
+  weekLabel?: string;
+  showFullMonthYearPicker?: boolean;
+  showTimeSelect?: boolean;
+  showTimeSelectOnly?: boolean;
+  timeFormat?: string;
+  timeIntervals?: number;
+  minTime?: Date;
+  maxTime?: Date;
+  filterTime?: () => void;
+  focusSelectedMonth?: boolean;
+  onMonthMouseLeave?: () => void;
+  enableTabLoop?: boolean;
+  weekAriaLabelPrefix?: string;
+  // Popper props
+  popperContainer?: () => void;
+  popperClassName?: string;
+  popperModifiers?: {};
+  popperPlacement?: any;
+  popperProps?: {};
+  // Render props
+  renderDay?: (props: RenderDayProps) => React.ReactNode;
+  renderHeader?: (props: RenderHeaderProps) => void;
+  renderInput?: (props: RenderInputProps) => React.ReactNode;
+}
+
+interface State {
+  focused: boolean;
+  highlightDates: Map<string, string[]>;
+  lastPreSelectChange: any;
+  monthSelectedIn: any;
+  open: boolean;
+  preSelection: Date;
+  preventFocus: boolean;
+}
+
+export default class DatePicker extends React.Component<Props, State> {
   static defaultProps = {
     dateFormat: "MM/dd/yyyy",
     dateFormatCalendar: "LLLL yyyy",
@@ -178,7 +179,7 @@ export default class DatePicker extends React.Component<
   inputFocusTimeout = null;
   preventFocusTimeout = null;
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props) {
     if (
       prevProps.inline &&
       hasPreSelectionChanged(prevProps.selected, this.props.selected)
