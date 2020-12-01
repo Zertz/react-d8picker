@@ -1,25 +1,27 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-export default class inputTime extends React.Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-    timeString: PropTypes.string,
+interface Props {
+  onChange?: (time: Date) => void;
+  timeString?: string;
+}
+
+interface State {
+  time: string;
+}
+
+export default class inputTime extends React.Component<Props, State> {
+  state = {
+    time: this.props.timeString,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      time: this.props.timeString,
-    };
-  }
-
-  onTimeChange = (time) => {
+  onTimeChange = (time: string) => {
     this.setState({ time });
+
     const date = new Date();
-    date.setHours(time.split(":")[0]);
-    date.setMinutes(time.split(":")[1]);
+
+    date.setHours(Number(time.split(":")[0]));
+    date.setMinutes(Number(time.split(":")[1]));
+
     this.props.onChange(date);
   };
 

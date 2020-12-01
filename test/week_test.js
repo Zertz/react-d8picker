@@ -93,20 +93,4 @@ describe("Week", () => {
     expect(utils.isEqual(firstDayReceived, weekStart)).to.be.true;
     expect(weekNumberElement.prop("weekNumber")).to.equal(9);
   });
-
-  it("should call the provided onDayMouseEnter function", () => {
-    let dayMouseEntered = null;
-
-    function onDayMouseEnter(day) {
-      dayMouseEntered = day;
-    }
-
-    const weekStart = utils.newDate();
-    const week = shallow(
-      <Week day={weekStart} onDayMouseEnter={onDayMouseEnter} />
-    );
-    const day = week.find(Day).first();
-    day.simulate("mouseenter");
-    assert(utils.isSameDay(day.prop("day"), dayMouseEntered));
-  });
 });

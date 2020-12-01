@@ -1,38 +1,33 @@
 import classnames from "classnames";
-import React from "react";
-import PropTypes from "prop-types";
-import { Manager, Reference, Popper, placements } from "react-popper";
+import * as React from "react";
+import { Manager, Popper, Reference } from "react-popper";
 import TabLoop from "./tab_loop";
 
-export const popperPlacementPositions = placements;
+interface Props {
+  className?: string;
+  hidePopper?: boolean;
+  popperComponent?: JSX.Element;
+  popperModifiers?: Record<string, any>; // <datepicker/> props
+  popperPlacement?: any; // <datepicker/> props
+  popperContainer?: any;
+  popperProps?: Record<string, any>;
+  targetComponent?: React.ReactNode;
+  enableTabLoop?: boolean;
+  popperOnKeyDown?: (event: any) => void;
+}
 
-export default class PopperComponent extends React.Component {
-  static get defaultProps() {
-    return {
-      hidePopper: true,
-      popperModifiers: {
-        preventOverflow: {
-          enabled: true,
-          escapeWithReference: true,
-          boundariesElement: "viewport",
-        },
+export default class PopperComponent extends React.Component<Props> {
+  static defaultProps = {
+    hidePopper: true,
+    popperModifiers: {
+      preventOverflow: {
+        enabled: true,
+        escapeWithReference: true,
+        boundariesElement: "viewport",
       },
-      popperProps: {},
-      popperPlacement: "bottom-start",
-    };
-  }
-
-  static propTypes = {
-    className: PropTypes.string,
-    hidePopper: PropTypes.bool,
-    popperComponent: PropTypes.element,
-    popperModifiers: PropTypes.object, // <datepicker/> props
-    popperPlacement: PropTypes.oneOf(popperPlacementPositions), // <datepicker/> props
-    popperContainer: PropTypes.func,
-    popperProps: PropTypes.object,
-    targetComponent: PropTypes.element,
-    enableTabLoop: PropTypes.bool,
-    popperOnKeyDown: PropTypes.func,
+    },
+    popperProps: {},
+    popperPlacement: "bottom-start",
   };
 
   render() {
@@ -81,7 +76,7 @@ export default class PopperComponent extends React.Component {
     const wrapperClasses = classnames("react-datepicker-wrapper");
 
     return (
-      <Manager className="react-datepicker-manager">
+      <Manager>
         <Reference>
           {({ ref }) => (
             <div ref={ref} className={wrapperClasses}>

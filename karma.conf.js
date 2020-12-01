@@ -1,6 +1,5 @@
 // Karma configuration
 const webpack = require("webpack");
-const path = require("path");
 
 module.exports = function (config) {
   config.set({
@@ -14,7 +13,7 @@ module.exports = function (config) {
       "test/index.js": ["webpack", "sourcemap"],
     },
 
-    reporters: ["mocha", "coverage"],
+    reporters: ["mocha"],
 
     webpack: {
       mode: "development",
@@ -22,19 +21,12 @@ module.exports = function (config) {
       module: {
         rules: [
           {
-            test: /\.jsx?$/,
+            test: /\.(j|t)sx?$/,
             exclude: /node_modules/,
             loader: "babel-loader",
             query: {
               presets: ["airbnb"],
             },
-          },
-          {
-            test: /\.jsx?$/,
-            include: path.resolve(__dirname, "src"),
-            loader: "istanbul-instrumenter-loader",
-            enforce: "post",
-            options: { esModules: true },
           },
         ],
       },
@@ -44,7 +36,7 @@ module.exports = function (config) {
         }),
       ],
       resolve: {
-        extensions: [".jsx", ".js"],
+        extensions: [".js", ".ts", ".tsx"],
       },
       externals: {
         cheerio: "window",
@@ -52,14 +44,6 @@ module.exports = function (config) {
         "react/lib/ExecutionEnvironment": true,
         "react/lib/ReactContext": true,
       },
-    },
-
-    coverageReporter: {
-      reporters: [
-        { type: "text-summary" },
-        { type: "html", dir: "coverage/" },
-        { type: "lcov" },
-      ],
     },
 
     webpackServer: {

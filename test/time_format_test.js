@@ -26,9 +26,9 @@ describe("TimeComponent", () => {
     });
 
     it("should forward the time format provided in timeFormat props", () => {
-      var timeComponent = mount(<TimeComponent format="HH:mm" />);
+      const timeComponent = mount(<TimeComponent format="HH:mm" />);
 
-      var timeListItem = timeComponent.find(
+      const timeListItem = timeComponent.find(
         ".react-datepicker__time-list-item"
       );
       expect(timeListItem.at(0).text()).to.eq("00:00");

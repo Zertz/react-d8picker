@@ -102,21 +102,6 @@ describe("Month", () => {
     expect(mouseLeaveCalled).to.be.true;
   });
 
-  it("should call the provided onDayMouseEnter function", () => {
-    let dayMouseEntered = null;
-
-    function onDayMouseEnter(day) {
-      dayMouseEntered = day;
-    }
-
-    const month = mount(
-      <Month day={utils.newDate()} onDayMouseEnter={onDayMouseEnter} />
-    );
-    const day = month.find(Day).first();
-    day.simulate("mouseenter");
-    assert(utils.isSameDay(day.prop("day"), dayMouseEntered));
-  });
-
   it("should use its month order in handleDayClick", () => {
     const order = 2;
     let orderValueMatched = false;

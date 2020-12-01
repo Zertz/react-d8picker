@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
 // TabLoop prevents the user from tabbing outside of the popper
 // It creates a tabindex loop so that "Tab" on the last element will focus the first element
@@ -9,23 +8,17 @@ const focusableElementsSelector =
   "[tabindex], a, button, input, select, textarea";
 const focusableFilter = (node) => !node.disabled && node.tabIndex !== -1;
 
-export default class TabLoop extends React.Component {
-  static get defaultProps() {
-    return {
-      enableTabLoop: true,
-    };
-  }
+interface Props {
+  children?: React.ReactNode;
+  enableTabLoop?: boolean;
+}
 
-  static propTypes = {
-    children: PropTypes.any,
-    enableTabLoop: PropTypes.bool,
+export default class TabLoop extends React.Component<Props> {
+  static defaultProps = {
+    enableTabLoop: true,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.tabLoopRef = React.createRef();
-  }
+  tabLoopRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   // query all focusable elements
   // trim first and last because they are the focus guards
@@ -58,13 +51,13 @@ export default class TabLoop extends React.Component {
       <div className="react-datepicker__tab-loop" ref={this.tabLoopRef}>
         <div
           className="react-datepicker__tab-loop__start"
-          tabIndex="0"
+          tabIndex={0}
           onFocus={this.handleFocusStart}
         />
         {this.props.children}
         <div
           className="react-datepicker__tab-loop__end"
-          tabIndex="0"
+          tabIndex={0}
           onFocus={this.handleFocusEnd}
         />
       </div>

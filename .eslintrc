@@ -4,9 +4,12 @@
     "es6": true,
     "node": true
   },
-
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -14,11 +17,15 @@
       "jsx": true
     }
   },
-
-  "parser": "babel-eslint",
-
+  "plugins": ["@typescript-eslint"],
   "rules": {
-    "react/no-find-dom-node": 0,
-    "react/no-render-return-value": 0
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/no-find-dom-node": "off",
+    "react/no-render-return-value": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
