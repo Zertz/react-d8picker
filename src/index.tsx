@@ -357,7 +357,7 @@ export default class DatePicker extends React.Component<Props, State> {
     keepInput?: boolean,
     monthSelectedIn?: any
   ) => {
-    const changedDate = date;
+    let changedDate = date;
 
     if (
       changedDate !== null &&
